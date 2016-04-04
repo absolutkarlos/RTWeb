@@ -1,0 +1,94 @@
+﻿@font-face {
+	font-family: 'BankGothic Bold';
+	src: url('../fonts/BankGothic Bold.ttf') format('truetype');
+}
+
+body {
+	padding-top: 50px;
+	padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+	white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+/*input,
+select,
+textarea {
+	max-width: 280px;
+}*/
+
+.field-validation-error {
+	color: red; font-weight: bold;
+}
+
+.input-validation-error {
+	background: pink !important; border: 1px solid red !important;
+}
+
+.fullscreen-bg {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+	z-index: -100;
+	/*-webkit-filter: blur(3px);
+	filter: blur(3px);*/
+	pointer-events: none;
+}
+
+.fullscreen-bg__video {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+@media (min-aspect-ratio: 16/9) {
+	.fullscreen-bg__video {
+		height: 300%;
+		top: -100%;
+	}
+}
+
+@media (max-aspect-ratio: 16/9) {
+	.fullscreen-bg__video {
+		width: 300%;
+		left: -100%;
+	}
+}
+
+/*@media (max-width: 767px) {
+	.fullscreen-bg {
+		background: url('../Content/Videos/RTSurvey01.m4v') center center / cover no-repeat;
+	}
+
+	.fullscreen-bg__video {
+		display: none;
+	}
+}*/
+
+.icon-refresh-animate {
+	animation-name: rotateThis;
+	animation-duration: .5s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+@keyframes rotateThis {
+	from { transform: scale( 1 ) rotate( 0deg );   }
+	to   { transform: scale( 1 ) rotate( 360deg ); }
+}

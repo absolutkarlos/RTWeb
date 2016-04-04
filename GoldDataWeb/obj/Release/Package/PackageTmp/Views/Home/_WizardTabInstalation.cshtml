@@ -1,0 +1,45 @@
+﻿@using GoldDataWeb.Models
+
+@model HomeViewModel
+
+<div class="tab-pane" id="instalation" style="margin-top: 40px;">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class="form-group">
+				<label> DETALLE DE INSTALACIÓN <small>(requerido)</small></label>
+				<textarea id="detail" style="width: 100%; resize: none;" name="detail" class="form-control" placeholder="Detalle..." rows="10" cols="15" aria-invalid="false"></textarea>
+			</div>
+		</div>
+	</div>
+	<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> Lista de materiales para la instalacíon</h6>
+	<hr>
+	<div class="row">
+		<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+			<div class="form-group">
+				<label> MATERIALES <small>(requerido)</small></label>
+				@Html.DropDownList(@"materials", new List<SelectListItem>(), @"Seleccione un material", new { id = @"materials", @class = @" form-control", style = @"width: 100%;" })
+			</div>
+		</div>
+		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+			<div class="form-group">
+				<label> CANTIDAD <small>(requerido)</small></label>
+				<input id="cantidad" name="cantidad " type="number" step="any" class="form-control" style="width: 100%;" min="1.0" value="1" />
+			</div>
+		</div>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" style="height: 74px;">
+			<input id="addContact" type="button" class="btn btn-fill btn-info btn-wd btn-sm" value="Añadir Material" style="margin-top: 26px;">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<input id="input-700Instalation" name="input_instalation" type="file" multiple class="file-loading">
+		</div>
+	</div>
+	<div class="row">
+		<hr />
+		<div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
+			<input type="button" id="rechazarInspection" name="" class="btn btn-default btn-danger" value="Rechazar" data-toggle="confirmation" data-status="2" style="opacity: 2;margin-top: 40px;text-align: center;margin-right: 60px;width: 110px;">
+			<input type="button" id="aprobarInspection" name="" class="btn btn-default btn-success" value="Aprobar" data-toggle="confirmation" data-status="1" style="opacity: 2;margin-top: 40px;text-align: center;width: 110px;">
+		</div>
+	</div>
+</div>
