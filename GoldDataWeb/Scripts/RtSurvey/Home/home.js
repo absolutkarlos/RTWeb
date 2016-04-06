@@ -89,18 +89,22 @@
 		},
 
 		GetExistingClient: function (clientId) {
-			$.when(baseHome.GetExistingClient(clientId)).then(function (metaData) {
-				if (metaData && (metaData.Data)) {
-					$("#labelClientType").text("(" + metaData.Data.ClientType.Name + ")");
-					$("#labelUbicacion").text(metaData.Data.City.Name + ", " + metaData.Data.State.Name + ", " + metaData.Data.Country.Name);
-					$("#labelFullName").text(metaData.Data.LegalName);
-					$("#labelBusinessName").text(metaData.Data.BusinessName);
-					$("#labelRuc").text(metaData.Data.Ruc);
-					$("#labelDetailedAdress").text(metaData.Data.AddressRef);
-					$("#refreshExistingClient").css({"display": "none"});
-					$(".readOnly").show();
-				}
-			});
+			if (clientId !== "") {
+				$.when(baseHome.GetExistingClient(clientId)).then(function (metaData) {
+					if (metaData && (metaData.Data)) {
+						$("#labelClientType").text("(" + metaData.Data.ClientType.Name + ")");
+						$("#labelUbicacion").text(metaData.Data.City.Name + ", " + metaData.Data.State.Name + ", " + metaData.Data.Country.Name);
+						$("#labelFullName").text(metaData.Data.LegalName);
+						$("#labelBusinessName").text(metaData.Data.BusinessName);
+						$("#labelRuc").text(metaData.Data.Ruc);
+						$("#labelDetailedAdress").text(metaData.Data.AddressRef);
+						$("#refreshExistingClient").css({ "display": "none" });
+						$(".readOnly").show();
+					}
+				});
+			} else {
+				$("#refreshExistingClient").css({ "display": "none" });
+			}
 		},
 
 		GetAllClients: function () {
@@ -109,9 +113,16 @@
 					$validator.resetForm();
 					$("#refreshExistingClient").css({ "display": "none" });
 					$(".existingClient").show();
+					base.ClearDropDownList("#clients");
 					$.each(metaData.Data, function () {
 						$("#clients").append($("<option data-ruc='" + this.Ruc + "'/>").val(this.Id).text(this.BusinessName));
 					});
+				} else {
+					$('#tabContact').find('a').prop('disabled', true);
+					$('#tabLocalization').find('a').prop('disabled', true);
+					$("#wizardClient").find('.btn-next').hide();
+					$("#clientNotFound").show();
+					$("#refreshExistingClient").hide();
 				}
 			});
 		},
@@ -124,6 +135,7 @@
 						$("#refreshExistingClient").css({ "display": "table" });
 						client.LoadClientId($(this).val());
 						home.GetExistingClient($(this).val());
+						$("#wizardClientForm").validate().element("#clients");
 					});
 				},
 
@@ -131,6 +143,10 @@
 					$('#newOrder').click(function (event) {
 						$validator.resetForm();
 						$('#wizardClient').bootstrapWizard('show', 0);
+						$('#tabContact').find('a').prop('disabled', false);
+						$('#tabLocalization').find('a').prop('disabled', false);
+						$("#wizardClient").find('.btn-next').show();
+						$("#clientNotFound").hide();
 						$("#panelInfo").hide();
 						$("#panelClient").show();
 						$(".edit").show();

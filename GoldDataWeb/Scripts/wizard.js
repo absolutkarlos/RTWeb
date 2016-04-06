@@ -142,6 +142,7 @@ $(document).ready(function () {
 			state: "required",
 			city: "required",
 			zone: "required",
+			clients: "required",
 			contactfullname: "required",
 			position: "required",
 			phone: {
@@ -176,6 +177,7 @@ $(document).ready(function () {
 			state: "Seleccione el estado",
 			city: "Seleccione la ciudad",
 			zone: "Seleccione la zona",
+			clients: "Seleccione un cliente",
 			contactfullname: "Ingrese el nombre de la marca.",
 			position: "Ingrese el nombre del negocio.",
 			phone: {
@@ -244,7 +246,7 @@ $(document).ready(function () {
 		},
 		onTabClick: function (tab, navigation, index) {
 			// Disable the posibility to click on tabs
-			return false;
+			return true;
 		},
 		onTabShow: function (tab, navigation, index) {
 			var $total = navigation.find('li').length;

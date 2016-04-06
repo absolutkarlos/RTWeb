@@ -181,24 +181,24 @@ namespace GoldDataWeb.Controllers
 
 			OrderService.Execute(@"DeleteBySite", Method.PUT, null, viewModel.Site.Id.ToString());
 
-			//foreach (var siteAccessType in viewModel.Site.ListSiteAccessType)
-			//{
-			//	siteAccessType.Site = new Site
-			//	{
-			//		Id = viewModel.Site.Id
-			//	};
-			//	siteAccessType.AccessType = new AccessType
-			//	{
-			//		Id = siteAccessType.AccessType.Id
-			//	};
-			//	siteAccessType.CreateAt = DateTime.Now;
-			//	siteAccessType.CreateBy = short.Parse(GetAuthData().UserId.ToString());
-			//	siteAccessType.Status = new Status
-			//	{
-			//		Id = (int)Status.Type.Activo
-			//	};
-			//	var id = SiteAccessTypeService.Insert(siteAccessType);
-			//}
+			foreach (var siteAccessType in viewModel.Site.ListSiteAccessType)
+			{
+				siteAccessType.Site = new Site
+				{
+					Id = viewModel.Site.Id
+				};
+				siteAccessType.AccessType = new AccessType
+				{
+					Id = siteAccessType.AccessType.Id
+				};
+				siteAccessType.CreateAt = DateTime.Now;
+				siteAccessType.CreateBy = short.Parse(GetAuthData().UserId.ToString());
+				siteAccessType.Status = new Status
+				{
+					Id = (int)Status.Type.Activo
+				};
+				var id = SiteAccessTypeService.Insert(siteAccessType);
+			}
 
 			var updateStatus = new Order
 			{

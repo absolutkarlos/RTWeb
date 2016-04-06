@@ -9,13 +9,15 @@
 					<h6>ELEGIR UNA FOTO <small style="color: #999999;">(opcional)</small></h6>
 				</div>
 			</div>*@
-		<h4 class="info-text"> Información del Cliente </h4>
-		<div class="col-sm-6 existingClient" style="display: none;margin-bottom: 20px;">
+		<div class="col-sm-6 existingClient" style="display: none; margin-bottom: 20px;">
 			<div class="form-group">
-				<label style="font-weight: bold;" > CLIENTES <small>(requerido)</small></label>
-				@Html.DropDownList(@"clients", new List<SelectListItem>(), "Sleccione un cliente", new {id = @"clients", @class = @"form-control valid select2", style = @"width: 100%;"})
+				<label style="font-weight: bold;"> CLIENTES <small>(requerido)</small></label>
+				@Html.DropDownList(@"clients", new List<SelectListItem>(), @"Seleccione un cliente", new { id = @"clients", @class = @"form-control valid select2", style = @"width: 100%;" })
 			</div>
-			<hr/>
+			<hr />
+		</div>
+		<div class="col-sm-12 edit">
+			<h4 class="info-text"> Información del Cliente </h4>
 		</div>
 		<div class="col-sm-6 edit">
 			<div class="form-group">
@@ -66,6 +68,7 @@
 			</div>
 		</div>
 		<div class="col-sm-12 readOnly" style="display: none;">
+			<h4 class="info-text"> Información del Cliente </h4>
 			<div class="form-group">
 				<label style="font-weight: bold;"> CLIENTE <small id="labelClientType"></small></label>
 				<label id="labelFullName" class="Infolabel" style="word-break: break-word;"></label>
