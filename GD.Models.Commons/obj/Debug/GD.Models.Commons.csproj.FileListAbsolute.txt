@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWebApi\GD.Models.Commons\bin\roslyn\csc.exe
 C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWebApi\GD.Models.Commons\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWebApi\GD.Models.Commons\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -26,6 +27,10 @@ C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWebApi\GD.Mod
 C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWebApi\GD.Models.Commons\bin\Newtonsoft.Json.xml
 C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWebApi\GD.Models.Commons\obj\Debug\GD.Models.Commons.dll
 C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWebApi\GD.Models.Commons\obj\Debug\GD.Models.Commons.pdb
+=======
+C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWebApi\GD.Models.Commons\obj\Debug\GD.Models.Commons.dll
+C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWebApi\GD.Models.Commons\obj\Debug\GD.Models.Commons.csprojResolveAssemblyReference.cache
+>>>>>>> development_google_maps
 C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWeb\GD.Models.Commons\bin\roslyn\csc.exe
 C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWeb\GD.Models.Commons\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWeb\GD.Models.Commons\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
