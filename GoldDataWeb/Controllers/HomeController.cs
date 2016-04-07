@@ -50,8 +50,11 @@ namespace GoldDataWeb.Controllers
 		public ActionResult InfoOrderPanel(int orderId)
 		{
 			var responseOrder = OrderService.Execute(@"getinfo", Method.GET, orderId.ToString());
-
-			return PartialView("_WizardTabInfo", responseOrder.Data);
+			var homeViewModel = new HomeViewModel
+			{
+				Order = responseOrder.Data
+			};
+			return PartialView("_WizardTabInfo", homeViewModel);
 		}
 
 		[HttpPost]

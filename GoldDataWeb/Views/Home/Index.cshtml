@@ -240,7 +240,7 @@
 									<li class="active" style="width: 50%;"><a href="#info" data-toggle="tab" aria-expanded="true">Información</a></li>
 									@if (Model.Order != null)
 									{
-										if (user.IsRole(Rol.Type.Noc))
+										if (user.IsRole(Rol.Type.Noc) || user.IsRole(Rol.Type.Manager))
 										{
 											<li style="width: 50%;"><a href="#prefactibilidad" data-toggle="tab" aria-expanded="false">Pre-Factibilidad</a></li>
 										}
@@ -269,7 +269,7 @@
 
 										if (Model.Order != null)
 										{
-											if (user.IsRole(Rol.Type.Noc))
+											if (user.IsRole(Rol.Type.Noc) || user.IsRole(Rol.Type.Manager))
 											{
 												Html.RenderPartial(@"_WizardTabPrefactibilidad");
 											}

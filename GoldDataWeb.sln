@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GD.RtSurvey.Web", "GoldDataWeb\GD.RtSurvey.Web.csproj", "{E920338F-7379-4E06-AD88-170C0A1F13C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GD.Models.Commons", "..\GoldDataWebApi\GD.Models.Commons\GD.Models.Commons.csproj", "{EE8846FA-2C43-4636-9306-B7AA18AA9BC0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GD.Models.Commons", "GD.Models.Commons\GD.Models.Commons.csproj", "{EE8846FA-2C43-4636-9306-B7AA18AA9BC0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
