@@ -100,10 +100,14 @@
 						$("#labelDetailedAdress").text(metaData.Data.AddressRef);
 						$("#refreshExistingClient").css({ "display": "none" });
 						$(".readOnly").show();
+						$("#wizardClient").find('.btn-next').show();
+						contact.ClearContacts();
+						contact.LoadContactList(metaData.Data.ListEntityContact);
 					}
 				});
 			} else {
 				$("#refreshExistingClient").css({ "display": "none" });
+				$("#wizardClient").find('.btn-next').hide();
 			}
 		},
 
@@ -163,6 +167,7 @@
 						$(".edit").hide();
 						$(".readOnly").hide();
 						$("#refreshExistingClient").css({ "display": "table" });
+						$("#wizardClient").find('.btn-next').hide();
 						home.GetAllClients();
 					});
 				},

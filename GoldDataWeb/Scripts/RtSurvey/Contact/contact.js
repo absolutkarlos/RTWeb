@@ -21,6 +21,21 @@
 			$("#contactListEmpty").show();
 		},
 
+		LoadContactList: function (contacts) {
+			if (contacts != null && contacts.length > 0) {
+				$.each(contacts, function (index, item) {
+					$("#listContact").append("<a href='#" + index + "' class='list-group-item contacts' style='padding: 0; height: 42px;' data-toggle='collapse' aria-expanded='false'>" +
+														'<span class="pull-left" style="height: 100%; padding: 10px;">' + item.Name.toUpperCase() + ' <small style="color: #999999;"> (' + item.Position.Name + ') </small></span>' +
+														'<span style="display:none;" data-idremove="' + index + '" class="contact-buttom-remove pull-right"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span></a>' +
+														'<div class="collapse" id="' + index + '" style="position: relative; padding: 10px 15px; margin-bottom: -1px; background-color: #fff; border: 1px solid #ddd;">' +
+														'<div class="card card-block" style="border: 1px solid #ddd; padding: 10px; border-radius: 5px;">' +
+														'<b>Telefono:</b> ' + item.ListEntityChannels[0].Channel + '<br/> <b>Email:</b> ' + (item.ListEntityChannels[1] != null ? item.ListEntityChannels[1].Channel : "N/A") + '<br/> <b>Dirección:</b> ' + item.Zone.Name + ', ' +
+														item.State.Name + ', ' + item.Country.Name + '</div></div>');
+				});
+				$("#contactListEmpty").hide();
+			}
+		},
+
 		GetContactList: function () {
 			var contacts = [];
 			if (contact.ContactsIsValid()) {
