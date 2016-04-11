@@ -1,18 +1,18 @@
-﻿var basePreFactibility = (function () {
+﻿var baseInstalation = (function () {
 	return {
 		init: function () {
 
 		},
 
-		LineSightCreate: function (data) {
+		InstalationCreate: function (data) {
 			return $.ajax({
 				method: "POST",
 				async: false,
-				dataType: "json",
 				data: data,
 				processData: false,
 				contentType: "application/json",
-				url: base.GetRootStepPreFactibilityCreate(),
+				dataType: "json",
+				url: base.GetRootStepInstalationCreate(),
 				error: base.ErrorAjax
 			});
 		}
@@ -20,5 +20,5 @@
 }());
 
 $(function () {
-	basePreFactibility.init();
+	baseInstalation.init();
 });

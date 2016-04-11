@@ -11,5 +11,7 @@ namespace GoldDataWeb.Models
 		public Site Site { get; set; }
 		public string CountryAbbrevation { get; set; }
 		public LineSight LineSight { get; set; }
+		public OrderFlow OrderFlow { get; set; }
+		public bool IsUpdate { get; set; }
 	}
 }

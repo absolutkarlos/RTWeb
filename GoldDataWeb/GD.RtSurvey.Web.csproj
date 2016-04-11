@@ -580,6 +580,8 @@
     <Content Include="Scripts\RtSurvey\Contact\contact.js" />
     <Content Include="Scripts\RtSurvey\Home\baseHome.js" />
     <Content Include="Scripts\RtSurvey\Home\home.js" />
+    <Content Include="Scripts\RtSurvey\Instalation\baseInstalation.js" />
+    <Content Include="Scripts\RtSurvey\Instalation\instalation.js" />
     <Content Include="Scripts\RtSurvey\PreFactibility\basePreFactibility.js" />
     <Content Include="Scripts\RtSurvey\PreFactibility\preFactibility.js" />
     <Content Include="Scripts\RtSurvey\Login\baseLogin.js" />

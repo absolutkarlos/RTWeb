@@ -9,9 +9,6 @@
 			this.GetEvent().AddNewOrder();
 			this.GetEvent().ExistingOrder();
 			this.GetEvent().ClientsEvent();
-			preFactibility.GetEvent().NOCFileUploadEvent();
-			preFactibility.GetEvent().GeneratePreFactibilityEvent();
-			inspection.GetEvent().GenerateInspectionEvent();
 			this.LoadMetaData();
 			this.InitializeOrderStatusBar();
 			base.ApplyNiceScroll("html");
@@ -19,6 +16,9 @@
 			$("#refreshInfoOrderPanel").hide();
 			$('[rel="tooltip"]').tooltip();
 			$(".js-example-basic-multiple").select2();
+			preFactibility.init();
+			inspection.init();
+			instalation.init();
 		},
 
 		LoadDataDropDowns: function (data) {
@@ -30,7 +30,6 @@
 			base.LoadDropDownList("#clienttype", data.ClientType.Data);
 			base.LoadDropDownList("#accesstype", data.AccessType.Data);
 			base.LoadDropDownList("#celdas", data.RadioBase.Data);
-			base.LoadDropDownList("#materials", data.Materials.Data);
 		},
 
 		LoadInfoOrderPanel: function (id, clearFileInput) {
@@ -54,6 +53,11 @@
 				home.GetEvent().AddNewOrder();
 				$('[data-toggle="popover"]').popover();
 				$(".js-example-basic-multiple").select2();
+				preFactibility.ValidateShowButtons();
+				inspection.ValidateShowButtons();
+				instalation.ValidateShowButtons();
+				$("#input-700NOC").fileinput('clear');
+				base.ApplyNiceScroll("scrollContactInfo");
 			});
 		},
 

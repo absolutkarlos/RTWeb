@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Web.Mvc;
 using GD.Models.Commons;
@@ -134,7 +135,7 @@ namespace GoldDataWeb.Controllers
 				}
 			};
 
-			var responseLine = LineSightService.Insert(lineSight);
+			LineSightService.Insert(lineSight);
 
 			var orderNew = new Order
 			{
@@ -151,9 +152,30 @@ namespace GoldDataWeb.Controllers
 				CreateBy = short.Parse(GetAuthData().UserId.ToString())
 			};
 
-			var response = OrderService.Execute(@"updatestatus", Method.PUT, null, orderNew.ToJson());
+			if (viewModel.IsUpdate)
+			{
+				var orderFlow = new OrderFlow
+				{
+					Id = viewModel.OrderFlow.Id,
+					Order = new Order
+					{
+						Id = viewModel.Order.Id
+					},
+					Status = new Status
+					{
+						Id = viewModel.Order.Status.Id
+					},
+					UpdateBy = short.Parse(GetAuthData().UserId.ToString())
+				};
 
-			return Json(response);
+				OrderFlowService.Execute(@"updatestatus", Method.PUT, null, orderFlow.ToJson());
+			}
+			else
+			{
+				OrderService.Execute(@"updatestatus", Method.PUT, null, orderNew.ToJson());
+			}
+
+			return Json(orderNew);
 		}
 
 		[HttpPost]
@@ -167,7 +189,7 @@ namespace GoldDataWeb.Controllers
 				FloorHight = viewModel.Site.FloorHight
 			};
 
-			var responseUpdateSite = SiteService.Execute(@"UpdateBuildingInformation", Method.PUT, null, siteNew.ToJson());
+			SiteService.Execute(@"UpdateBuildingInformation", Method.PUT, null, siteNew.ToJson());
 
 			var orderNew = new Order
 			{
@@ -177,9 +199,10 @@ namespace GoldDataWeb.Controllers
 				AditionalCost = viewModel.Order.AditionalCost
 			};
 
-			var responseUpdateOrder = OrderService.Execute(@"UpdateInformation", Method.PUT, null, orderNew.ToJson());
+			OrderService.Execute(@"UpdateInformation", Method.PUT, null, orderNew.ToJson());
 
-			OrderService.Execute(@"DeleteBySite", Method.PUT, null, viewModel.Site.Id.ToString());
+
+			var listSiteAccessType = new List<SiteAccessType>();
 
 			foreach (var siteAccessType in viewModel.Site.ListSiteAccessType)
 			{
@@ -197,8 +220,30 @@ namespace GoldDataWeb.Controllers
 				{
 					Id = (int)Status.Type.Activo
 				};
-				var id = SiteAccessTypeService.Insert(siteAccessType);
+				listSiteAccessType.Add(siteAccessType);
 			}
+
+			SiteAccessTypeService.Execute(@"InsertList", Method.POST, null, listSiteAccessType.ToJson());
+
+
+			var listMaterials = new List<OrderMaterial>();
+
+			foreach (var materials in viewModel.Order.ListMaterials)
+			{
+				materials.Order = new Order
+				{
+					Id = viewModel.Order.Id
+				};
+				materials.CreateAt = DateTime.Now;
+				materials.CreateBy = short.Parse(GetAuthData().UserId.ToString());
+				materials.Status = new Status
+				{
+					Id = (int)Status.Type.Activo
+				};
+				listMaterials.Add(materials);
+			}
+
+			OrderMaterialService.Execute(@"InsertList", Method.POST, null, listMaterials.ToJson());
 
 			var updateStatus = new Order
 			{
@@ -215,13 +260,37 @@ namespace GoldDataWeb.Controllers
 				CreateBy = short.Parse(GetAuthData().UserId.ToString())
 			};
 
-			var response = OrderService.Execute(@"updatestatus", Method.PUT, null, updateStatus.ToJson());
-			response.Data = updateStatus;
+			if (viewModel.IsUpdate)
+			{
+				var orderFlow = new OrderFlow
+				{
+					Id = viewModel.OrderFlow.Id,
+					Order = new Order
+					{
+						Id = viewModel.Order.Id
+					},
+					Status = new Status
+					{
+						Id = viewModel.Order.Status.Id
+					},
+					UpdateBy = short.Parse(GetAuthData().UserId.ToString())
+				};
 
-			return Json(response);
+				OrderFlowService.Execute(@"updatestatus", Method.PUT, null, orderFlow.ToJson());
+			}
+			else if (viewModel.Order.Status.Id != (int)Status.Type.Espera)
+			{
+				OrderService.Execute(@"updatestatus", Method.PUT, null, updateStatus.ToJson());
+			}
+
+			return Json(new ResponseService<Order>
+			{
+				Data = updateStatus
+			});
 		}
 
-		public JsonResult InstalationCrete(StepsViewModel viewModel)
+		[HttpPost]
+		public JsonResult InstalationCreate(StepsViewModel viewModel)
 		{
 			var orderNew = new Order
 			{
@@ -229,22 +298,26 @@ namespace GoldDataWeb.Controllers
 				SettingUp = viewModel.Order.SettingUp
 			};
 
-			var responseUpdateOrder = OrderService.Execute(@"UpdateInformation", Method.PUT, null, orderNew.ToJson());
+			OrderService.Execute(@"UpdateInformation", Method.PUT, null, orderNew.ToJson());
 
-			foreach (var ordermaterial in viewModel.Order.ListMaterials)
+			var listMaterials = new List<OrderMaterial>();
+
+			foreach (var materials in viewModel.Order.ListMaterials)
 			{
-				ordermaterial.Order = new Order
+				materials.Order = new Order
 				{
 					Id = viewModel.Order.Id
 				};
-				ordermaterial.CreateAt = DateTime.Now;
-				ordermaterial.CreateBy = short.Parse(GetAuthData().UserId.ToString());
-				ordermaterial.Status = new Status
+				materials.CreateAt = DateTime.Now;
+				materials.CreateBy = short.Parse(GetAuthData().UserId.ToString());
+				materials.Status = new Status
 				{
 					Id = (int)Status.Type.Activo
 				};
-				var id = OrderMaterialService.Insert(ordermaterial);
+				listMaterials.Add(materials);
 			}
+
+			OrderMaterialService.Execute(@"InsertList", Method.POST, null, listMaterials.ToJson());
 
 			orderNew = new Order
 			{
@@ -261,9 +334,30 @@ namespace GoldDataWeb.Controllers
 				CreateBy = short.Parse(GetAuthData().UserId.ToString())
 			};
 
-			var response = OrderService.Execute(@"updatestatus", Method.PUT, null, orderNew.ToJson());
+			if (viewModel.IsUpdate)
+			{
+				var orderFlow = new OrderFlow
+				{
+					Id = viewModel.OrderFlow.Id,
+					Order = new Order
+					{
+						Id = viewModel.Order.Id
+					},
+					Status = new Status
+					{
+						Id = viewModel.Order.Status.Id
+					},
+					UpdateBy = short.Parse(GetAuthData().UserId.ToString())
+				};
 
-			return Json(response);
+				OrderFlowService.Execute(@"updatestatus", Method.PUT, null, orderFlow.ToJson());
+			}
+			else if (viewModel.Order.Status.Id != (int) Status.Type.Espera)
+			{
+				OrderService.Execute(@"updatestatus", Method.PUT, null, orderNew.ToJson());
+			}
+
+			return Json(orderNew);
 		}
 	}
 }

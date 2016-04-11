@@ -27,6 +27,8 @@ var base = (function () {
 		GetRootGetClient: function () { return "/MetaData/GetClient" },
 		GetRootStepPreFactibilityCreate: function () { return "/Steps/PreFactibilityCreate" },
 		GetRootStepInspectionCreate: function () { return "/Steps/InspectionCreate" },
+		GetRootStepInstalationCreate: function () { return "/Steps/InstalationCreate" },
+		GetRootUpdateStatus: function () { return "/Steps/UpdateOrderStatus" },
 
 		defaultAjaxTimeout: 5000,
 

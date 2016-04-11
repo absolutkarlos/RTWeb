@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -62,17 +63,19 @@ namespace GoldDataWeb.Controllers
 		{
 			var r = new List<UploadFilesResultViewModel>();
 
+			viewModel.OrderShotCount = OrderShotService.Execute<List<OrderShot>>(@"GetByOrder", Method.GET, viewModel.OrderId).Data.Count;
+
 			for (int i = 0; i < Request.Files.Count; i++)
 			{
 				HttpPostedFileBase hpf = Request.Files[i];
 				if (hpf != null && hpf.ContentLength == 0)
 					continue;
 
-				string path = Path.GetFileName(viewModel.OrderNumber) + "_" + viewModel.OrderShotCount + @"." + Path.GetFileName(hpf.ContentType);
-				string savedFileName = Path.Combine(Server.MapPath("~/App_Data"), path);
-				//string savedFileName = Path.Combine(Server.MapPath("C:\"inetpub\"wwwroot\"RtSurvey\"OrderShots"), path);
+				viewModel.OrderShotCount += (i + 1);
 
-				hpf.SaveAs(savedFileName);
+				string path = Path.GetFileName(viewModel.OrderNumber) + "_" + viewModel.OrderShotCount + @"." + Path.GetFileName(hpf.ContentType);
+
+				hpf.SaveAs(Path.Combine(Server.MapPath("~/App_Data"), path));
 
 				OrderShotService.Insert(new OrderShot
 				{
@@ -82,7 +85,7 @@ namespace GoldDataWeb.Controllers
 					},
 					IdOrderShotType = viewModel.OrderShotType,
 					Comment = viewModel.Comment,
-					ShotPath = path,
+					ShotPath = Path.Combine(ConfigurationManager.AppSettings[@"UrlOrderShot"], path),
 					Status = new Status
 					{
 						Id = (int)Status.Type.Activo

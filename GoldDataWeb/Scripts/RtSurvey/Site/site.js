@@ -28,6 +28,7 @@
 			$("#longitude").val("");
 			$("#latitude").val("");
 			$("#sitedetailedadress").val("");
+			$(".js-example-basic-multiple").val(null).trigger("change");
 			$.each($(".week:checked"), function (index, item) {
 				$(item).parent().removeClass('active');
 				$(item).prop("checked", false);
@@ -125,9 +126,9 @@
 					$("#finish").click(function () {
 						if (validateThirdStep()) {
 							home.UpdateOrderPanel();
-							$(".modal").find(".modal-body").empty();
-							$(".modal").find(".modal-body").append("<h5>La orden se ha <b>generado</b> satisfactoriamente</h5>");
-							$('.modal').modal('show');
+							$("#modal").find(".modal-body").empty();
+							$("#modal").find(".modal-body").append("<h5>La orden se ha <b>generado</b> satisfactoriamente</h5>");
+							$('#modal').modal('show');
 						}
 					});
 				},

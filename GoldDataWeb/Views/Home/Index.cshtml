@@ -209,7 +209,7 @@
 
 				<div id="panelordenes" class="list-group" style="min-height: 635px; max-height: 635px; border-radius: 4px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.15), 0 0 1px 1px rgba(0, 0, 0, 0.1);">
 					<a class="list-group-item active" style="background-color: royalblue;">
-						MIS ORDENES
+						FACTIBILIDADES
 						<span id="refreshOrders" class="glyphicon glyphicon-refresh pull-right refreshOrders" aria-hidden="true" style="font-size: large; cursor: pointer;"></span>
 					</a>
 					@{
@@ -271,7 +271,7 @@
 										{
 											if (user.IsRole(Rol.Type.Noc) || user.IsRole(Rol.Type.Manager))
 											{
-												Html.RenderPartial(@"_WizardTabPrefactibilidad");
+												Html.RenderPartial(@"_WizardTabPrefactibilidad", Model);
 											}
 
 											if (user.IsRole(Rol.Type.Field))
@@ -373,18 +373,20 @@
 	@Scripts.Render("~/Scripts/bootstrap-confirmation.js")
 	@Scripts.Render("~/Scripts/fileinput_locale_es.js")
 
+	@Scripts.Render("~/Scripts/RtSurvey/base.js")
 	@Scripts.Render("~/Scripts/RtSurvey/Home/baseHome.js")
 	@Scripts.Render("~/Scripts/RtSurvey/Client/baseClient.js")
 	@Scripts.Render("~/Scripts/RtSurvey/Contact/baseContact.js")
 	@Scripts.Render("~/Scripts/RtSurvey/Site/baseSite.js")
 	@Scripts.Render("~/Scripts/RtSurvey/PreFactibility/basePreFactibility.js")
 	@Scripts.Render("~/Scripts/RtSurvey/Inspection/baseInspection.js")
+	@Scripts.Render("~/Scripts/RtSurvey/Instalation/baseInstalation.js")
 
-	@Scripts.Render("~/Scripts/RtSurvey/base.js")
 	@Scripts.Render("~/Scripts/RtSurvey/Home/home.js")
 	@Scripts.Render("~/Scripts/RtSurvey/Client/client.js")
 	@Scripts.Render("~/Scripts/RtSurvey/Contact/contact.js")
 	@Scripts.Render("~/Scripts/RtSurvey/Site/site.js")
 	@Scripts.Render("~/Scripts/RtSurvey/PreFactibility/preFactibility.js")
 	@Scripts.Render("~/Scripts/RtSurvey/Inspection/inspection.js")
+	@Scripts.Render("~/Scripts/RtSurvey/Instalation/instalation.js")
 }

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace GD.Models.Commons
@@ -25,5 +27,20 @@ namespace GD.Models.Commons
 
 		[JsonProperty(@"updatedat")]
 		public DateTime? UpdateAt { get; set; }
+
+		public static string GetConcatAccessTypes(List<SiteAccessType> siteAccessTypes)
+		{
+			var concatAccessTypes = string.Empty;
+			for (int i = 0; i < siteAccessTypes.Count; i++)
+			{
+				if (i > 0)
+				{
+					concatAccessTypes += ", ";
+				}
+				var element = siteAccessTypes.ElementAt(i);
+				concatAccessTypes += element.AccessType.Name;
+			}
+			return concatAccessTypes;
+		}
 	}
 }

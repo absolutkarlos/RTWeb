@@ -12,6 +12,9 @@ namespace GD.Models.Commons
 		[JsonProperty(@"idsite")]
 		public int Id { get; set; }
 
+		[JsonProperty(@"linktype")]
+		public string LinktType { get; set; }
+
 		[JsonProperty(@"client")]
 		public Client Client { get; set; }
 

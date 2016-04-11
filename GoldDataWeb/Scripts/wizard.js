@@ -66,7 +66,8 @@ $(document).ready(function () {
 				pattern: /^\d+$/
 			},
 			accesstype: "required",
-			coment: "required"
+			coment: "required",
+			detail: "required"
 		},
 		messages: {
 			distance: "Ingrese la distancia entre el sitio y la celda seleccionada",
@@ -80,7 +81,8 @@ $(document).ready(function () {
 				pattern: "La altura del edificio solo debe contener numeros"
 			},
 			accesstype: "Seleccione un tipo de acceso",
-			coment: "Ingrese un comentario"
+			coment: "Ingrese un comentario",
+			detail: "Ingrese el proceso de instalaci&oacute;n detallado"
 		}
 	});
 
@@ -245,8 +247,7 @@ $(document).ready(function () {
 			return true;
 		},
 		onTabClick: function (tab, navigation, index) {
-			// Disable the posibility to click on tabs
-			return true;
+			return false;
 		},
 		onTabShow: function (tab, navigation, index) {
 			var $total = navigation.find('li').length;
@@ -262,8 +263,10 @@ $(document).ready(function () {
 				}
 			} else if ($total > 1) {
 				if ((navigation.context.id === "wizardInfo") && (index === 1) && !$("#statusInspection").hasClass("glyphicon-ok")) {
+					//$('#wizardInfo').bootstrapWizard('disable', 2);
 					$(wizard).find('.btn-next').hide();
 				} else {
+					//$('#wizardInfo').bootstrapWizard('enable', 2);
 					$(wizard).find('.btn-next').show();
 				}
 				$(wizard).find('.btn-finish').hide();
@@ -272,7 +275,7 @@ $(document).ready(function () {
 				$(wizard).find('.btn-next').hide();
 			}
 
-			if (index == 2) {
+			if ((index === 2) && (navigation.context.id !== "wizardInfo")) {
 				base.RefreshMap();
 			}
 		}
