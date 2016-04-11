@@ -26,3 +26,4 @@ C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWeb\GD.Models
 C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWeb\GD.Models.Commons\bin\Newtonsoft.Json.xml
 C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWeb\GD.Models.Commons\obj\Debug\GD.Models.Commons.dll
 C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWeb\GD.Models.Commons\obj\Debug\GD.Models.Commons.pdb
+C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWeb\GD.Models.Commons\obj\Debug\GD.Models.Commons.csprojResolveAssemblyReference.cache

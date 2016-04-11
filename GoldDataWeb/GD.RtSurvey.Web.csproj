@@ -507,8 +507,8 @@
     <Content Include="Content\Login.css" />
     <Content Include="Content\rotating-card.css" />
     <Content Include="Content\select2.min.css" />
+    <Content Include="Content\Videos\360_Drone_25seg_converted.mp4" />
     <Content Include="Content\Videos\RTSurvey01.m4v" />
-    <Content Include="Content\Videos\RTSurvey01.mp4" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -525,7 +525,6 @@
     <Content Include="Scripts\bootstrap-formhelpers.js" />
     <Content Include="Scripts\bootstrap-switch.js" />
     <Content Include="Scripts\bootstrap-switch.min.js" />
-    <Content Include="Content\Videos\RTSurvey01.webm" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
@@ -542,6 +541,7 @@
     <Content Include="Content\Images\banner\Miami\.DS_Store" />
     <Content Include="Content\Images\banner\Panama\.DS_Store" />
     <Content Include="Content\Images\banner\Venezuela\.DS_Store" />
+    <Content Include="Content\Videos\360_Drone_25seg.webm" />
     <None Include="Properties\PublishProfiles\GD.RtSuervey.Web.pubxml" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
