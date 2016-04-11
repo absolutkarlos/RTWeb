@@ -96,7 +96,7 @@
 										</div>
 									</li>
 									<li style="cursor: pointer; padding: 0;">
-										<div data-toggle="popover" title="Instalación" data-content="@(!string.IsNullOrWhiteSpace(status.Inspection.EstimatedDateNextStep) ? @"Fecha estimada de respuestae el " + status.Inspection.EstimatedDateNextStep : @"Fecha estimada de respuesta aun no disponible.")" data-placement="top" style="padding: 12px 17px 10px 30px; font-size: 13px;">
+										<div data-toggle="popover" title="Instalación" data-content="@(!string.IsNullOrWhiteSpace(status.Inspection.EstimatedDateNextStep) ? @"Fecha estimada de respuesta el " + status.Inspection.EstimatedDateNextStep : @"Fecha estimada de respuesta aun no disponible.")" data-placement="top" style="padding: 12px 17px 10px 30px; font-size: 13px;">
 											<a data-toggle="tab">
 												<span class="label">
 													<span id="statusInstalation" class="glyphicon @status.Instalation.Class" data-idorderflow="@status.Instalation.IdOrderFlow" aria-hidden="true" style="width: 11px; color: @status.Instalation.Color;"></span>
