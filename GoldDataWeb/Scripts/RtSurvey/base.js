@@ -9,6 +9,7 @@ var base = (function () {
 	var elevations = null;
 	var mouseOverInfowindow = null;
 	var mmInfowindowOpen;
+	var marker;
 	var markers = [];
 	var countryAbbrevation = "";
 	return {
@@ -71,15 +72,16 @@ var base = (function () {
 			return countryAbbrevation;
 		},
 
-		PlotPoints: function (theLatLng) {
+		PlotPoints: function (theLatLng, map) {
 			path.push(theLatLng);
-
-			//display the markers
-			var marker = new window.google.maps.Marker({
+			if (!!marker) {
+			    marker.setMap(null);
+			}
+			marker = new window.google.maps.Marker({
 				position: theLatLng,
 				map: map
 			});
-			markers.push(marker);
+            map.panTo(thelatLng);
 		},
 
 		DeleteMarkers: function () {
@@ -156,8 +158,8 @@ var base = (function () {
 						strokeColor: '#0000',
 						strokeOpacity: 0,
 						strokeWeight: 1,
-						fillColor: '#0000',
-						fillOpacity: 0.15,
+						fillColor: '#FFFFFF',
+						fillOpacity: 0.3,
 						map: map,
 						center: { lat: parseFloat(item.Latitude), lng: parseFloat(item.Longitude) },
 						radius: (10 * 1000)
@@ -172,6 +174,7 @@ var base = (function () {
 					//infowindow.setContent(item.Name);
 					//infowindow.open(map, marker);
 				});
+				var markerCluster = new MarkerClusterer(map);
 			}
 		},
 
@@ -182,7 +185,10 @@ var base = (function () {
 					if (results[0]) {
 						map.setZoom(11);
 						var infowindow = new window.google.maps.InfoWindow({});
-						var marker = new window.google.maps.Marker({
+						if (!!marker) {
+						    marker.setpos(null);
+						}
+                        marker = new window.google.maps.Marker({
 							position: latlng,
 							map: map
 						});
@@ -229,7 +235,7 @@ var base = (function () {
 			//map.controls[google.maps.ControlPosition.TOP_CENTER].push('<input onclick="deleteMarkers();" type=button value="Borrar Marcadores">');
 
 			window.google.maps.event.addListener(map, 'click', function (event) {
-				base.PlotPoints(event.latLng);
+				base.PlotPoints(event.latLng, map);
 			});
 
 			window.google.maps.event.addListener(map, 'rightclick', function (event) {
