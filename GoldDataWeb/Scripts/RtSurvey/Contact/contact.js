@@ -56,11 +56,11 @@
 
 		GetEntityChannels: function () {
 			var entityChannels = [{
-					"Description": $("#phone").val(),
+					"Channel": $("#phone").val(),
 					"EntityType.Id": 2,
 					"EntityChannelType.Id": 3
 				}, {
-					"Description": $("#email").val(),
+					"Channel": $("#email").val(),
 					"EntityType.Id": 2,
 					"EntityChannelType.Id": 1
 				}];
