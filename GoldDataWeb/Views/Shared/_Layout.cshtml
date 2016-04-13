@@ -15,10 +15,10 @@
 	@RenderSection("css", required: false)
 </head>
 <body style="background-color: @ViewBag.Color;">
-	<nav class="navbar navbar-transparent navbar-fixed-top" role="navigation" style="height: 75px;position: fixed;">
-		<div class="container" style="height: 75px;">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
+	<nav class="navbar navbar-transparent navbar-fixed-top" role="navigation" style="min-height: 75px;position: fixed;">
+		<div class="container">
+			@* Brand and toggle get grouped for better mobile display*@ 
+			<div class="navbar-header" >
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
@@ -28,25 +28,25 @@
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="box-shadow: none;">
 				<ul class="nav navbar-nav">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin: 0;">
-							<img src="~/Content/Images/flags/16/Venezuela.png" />
-							Español (VE)
+							<div id="countrySelected" style="display: inline-block;">
+								<img src="~/Content/Images/flags/16/Venezuela.png" data-country="VE" />
+								Venezuela (ES)
+							</div>
 							<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a href="#"><img src="~/Content/Images/flags/16/United States of America.png"> English (US)</a></li>
+							<li><a class="optionCountry" style="cursor: pointer;" ><img src="~/Content/Images/flags/16/Venezuela.png" data-country="VE" > Venezuela (ES)</a></li>
+							<li><a class="optionCountry" style="cursor: pointer;" ><img src="~/Content/Images/flags/16/Panama.png" data-country="PA"> Panama (ES)</a></li>
 
 							<li class="divider"></li>
-
-							<li><a href="#"><img src="~/Content/Images/flags/16/Germany.png"> Deutsch <span class="label label-default">soon</span></a></li>
-							<li><a href="#"><img src="~/Content/Images/flags/16/United Kingdom(Great Britain).png"> English (UK) <span class="label label-default">soon</span></a></li>
-							<li><a href="#"><img src="~/Content/Images/flags/16/France.png"> Français <span class="label label-default">soon</span></a></li>
-							<li><a href="#"><img src="~/Content/Images/flags/16/Italy.png"> Italiano <span class="label label-default">soon</span></a></li>
-							<li><a href="#"><img src="~/Content/Images/flags/16/Portugal.png"> Português <span class="label label-default">soon</span></a></li>
-							<li><a href="#"><img src="~/Content/Images/flags/16/Japan.png"> 日本語 <span class="label label-default">soon</span></a></li>
+							<li><a style="cursor: pointer;"><img src="~/Content/Images/flags/16/United States of America.png"> USA (US) <span class="label label-default">soon</span></a></li>
+							<li><a style="cursor: pointer;"><img src="~/Content/Images/flags/16/Germany.png"> Alemania <span class="label label-default">soon</span></a></li>
+							<li><a style="cursor: pointer;"><img src="~/Content/Images/flags/16/Portugal.png"> Portugal <span class="label label-default">soon</span></a></li>
+							<li><a style="cursor: pointer;"><img src="~/Content/Images/flags/16/Japan.png"> Japon <span class="label label-default">soon</span></a></li>
 						</ul>
 					</li>
 
@@ -83,6 +83,22 @@
 	@Scripts.Render("~/bundles/bootstrap")
 	@Scripts.Render("~/Scripts/bootstrap-switch.js")
 	@Scripts.Render("~/Scripts/animatescroll.min.js")
+
+	@Scripts.Render("http://www.google.com/jsapi")
+	@Scripts.Render("http://maps.googleapis.com/maps/api/js")
+
+	@Scripts.Render("~/Scripts/FullScreenControl.js")
+	@Scripts.Render("~/Scripts/jquery.bootstrap.wizard.js")
+	@Scripts.Render("~/Scripts/bootstrap-formhelpers.js")
+	@Scripts.Render("~/Scripts/select2.full.js")
+	@Scripts.Render("~/Scripts/jquery.nicescroll.js")
+	@Scripts.Render("~/Scripts/canvas-to-blob.js")
+	@Scripts.Render("~/Scripts/fileinput.js")
+	@Scripts.Render("~/Scripts/bootstrap-confirmation.js")
+	@Scripts.Render("~/Scripts/fileinput_locale_es.js")
+
+	@Scripts.Render("~/Scripts/RtSurvey/base.js")
+
 	@RenderSection("scripts", required: false)
 </body>
 </html>

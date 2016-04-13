@@ -149,7 +149,7 @@ $(document).ready(function () {
 			position: "required",
 			phone: {
 				required: true,
-				pattern: /^\+([0-9]{10})|(\([0-9]{3}\)\s+[0-9]{3}\-[0-9]{4})/
+				//pattern: /^\+([0-9]{10})|([0-9]{10}[(\)\-])/
 			},
 			email: {
 				required: true,
@@ -183,8 +183,8 @@ $(document).ready(function () {
 			contactfullname: "Ingrese el nombre de la marca.",
 			position: "Ingrese el nombre del negocio.",
 			phone: {
-				required: "Ingrese un numero de telefono",
-				pattern: "Su numero de telefono debe tener 8 caracteres"
+				required: "Ingrese un numero de telefono"
+				//pattern: "Su numero de telefono debe tener 8 caracteres"
 			},
 			email: {
 				required: "Ingrese una direcci&oacute;n de email",

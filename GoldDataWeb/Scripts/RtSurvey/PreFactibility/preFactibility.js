@@ -176,6 +176,7 @@
 								OrderNumber: $("#orderIdLabel").data("ordernumber") + "_SHOT-" + "1",
 								OrderId: $("#orderIdLabel").data("orderid"),
 								OrderShotType: 1,
+								LinkType: $("#linkType").val(),
 								Comment: $("#" + previewId).find("textarea").val()
 							};
 						},
@@ -185,7 +186,10 @@
 								'    <div class="form-group" style="margin-top: 5px;text-align: left;"><label style="display: block;"> RADIO BASE <small>(requerido)</small></label>\n' +
 								'    <select style="width: 100%;" id="radioBase" name="radioBase" class="form-control select2"><option value="">Seleccione una radio base</option></select>\n' +
 								'    <label style="display: block; margin-top: 15px;"> DISTANCIA <small>(requerido)</small></label>\n' +
-								'    <input style="width: 100%;" id="distance" name="distance" class="form-control" placeholder="Distancia..." /></div>\n' +
+								'    <input style="width: 100%;" id="distance" name="distance" class="form-control" placeholder="Distancia..." />\n' +
+								'    <label style="display: block; margin-top: 15px;"> TIPO DE ENLACE </label>\n' +
+								'    <select style="width: 100%;" id="linkType" name="linkType" class="form-control">\n' +
+								'    <option value="Punto a Punto">Punto a Punto</option><option value="Multipunto">Multipunto</option></select></div>\n' +
 								'    <div class="form-group" style="margin-top: 5px;text-align: left;"><label> COMENTARIO <small>(requerido)</small></label>\n' +
 								'    <textarea style="width: 100%; resize: none;" name="Comment" class="form-control comments" placeholder="Comentario..." rows="3" cols="15" aria-invalid="false"></textarea></div>\n' +
 								'    {progress} {actions}\n' +

@@ -19,6 +19,7 @@
 			preFactibility.init();
 			inspection.init();
 			instalation.init();
+			$('nav').css({ "background-color": "rgba(0, 0, 0, 0.65)" });
 		},
 
 		LoadDataDropDowns: function (data) {
@@ -160,6 +161,7 @@
 						$(".edit").show();
 						$(".readOnly").hide();
 						$(".existingClient").hide();
+						$("#clienttype").val("1").trigger("change");
 					});
 				},
 
@@ -285,7 +287,7 @@
 						scrollSpeed: 500,
 						//easing: 'easeOutBounce',
 						onScrollStart: function () {
-							$('nav').css({ "background-color": "rgba(0, 0, 0, 0.65)" });
+							//$('nav').css({ "background-color": "rgba(0, 0, 0, 0.65)" });
 						},
 						onScrollEnd: function () {
 
@@ -298,10 +300,10 @@
 					$(window).scroll(function (event) {
 						var st = $(this).scrollTop();
 						if (st > lastScrollTop) {
-							$('nav').css({ "background-color": "rgba(0, 0, 0, 0.65)" });
+							//$('nav').css({ "background-color": "rgba(0, 0, 0, 0.65)" });
 						} else {
-							if ($(window).scrollTop() <= ($("header").height() - 75))
-								$('nav').css({ "background-color": "rgba(0, 0, 0, 0)" });
+							//if ($(window).scrollTop() <= ($("header").height() - 75))
+								//$('nav').css({ "background-color": "rgba(0, 0, 0, 0)" });
 						}
 						lastScrollTop = st;
 					});
@@ -312,8 +314,8 @@
 						if ((event.originalEvent.wheelDelta >= 0) && ($(window).scrollTop() <= ($("header").height() - 75))) {
 							$('header').animatescroll({
 								onScrollStart: function () {
-									if ($(window).scrollTop() <= ($("header").height() - 75))
-										$('nav').css({ "background-color": "rgba(0, 0, 0, 0)" });
+									//if ($(window).scrollTop() <= ($("header").height() - 75))
+									//	$('nav').css({ "background-color": "rgba(0, 0, 0, 0)" });
 								},
 								onScrollEnd: function () {
 
@@ -321,9 +323,9 @@
 							});
 						}
 						else {
-							if ($(window).scrollTop() <= ($("header").height() - 75)) {
-								home.GetEvent().AnimateScrollContentPage("page");
-							}
+							//if ($(window).scrollTop() <= ($("header").height() - 75)) {
+							//	home.GetEvent().AnimateScrollContentPage("page");
+							//}
 						}
 					});
 				},

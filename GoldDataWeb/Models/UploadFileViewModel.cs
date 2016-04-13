@@ -9,5 +9,6 @@ namespace GoldDataWeb.Models
 		public string Comment { get; set; }
 		public int OrderShotCount { get; set; }
 		public int OrderShotType { get; set; }
+		public string LinkType { get; set; }
 	}
 }

@@ -5,10 +5,8 @@
 			this.GetEvent().DropDownContactCountryChange();
 			this.GetEvent().AddContactEvent();
 			this.GetEvent().DropDownPositionChange();
-			$('.bfh-selectbox').on("change.bfhselectbox", function () {
-				$('#selectContryFlag option[value="' + $(this).val() + '"]').prop("selected", true);
-				$("#selectContryFlag").change();
-			});
+			this.GetEvent().ChangeDropDownCountryPhone();
+			this.ChangeDefaultCountryPhoneToContact();
 		},
 
 		ContactsIsValid: function () {
@@ -17,7 +15,7 @@
 
 		ClearContacts: function () {
 			$(".contacts").remove();
-			$(".collapse").remove();
+			$(".collapseContacts").remove();
 			$("#contactListEmpty").show();
 		},
 
@@ -27,7 +25,7 @@
 					$("#listContact").append("<a href='#" + index + "' class='list-group-item contacts' style='padding: 0; height: 42px;' data-toggle='collapse' aria-expanded='false'>" +
 														'<span class="pull-left" style="height: 100%; padding: 10px;">' + item.Name.toUpperCase() + ' <small style="color: #999999;"> (' + item.Position.Name + ') </small></span>' +
 														'<span style="display:none;" data-idremove="' + index + '" class="contact-buttom-remove pull-right"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span></a>' +
-														'<div class="collapse" id="' + index + '" style="position: relative; padding: 10px 15px; margin-bottom: -1px; background-color: #fff; border: 1px solid #ddd;">' +
+														'<div class="collapse collapseContacts" id="' + index + '" style="position: relative; padding: 10px 15px; margin-bottom: -1px; background-color: #fff; border: 1px solid #ddd;">' +
 														'<div class="card card-block" style="border: 1px solid #ddd; padding: 10px; border-radius: 5px;">' +
 														'<b>Telefono:</b> ' + item.ListEntityChannels[0].Channel + '<br/> <b>Email:</b> ' + (item.ListEntityChannels[1] != null ? item.ListEntityChannels[1].Channel : "N/A") + '<br/> <b>Dirección:</b> ' + item.Zone.Name + ', ' +
 														item.State.Name + ', ' + item.Country.Name + '</div></div>');
@@ -100,8 +98,24 @@
 			$("#email").val("");
 		},
 
+		ChangeDefaultCountryPhoneToContact: function() {
+			$.each($(".bfh-selectbox-options").find("div").find("ul").find("li"), function (index, item) {
+				var option = $($(item).find("a"));
+				if (option.data("option") === base.GetCountryUserSelected()) {
+					option.click();
+				}
+			});
+		},
+
 		GetEvent: function () {
 			return {
+				ChangeDropDownCountryPhone: function(parameters) {
+					$('.bfh-selectbox').on("change.bfhselectbox", function () {
+						$('#selectContryFlag option[value="' + $(this).val() + '"]').prop("selected", true);
+						$("#selectContryFlag").change();
+					});
+				},
+
 				AddContactEvent: function () {
 					$('#addContact').click(function () {
 

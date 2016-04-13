@@ -7936,7 +7936,7 @@ var BFHPhoneFormatList = {
   'KM': '+269 ddddddddd',
   'CG': '+242 ddddddddd',
   'CK': '+682 ddddddddd',
-  'CR': '+506 ddddddddd',
+  'CR': '+506 dddddddd',
   'HR': '+385 ddddddddd',
   'CU': '+53 ddddddddd',
   'CY': '+357 ddddddddd',

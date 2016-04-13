@@ -1,5 +1,4 @@
 ﻿@using GD.Models.Commons
-@using GD.Models.Commons.Utilities
 @using GoldDataWeb.Models
 
 @model HomeViewModel
@@ -22,155 +21,150 @@
 }
 
 <div id="homeContainer">
-	<header style="border-bottom: 2px solid #FDD835; box-shadow: 0 5px 15px #616161; height: 100vh;">
+	<header style="border-bottom: 2px solid #FDD835; box-shadow: 0 5px 15px #616161; height: 76px;">
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			<!-- Indicators -->
-			<ol class="carousel-indicators">
-				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-				<li data-target="#myCarousel" data-slide-to="1"></li>
-				<li data-target="#myCarousel" data-slide-to="2"></li>
-				<li data-target="#myCarousel" data-slide-to="3"></li>
-				<li data-target="#myCarousel" data-slide-to="4"></li>
-				<li data-target="#myCarousel" data-slide-to="5"></li>
-				<li data-target="#myCarousel" data-slide-to="6"></li>
-				<li data-target="#myCarousel" data-slide-to="7"></li>
-				<li data-target="#myCarousel" data-slide-to="8"></li>
-				<li data-target="#myCarousel" data-slide-to="9"></li>
-				<li data-target="#myCarousel" data-slide-to="10"></li>
-				<li data-target="#myCarousel" data-slide-to="11"></li>
-				<li data-target="#myCarousel" data-slide-to="12"></li>
-				<li data-target="#myCarousel" data-slide-to="13"></li>
-			</ol>
+			@*<ol class="carousel-indicators">
+					<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					<li data-target="#myCarousel" data-slide-to="1"></li>
+					<li data-target="#myCarousel" data-slide-to="2"></li>
+					<li data-target="#myCarousel" data-slide-to="3"></li>
+					<li data-target="#myCarousel" data-slide-to="4"></li>
+					<li data-target="#myCarousel" data-slide-to="5"></li>
+					<li data-target="#myCarousel" data-slide-to="6"></li>
+					<li data-target="#myCarousel" data-slide-to="7"></li>
+					<li data-target="#myCarousel" data-slide-to="8"></li>
+					<li data-target="#myCarousel" data-slide-to="9"></li>
+					<li data-target="#myCarousel" data-slide-to="10"></li>
+					<li data-target="#myCarousel" data-slide-to="11"></li>
+					<li data-target="#myCarousel" data-slide-to="12"></li>
+					<li data-target="#myCarousel" data-slide-to="13"></li>
+				</ol>*@
 
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner" role="listbox">
 				<div class="item active">
-					<img src="~/Content/Images/banner/Venezuela/CaracasAvBolivar.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Venezuela</h3>
-						<p>Caracas, Avenida Bolivar.</p>
-					</div>
+					<img src="~/Content/Images/banner/Venezuela/Venezuela - Caracas- Avila.jpg" style="height: 75px;"/>
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Venezuela/CaracasParqueCentral.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Venezuela</h3>
-						<p>Caracas, Parque Central.</p>
-					</div>
+					<img src="~/Content/Images/banner/Venezuela/Venezuela - Caracas - Chuao.jpg" style="height: 75px;"/>
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Venezuela/PuenteSobreLagoMaracaibo.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Venezuela</h3>
-						<p>Puente sobre el lago de Maracaibo.</p>
-					</div>
+					<img src="~/Content/Images/banner/Venezuela/Venezuela - Caracas - Chula Vista.jpg" style="height: 75px;"/>
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Venezuela/Maracabo.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Venezuela</h3>
-						<p>Ciudad de Maracaibo.</p>
-					</div>
+					<img src="~/Content/Images/banner/Venezuela/Venezuela - Caracas - El Silencio.jpg" style="height: 75px;"/>
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Miami/MiamiFlorida01.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Estados Unidos</h3>
-						<p>Florida, Miami.</p>
-					</div>
+					<img src="~/Content/Images/banner/Venezuela/Venezuela - Caracas - Parque Central.jpg" style="height: 75px;"/>
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Miami/MiamiFlorida02.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Estados Unidos</h3>
-						<p>Florida, Miami.</p>
-					</div>
+					<img src="~/Content/Images/banner/Venezuela/Venezuela - Caracas - Santa fe.jpg" style="height: 75px;"/>
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Miami/MiamiFlorida03.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Estados Unidos</h3>
-						<p>Florida, Miami.</p>
-					</div>
+					<img src="~/Content/Images/banner/Venezuela/Venezuela - Caracas - Valle Arriba.jpg" style="height: 75px;"/>
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Panama/PanamaCity01.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Panama</h3>
-						<p>Ciudad de Panama.</p>
-					</div>
+					<img src="~/Content/Images/banner/Venezuela/Venezuela - Lara - Barquisimeto.jpg" style="height: 75px;"/>
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Panama/PanamaCity02.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Panama</h3>
-						<p>Ciudad de Panama.</p>
-					</div>
+					<img src="~/Content/Images/banner/Venezuela/Venezuela - Zulia - Puente General Rafael Urdaneta.jpg" style="height: 75px;"/>
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Panama/PanamaCityTrumpTower.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Panama</h3>
-						<p>Trump Tower.</p>
-					</div>
+					<img src="~/Content/Images/banner/Venezuela/Venezuela - Zulia - Puente sobre el Lago de Maracaibo.jpg" style="height: 75px;"/>
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Panama/PuenteBicentenarioCanaldePanama.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Panama</h3>
-						<p>Puente Bicentenario, Canal de Panama.</p>
-					</div>
+					<img src="~/Content/Images/banner/Panama/Panama - Amador Causeway.jpg" style="height: 75px;"/>
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Panama/PuentedelasAmericasDesdeCerroAncon.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Panama</h3>
-						<p>Puente de las Americas Desde Cerro Ancon.</p>
-					</div>
+					<img src="~/Content/Images/banner/Panama/Panama - Canal de Panama 01.JPG" style="height: 75px;"/>
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Panama/VolcanBaru.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Panama</h3>
-						<p>Volcan Baru.</p>
-					</div>
+					<img src="~/Content/Images/banner/Panama/Panama - Canal de Panama 02.jpg" style="height: 75px;"/>
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/General/TelecomSystems.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>General</h3>
-						<p>Telecom System</p>
-					</div>
+					<img src="~/Content/Images/banner/Panama/Panama - Canal de Panama 03.jpg" style="height: 75px;"/>
 				</div>
 
+				<div class="item">
+					<img src="~/Content/Images/banner/Panama/Panama - Panama City 01.jpg" style="height: 75px;"/>
+				</div>
+
+				<div class="item">
+					<img src="~/Content/Images/banner/Panama/Panama - Panama City 02.jpg" style="height: 75px;"/>
+				</div>
+
+				<div class="item">
+					<img src="~/Content/Images/banner/Panama/Panama - Panama City 03.jpg" style="height: 75px;"/>
+				</div>
+
+				<div class="item">
+					<img src="~/Content/Images/banner/Panama/Panama - Panama City 04.jpg" style="height: 75px;"/>
+				</div>
+
+				<div class="item">
+					<img src="~/Content/Images/banner/Panama/Panama - Panama City 05.jpg" style="height: 75px;"/>
+				</div>
+
+				<div class="item">
+					<img src="~/Content/Images/banner/Panama/Panama - Puente de las Americas.jpg" style="height: 75px;"/>
+				</div>
+
+				<div class="item">
+					<img src="~/Content/Images/banner/Panama/Panama - Volcan Baru.jpg" style="height: 75px;"/>
+				</div>
+
+				<div class="item">
+					<img src="~/Content/Images/banner/Miami/USA - Florida - Miami 01.jpg" style="height: 75px;"/>
+				</div>
+
+				<div class="item">
+					<img src="~/Content/Images/banner/Miami/USA - Florida - Miami 02.jpg" style="height: 75px;"/>
+				</div>
+
+				<div class="item">
+					<img src="~/Content/Images/banner/Miami/USA - Florida - Miami 03 (1).jpg" style="height: 75px;"/>
+				</div>
+
+				<div class="item">
+					<img src="~/Content/Images/banner/Miami/USA - Florida - Miami 03.jpg" style="height: 75px;"/>
+				</div>
+
+				<div class="item">
+					<img src="~/Content/Images/banner/Miami/USA - Florida - Miami 04.jpg" style="height: 75px;"/>
+				</div>
+
+				<div class="item">
+					<img src="~/Content/Images/banner/Miami/USA - Florida - Miami 06.jpg" style="height: 75px;"/>
+				</div>
 			</div>
 
 			<!-- Left and right controls -->
-			<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-				<span class="sr-only">Previous</span>
-			</a>
-			<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-				<span class="sr-only">Next</span>
-			</a>
+			@*<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+					<span class="glyphicon glyphicon-chevron-left" aria-hidden="true" ></span>
+					<span class="sr-only">Previous</span>
+				</a>
+				<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+					<span class="glyphicon glyphicon-chevron-right" aria-hidden="true" ></span>
+					<span class="sr-only">Next</span>
+				</a>*@
 		</div>
 	</header>
 
-	<a data-start="display: block" data-100-start="display: none" class="btn-scroll-down scroll" style="display: block; z-index: 1032; cursor: pointer;"></a>
+	@*<a data-start="display: block" data-100-start="display: none" class="btn-scroll-down scroll" style="display: block; z-index: 1032; cursor: pointer;"></a>*@
 
 	@*<div class="user">
 			<img class="img-circle" src="http://demos.creative-tim.com/images/rotating_card_profile2.png">
@@ -179,7 +173,7 @@
 
 
 	<div id="page" class="container" style="height: 100vh; width: 100%;">
-		<div class="row" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 100px;">
+		<div class="row" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 20px;">
 			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 				@*<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>*@
 				<div class="well well-sm" style="height: 125px;">
@@ -343,7 +337,7 @@
 							</div>
 						</div>
 					</div>
-				}
+											}
 			</div>
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="footer">
@@ -358,22 +352,10 @@
 
 @section scripts
 {
-	@Scripts.Render("http://www.google.com/jsapi")
-	@Scripts.Render("http://maps.googleapis.com/maps/api/js")
 	@Scripts.Render("~/bundles/jqueryval")
 	@Scripts.Render("~/Scripts/additional-methods.js")
-	@Scripts.Render("~/Scripts/FullScreenControl.js")
-	@Scripts.Render("~/Scripts/jquery.bootstrap.wizard.js")
-	@Scripts.Render("~/Scripts/bootstrap-formhelpers.js")
-	@Scripts.Render("~/Scripts/select2.full.js")
 	@Scripts.Render("~/Scripts/wizard.js")
-	@Scripts.Render("~/Scripts/jquery.nicescroll.js")
-	@Scripts.Render("~/Scripts/canvas-to-blob.js")
-	@Scripts.Render("~/Scripts/fileinput.js")
-	@Scripts.Render("~/Scripts/bootstrap-confirmation.js")
-	@Scripts.Render("~/Scripts/fileinput_locale_es.js")
 
-	@Scripts.Render("~/Scripts/RtSurvey/base.js")
 	@Scripts.Render("~/Scripts/RtSurvey/Home/baseHome.js")
 	@Scripts.Render("~/Scripts/RtSurvey/Client/baseClient.js")
 	@Scripts.Render("~/Scripts/RtSurvey/Contact/baseContact.js")
