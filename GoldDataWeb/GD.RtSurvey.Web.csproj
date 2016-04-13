@@ -219,9 +219,7 @@
     <Content Include="Content\fontface-granthotel.css" />
     <Content Include="Content\gsdk-base.css" />
     <Content Include="Content\Home.css" />
-    <Content Include="Content\Images\banner.png" />
     <Content Include="Content\Images\Icons\building.9.png" />
-    <Content Include="Content\Images\desert-sand-header.jpg" />
     <Content Include="Content\Images\error.png" />
     <Content Include="Content\Images\flags\16\Afghanistan.png" />
     <Content Include="Content\Images\flags\16\African Union.png" />
@@ -466,7 +464,6 @@
     <Content Include="Content\Images\flags\16\Yemen.png" />
     <Content Include="Content\Images\flags\16\Zambia.png" />
     <Content Include="Content\Images\flags\16\Zimbabwe.png" />
-    <Content Include="Content\Images\buildings-header.png" />
     <Content Include="Content\Images\flags\bootstrap-formhelpers-countries.flags.png" />
     <Content Include="Content\Images\Icons\ic_add_a_photo_white_24dp_1x.png" />
     <Content Include="Content\Images\Icons\ic_edit_location_black_24dp_2x.png" />
@@ -483,8 +480,6 @@
     <Content Include="Content\Login.css" />
     <Content Include="Content\rotating-card.css" />
     <Content Include="Content\select2.min.css" />
-    <Content Include="Content\Videos\360_Drone_25seg_converted.mp4" />
-    <Content Include="Content\Videos\RTSurvey01.m4v" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -511,7 +506,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\BankGothic Bold.ttf" />
-    <Content Include="Content\Videos\360_Drone_25seg.webm" />
     <None Include="Properties\PublishProfiles\GD.RtSuervey.Web.pubxml" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
