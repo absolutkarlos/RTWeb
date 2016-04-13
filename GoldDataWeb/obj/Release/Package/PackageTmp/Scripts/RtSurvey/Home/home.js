@@ -9,9 +9,6 @@
 			this.GetEvent().AddNewOrder();
 			this.GetEvent().ExistingOrder();
 			this.GetEvent().ClientsEvent();
-			preFactibility.GetEvent().NOCFileUploadEvent();
-			preFactibility.GetEvent().GeneratePreFactibilityEvent();
-			inspection.GetEvent().GenerateInspectionEvent();
 			this.LoadMetaData();
 			this.InitializeOrderStatusBar();
 			base.ApplyNiceScroll("html");
@@ -19,6 +16,10 @@
 			$("#refreshInfoOrderPanel").hide();
 			$('[rel="tooltip"]').tooltip();
 			$(".js-example-basic-multiple").select2();
+			preFactibility.init();
+			inspection.init();
+			instalation.init();
+			$('nav').css({ "background-color": "rgba(0, 0, 0, 0.65)" });
 		},
 
 		LoadDataDropDowns: function (data) {
@@ -30,7 +31,6 @@
 			base.LoadDropDownList("#clienttype", data.ClientType.Data);
 			base.LoadDropDownList("#accesstype", data.AccessType.Data);
 			base.LoadDropDownList("#celdas", data.RadioBase.Data);
-			base.LoadDropDownList("#materials", data.Materials.Data);
 		},
 
 		LoadInfoOrderPanel: function (id, clearFileInput) {
@@ -54,6 +54,11 @@
 				home.GetEvent().AddNewOrder();
 				$('[data-toggle="popover"]').popover();
 				$(".js-example-basic-multiple").select2();
+				preFactibility.ValidateShowButtons();
+				inspection.ValidateShowButtons();
+				instalation.ValidateShowButtons();
+				$("#input-700NOC").fileinput('clear');
+				base.ApplyNiceScroll("scrollContactInfo");
 			});
 		},
 
@@ -89,18 +94,26 @@
 		},
 
 		GetExistingClient: function (clientId) {
-			$.when(baseHome.GetExistingClient(clientId)).then(function (metaData) {
-				if (metaData && (metaData.Data)) {
-					$("#labelClientType").text("(" + metaData.Data.ClientType.Name + ")");
-					$("#labelUbicacion").text(metaData.Data.City.Name + ", " + metaData.Data.State.Name + ", " + metaData.Data.Country.Name);
-					$("#labelFullName").text(metaData.Data.LegalName);
-					$("#labelBusinessName").text(metaData.Data.BusinessName);
-					$("#labelRuc").text(metaData.Data.Ruc);
-					$("#labelDetailedAdress").text(metaData.Data.AddressRef);
-					$("#refreshExistingClient").css({"display": "none"});
-					$(".readOnly").show();
-				}
-			});
+			if (clientId !== "") {
+				$.when(baseHome.GetExistingClient(clientId)).then(function (metaData) {
+					if (metaData && (metaData.Data)) {
+						$("#labelClientType").text("(" + metaData.Data.ClientType.Name + ")");
+						$("#labelUbicacion").text(metaData.Data.City.Name + ", " + metaData.Data.State.Name + ", " + metaData.Data.Country.Name);
+						$("#labelFullName").text(metaData.Data.LegalName);
+						$("#labelBusinessName").text(metaData.Data.BusinessName);
+						$("#labelRuc").text(metaData.Data.Ruc);
+						$("#labelDetailedAdress").text(metaData.Data.AddressRef);
+						$("#refreshExistingClient").css({ "display": "none" });
+						$(".readOnly").show();
+						$("#wizardClient").find('.btn-next').show();
+						contact.ClearContacts();
+						contact.LoadContactList(metaData.Data.ListEntityContact);
+					}
+				});
+			} else {
+				$("#refreshExistingClient").css({ "display": "none" });
+				$("#wizardClient").find('.btn-next').hide();
+			}
 		},
 
 		GetAllClients: function () {
@@ -109,9 +122,16 @@
 					$validator.resetForm();
 					$("#refreshExistingClient").css({ "display": "none" });
 					$(".existingClient").show();
+					base.ClearDropDownList("#clients");
 					$.each(metaData.Data, function () {
 						$("#clients").append($("<option data-ruc='" + this.Ruc + "'/>").val(this.Id).text(this.BusinessName));
 					});
+				} else {
+					$('#tabContact').find('a').prop('disabled', true);
+					$('#tabLocalization').find('a').prop('disabled', true);
+					$("#wizardClient").find('.btn-next').hide();
+					$("#clientNotFound").show();
+					$("#refreshExistingClient").hide();
 				}
 			});
 		},
@@ -124,6 +144,7 @@
 						$("#refreshExistingClient").css({ "display": "table" });
 						client.LoadClientId($(this).val());
 						home.GetExistingClient($(this).val());
+						$("#wizardClientForm").validate().element("#clients");
 					});
 				},
 
@@ -131,11 +152,16 @@
 					$('#newOrder').click(function (event) {
 						$validator.resetForm();
 						$('#wizardClient').bootstrapWizard('show', 0);
+						$('#tabContact').find('a').prop('disabled', false);
+						$('#tabLocalization').find('a').prop('disabled', false);
+						$("#wizardClient").find('.btn-next').show();
+						$("#clientNotFound").hide();
 						$("#panelInfo").hide();
 						$("#panelClient").show();
 						$(".edit").show();
 						$(".readOnly").hide();
 						$(".existingClient").hide();
+						$("#clienttype").val("1").trigger("change");
 					});
 				},
 
@@ -147,6 +173,7 @@
 						$(".edit").hide();
 						$(".readOnly").hide();
 						$("#refreshExistingClient").css({ "display": "table" });
+						$("#wizardClient").find('.btn-next').hide();
 						home.GetAllClients();
 					});
 				},
@@ -260,7 +287,7 @@
 						scrollSpeed: 500,
 						//easing: 'easeOutBounce',
 						onScrollStart: function () {
-							$('nav').css({ "background-color": "rgba(0, 0, 0, 0.65)" });
+							//$('nav').css({ "background-color": "rgba(0, 0, 0, 0.65)" });
 						},
 						onScrollEnd: function () {
 
@@ -273,10 +300,10 @@
 					$(window).scroll(function (event) {
 						var st = $(this).scrollTop();
 						if (st > lastScrollTop) {
-							$('nav').css({ "background-color": "rgba(0, 0, 0, 0.65)" });
+							//$('nav').css({ "background-color": "rgba(0, 0, 0, 0.65)" });
 						} else {
-							if ($(window).scrollTop() <= ($("header").height() - 75))
-								$('nav').css({ "background-color": "rgba(0, 0, 0, 0)" });
+							//if ($(window).scrollTop() <= ($("header").height() - 75))
+								//$('nav').css({ "background-color": "rgba(0, 0, 0, 0)" });
 						}
 						lastScrollTop = st;
 					});
@@ -287,8 +314,8 @@
 						if ((event.originalEvent.wheelDelta >= 0) && ($(window).scrollTop() <= ($("header").height() - 75))) {
 							$('header').animatescroll({
 								onScrollStart: function () {
-									if ($(window).scrollTop() <= ($("header").height() - 75))
-										$('nav').css({ "background-color": "rgba(0, 0, 0, 0)" });
+									//if ($(window).scrollTop() <= ($("header").height() - 75))
+									//	$('nav').css({ "background-color": "rgba(0, 0, 0, 0)" });
 								},
 								onScrollEnd: function () {
 
@@ -296,9 +323,9 @@
 							});
 						}
 						else {
-							if ($(window).scrollTop() <= ($("header").height() - 75)) {
-								home.GetEvent().AnimateScrollContentPage("page");
-							}
+							//if ($(window).scrollTop() <= ($("header").height() - 75)) {
+							//	home.GetEvent().AnimateScrollContentPage("page");
+							//}
 						}
 					});
 				},
