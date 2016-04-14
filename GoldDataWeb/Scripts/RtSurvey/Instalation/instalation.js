@@ -12,6 +12,37 @@
 			this.ValidateShowButtons();
 		},
 
+		LoadInstalationPanel: function (id) {
+			$("#refreshInstalationPanel").css({ "display": "table" });
+			$("#contentPanelInstalation").hide();
+			$.when(baseInstalation.LoadInstalationPanel(id)).then(function (panel) {
+				var metaData = base.GetLocalMetaData();
+				$("#contentPanelInstalation").remove();
+				$("#instalation").html(panel);
+				$("#refreshInstalationPanel").css({ "display": "none" });
+				$("#contentPanelInstalation").show();
+				instalation.LoadDropDownListMaterial("#materialsInstalation", metaData.Materials.Data);
+				instalation.GetEvent().AddmaterialEvent();
+				instalation.GetEvent().GenerateInstalationEvent();
+				instalation.GetEvent().MaterialInstalationButtomRemoveEvent();
+				instalation.GetEvent().DropDownMaterialsInstalationChange();
+				instalation.GetEvent().InputCatidadEvent();
+				instalation.GetEvent().InstFileUploadEvent();
+				$("#materialsInstalation").select2();
+				instalation.ValidateShowButtons();
+			});
+		},
+
+		GetOrderShots: function() {
+			var orderShots = JSON.parse(listOrdersShotsInstalation);
+			var initialPreview = [];
+			$.each(orderShots, function (index, item) {
+				var caption = item.shotpath.split('/')[4];
+				initialPreview.push("<img src='" + item.shotpath + "' class='file-preview-image' alt='" + caption + "' title='" + caption + "'>");
+			});
+			return initialPreview;
+		},
+
 		LoadDropDownListMaterial: function (selector, data) {
 			$.each(data, function () {
 				$(selector).append($("<option data-unitmeasureid='" + this.UnitMeasure.Id + "'  data-unitmeasure='" + this.UnitMeasure.Name + "' />").val(this.Id).text(this.Name));
@@ -232,6 +263,8 @@
 						showUpload: false,
 						browseLabel: "",
 						browseIcon: "<img src='/Content/Images/Icons/ic_add_a_photo_white_24dp_1x.png' />",
+						initialPreview: instalation.GetOrderShots(),
+						overwriteInitial: false,
 						//previewTemplates: {
 						//	image: '<div class="file-preview-frame" id="{previewId}" data-fileindex="{fileindex}">\n' +
 						//		'   <img src="{data}" class="file-preview-image" title="{caption}" alt="{caption}" style="width:100%;height:400px">\n' +

@@ -4,6 +4,18 @@
 
 		},
 
+		LoadInstalationPanel: function (orderId) {
+			return $.ajax({
+				method: "GET",
+				dataType: "html",
+				data: {
+					"orderId": orderId
+				},
+				url: base.GetRootInstalationPanel(),
+				error: base.ErrorAjax
+			});
+		},
+
 		InstalationCreate: function (data) {
 			return $.ajax({
 				method: "POST",

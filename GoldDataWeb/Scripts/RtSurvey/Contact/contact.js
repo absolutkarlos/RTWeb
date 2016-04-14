@@ -7,6 +7,13 @@
 			this.GetEvent().DropDownPositionChange();
 			this.GetEvent().ChangeDropDownCountryPhone();
 			this.ChangeDefaultCountryPhoneToContact();
+			this.LoadDropDownListCountry("#contactCountry", base.GetLocalMetaData().Countries.Data);
+		},
+
+		LoadDropDownListCountry: function (selector, data) {
+			$.each(data, function () {
+				$(selector).append($("<option data-country='" + this.Aka + "' />").val(this.Id).text(this.Name));
+			});
 		},
 
 		ContactsIsValid: function () {
@@ -98,10 +105,10 @@
 			$("#email").val("");
 		},
 
-		ChangeDefaultCountryPhoneToContact: function() {
+		ChangeDefaultCountryPhoneToContact: function(country) {
 			$.each($(".bfh-selectbox-options").find("div").find("ul").find("li"), function (index, item) {
 				var option = $($(item).find("a"));
-				if (option.data("option") === base.GetCountryUserSelected()) {
+				if (option.data("option") === country) {
 					option.click();
 				}
 			});
@@ -228,6 +235,7 @@
 						$("#wizardClientForm").validate().element("#contactState");
 						$("#wizardClientForm").validate().element("#contactCity");
 						$("#wizardClientForm").validate().element("#contactZone");
+						contact.ChangeDefaultCountryPhoneToContact($("#contactCountry option[value='" + $(this).val() + "']").data("country"));
 					});
 				}
 			}

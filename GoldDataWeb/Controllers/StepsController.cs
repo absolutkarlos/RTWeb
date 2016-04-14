@@ -116,6 +116,14 @@ namespace GoldDataWeb.Controllers
 		[HttpPost]
 		public JsonResult PreFactibilityCreate(StepsViewModel viewModel)
 		{
+			var newSite = new Site
+			{
+				LinktType = viewModel.Site.LinktType,
+				UpdateBy = short.Parse(GetAuthData().UserId.ToString())
+			};
+
+			SiteService.Execute(@"UpdateLinkType", Method.PUT, null, newSite.ToJson());
+
 			var lineSight = new LineSight
 			{
 				RadioBase = new RadioBase
@@ -196,7 +204,8 @@ namespace GoldDataWeb.Controllers
 				Id = viewModel.Order.Id,
 				SpecialRequirements = viewModel.Order.SpecialRequirements,
 				Comments = viewModel.Order.Comments,
-				AditionalCost = viewModel.Order.AditionalCost
+				AditionalCost = viewModel.Order.AditionalCost,
+				InstallationDays = viewModel.Order.InstallationDays
 			};
 
 			OrderService.Execute(@"UpdateInformation", Method.PUT, null, orderNew.ToJson());

@@ -19,11 +19,9 @@
 			preFactibility.init();
 			inspection.init();
 			instalation.init();
-			$('nav').css({ "background-color": "rgba(0, 0, 0, 0.65)" });
 		},
 
 		LoadDataDropDowns: function (data) {
-			base.LoadDropDownList("#contactCountry", data.Countries.Data);
 			base.LoadDropDownList("#country", data.Countries.Data);
 			base.LoadDropDownList("#position", data.Position.Data);
 			base.LoadDropDownList("#entitytype", data.EntityType.Data);
@@ -59,6 +57,8 @@
 				instalation.ValidateShowButtons();
 				$("#input-700NOC").fileinput('clear');
 				base.ApplyNiceScroll("scrollContactInfo");
+				inspection.LoadInspectionPanel($("#orderIdLabel").data("orderid"));
+				instalation.LoadInstalationPanel($("#orderIdLabel").data("orderid"));
 			});
 		},
 
@@ -191,6 +191,7 @@
 					$('.order').click(function (event) {
 						event.preventDefault();
 						home.LoadInfoOrderPanel($(this).data("orderid"), true);
+
 					});
 				},
 

@@ -58,6 +58,26 @@ namespace GoldDataWeb.Controllers
 			return PartialView("_WizardTabInfo", homeViewModel);
 		}
 
+		public ActionResult InspectionPanel(int orderId)
+		{
+			var responseOrder = OrderService.Execute(@"getinfo", Method.GET, orderId.ToString());
+			var homeViewModel = new HomeViewModel
+			{
+				Order = responseOrder.Data
+			};
+			return PartialView("_WizardTabInspection", homeViewModel);
+		}
+
+		public ActionResult InstalationPanel(int orderId)
+		{
+			var responseOrder = OrderService.Execute(@"getinfo", Method.GET, orderId.ToString());
+			var homeViewModel = new HomeViewModel
+			{
+				Order = responseOrder.Data
+			};
+			return PartialView("_WizardTabInstalation", homeViewModel);
+		}
+
 		[HttpPost]
 		public ContentResult UploadFiles(UploadFileViewModel viewModel)
 		{

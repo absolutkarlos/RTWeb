@@ -21,7 +21,9 @@ var base = (function () {
 		GetRootStepContactsCreate: function() { return "/Steps/ContactsCreate" },
 		GetRootStepOrderCreate: function() { return "/Steps/OrderCreate" },
 		GetRootUpdateOrderPanel: function() { return "/Home/OrderPanel" },
-		GetRootInfoOrderPanel: function() { return "/Home/InfoOrderPanel" },
+		GetRootInfoOrderPanel: function () { return "/Home/InfoOrderPanel" },
+		GetRootInspectionPanel: function () { return "/Home/InspectionPanel" },
+		GetRootInstalationPanel: function () { return "/Home/InstalationPanel" },
 		GetRootUploadFile: function() { return "/Home/UploadFiles" },
 		GetRootClients: function() { return "/MetaData/Clients" },
 		GetRootGetClient: function() { return "/MetaData/GetClient" },
@@ -470,9 +472,6 @@ var base = (function () {
 			$(".optionCountry").click(function() {
 				$("#countrySelected").empty().append($(this).html());
 				localStorage.setItem("countrySelected", $("#countrySelected").find("img").data("country"));
-				if (typeof contact != "undefined") {
-					contact.ChangeDefaultCountryPhoneToContact();
-				}
 			});
 		},
 
