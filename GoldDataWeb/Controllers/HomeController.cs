@@ -83,7 +83,38 @@ namespace GoldDataWeb.Controllers
 		{
 			var r = new List<UploadFilesResultViewModel>();
 
+			var newSite = new Site
+			{
+				LinktType = viewModel.LinkType,
+				UpdateBy = short.Parse(GetAuthData().UserId.ToString())
+			};
+
+			SiteService.Execute(@"UpdateLinkType", Method.PUT, null, newSite.ToJson());
+
+			var lineSight = new LineSight
+			{
+				RadioBase = new RadioBase
+				{
+					Id = int.Parse(viewModel.RadioBaseId)
+				},
+				Site = new Site
+				{
+					Id = int.Parse(viewModel.SiteId)
+				},
+				Distance = int.Parse(viewModel.Distance),
+				CreateAt = DateTime.Now,
+				CreateBy = short.Parse(GetAuthData().UserId.ToString()),
+				Status = new Status
+				{
+					Id = (int)Status.Type.Activo
+				}
+			};
+
+			LineSightService.Insert(lineSight);
+
 			viewModel.OrderShotCount = OrderShotService.Execute<List<OrderShot>>(@"GetByOrder", Method.GET, viewModel.OrderId).Data.Count;
+
+			string path = Path.GetFileName(viewModel.OrderNumber) + "_" + (viewModel.OrderShotCount + 1);
 
 			for (int i = 0; i < Request.Files.Count; i++)
 			{
@@ -91,9 +122,7 @@ namespace GoldDataWeb.Controllers
 				if (hpf != null && hpf.ContentLength == 0)
 					continue;
 
-				viewModel.OrderShotCount += (i + 1);
-
-				string path = Path.GetFileName(viewModel.OrderNumber) + "_" + viewModel.OrderShotCount + @"." + Path.GetFileName(hpf.ContentType);
+				path += @"." + Path.GetFileName(hpf.ContentType);
 
 				hpf.SaveAs(Path.Combine(Server.MapPath("~/App_Data"), path));
 

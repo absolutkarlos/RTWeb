@@ -219,6 +219,7 @@
     <Content Include="Content\fontface-granthotel.css" />
     <Content Include="Content\gsdk-base.css" />
     <Content Include="Content\Home.css" />
+    <Content Include="Content\Images\copy-icon.png" />
     <Content Include="Content\Images\Icons\building.9.png" />
     <Content Include="Content\Images\error.png" />
     <Content Include="Content\Images\flags\16\Afghanistan.png" />
@@ -465,6 +466,7 @@
     <Content Include="Content\Images\flags\16\Zambia.png" />
     <Content Include="Content\Images\flags\16\Zimbabwe.png" />
     <Content Include="Content\Images\flags\bootstrap-formhelpers-countries.flags.png" />
+    <Content Include="Content\Images\Icons\building.png" />
     <Content Include="Content\Images\Icons\ic_add_a_photo_white_24dp_1x.png" />
     <Content Include="Content\Images\Icons\ic_edit_location_black_24dp_2x.png" />
     <Content Include="Content\Images\Icons\playlist_add_black.png" />

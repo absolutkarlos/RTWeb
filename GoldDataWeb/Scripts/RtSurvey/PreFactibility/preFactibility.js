@@ -62,9 +62,6 @@
 				"Order.Id": $("#orderIdLabel").data("orderid"),
 				"Order.OrderStatus.Id": parseInt($("#orderIdLabel").data("orderstatustype")) + 1,
 				"Order.Status.Id": statusId,
-				"LineSight.Distance": $("#distance").val(),
-				"LineSight.RadioBase.Id": $("#radioBase").val(),
-				"LineSight.Site.Id": $("#orderIdLabel").data("siteid"),
 				"OrderFlow.Id": $("#statusPreFactibility").data("idorderflow"),
 				"IsUpdate": !$("#rechazarPreFactibility").is(":visible")
 			}
@@ -114,6 +111,10 @@
 				},
 
 				NOCFileUploadEvent: function () {
+					$('#input-700NOC').on('fileerror', function (event, data, msg) {
+						$(".fileinput-remove-button").css({ "height": "38px" });
+					});
+
 					$('#input-700NOC').on('fileuploaded', function (event, data, previewId, index) {
 						var form = data.form, files = data.files, extra = data.extra,
 							response = data.response, reader = data.reader;
@@ -149,7 +150,7 @@
 							});
 							var metaData = base.GetLocalMetaData();
 							if ((metaData.RadioBase) && (metaData.RadioBase.Data) && (metaData.RadioBase.Data.length > 0)) {
-								base.LoadDropDownList("#radioBase", metaData.RadioBase.Data);
+								base.LoadDropDownList(".radioBase", metaData.RadioBase.Data);
 							}
 							home.GetEvent().Select2Event();
 							preFactibility.GetEvent().RadioBaseEvent();
@@ -161,22 +162,43 @@
 						uploadUrl: base.GetRootUploadFile(), // server upload action
 						uploadAsync: true,
 						maxFileCount: 3,
+						resizePreference: 'width',
+						resizeImage: true,
 						allowedFileExtensions: ['jpeg', 'jpg', 'gif', 'png'],
 						showUpload: false,
 						browseLabel: "",
 						browseIcon: "<img src='/Content/Images/Icons/ic_add_a_photo_white_24dp_1x.png' />",
 						previewTemplates: {
-							image: '<div class="file-preview-frame" id="{previewId}" data-fileindex="{fileindex}">\n' +
-								'   <img src="{data}" class="file-preview-image" title="{caption}" alt="{caption}" style="width:100%;height:400px">\n' +
+							image: '<div class="file-preview-frame" id="{previewId}" data-fileindex="{fileindex}" style="width: 350px;">\n' +
+								'   <img src="{data}" class="file-preview-image" title="{caption}" alt="{caption}" >\n' +
 								'   {footer}\n' +
-								'</div>\n'
+								'</div>\n',
+							other: '<div class="file-preview-frame{frameClass}" id="{previewId}" data-fileindex="{fileindex}"' +
+									' title="{caption}">\n' +
+									'   <div class="file-preview-other-frame">\n' +
+									'     <div class="file-preview-other">\n' +
+									'       <span class="{previewFileIconClass}">{previewFileIcon}</span>\n' +
+									'     </div>\n' +
+									'   </div>\n' +
+									'    <div class="file-caption-name" style="width:{width}">{caption}</div>\n' +
+									'<div class="file-actions">\n' +
+									'    <div class="file-footer-buttons">\n' +
+									'       <button type="button" class="kv-file-remove btn btn-xs btn-default" title="Eliminar archivo"{dataUrl}{dataKey}><i class="glyphicon glyphicon-trash text-danger"></i></button>\n' +
+									'    </div>\n' +
+									'    <div class="file-upload-indicator" tabindex="-1" title="">{indicator}</div>\n' +
+									'    <div class="clearfix"></div>\n' +
+									'</div>\n' +
+									'</div>'
 						},
 						uploadExtraData: function (previewId, index) {
 							return {
 								OrderNumber: $("#orderIdLabel").data("ordernumber") + "_SHOT-" + "1",
 								OrderId: $("#orderIdLabel").data("orderid"),
+								SiteId: $("#orderIdLabel").data("siteid"),
 								OrderShotType: 1,
-								LinkType: $("#linkType").val(),
+								LinkType: $("#" + previewId).find("select[name~='linkType']").val(),
+								RadioBaseId: $("#" + previewId).find("select[name~='radioBase']").val(),
+								Distance: $("#" + previewId).find("input[name~='distance']").val(),
 								Comment: $("#" + previewId).find("textarea").val()
 							};
 						},
@@ -184,7 +206,7 @@
 							footer: '<div class="file-thumbnail-footer">\n' +
 								'    <div class="file-caption-name" style="width:{width}">{caption}</div>\n' +
 								'    <div class="form-group" style="margin-top: 5px;text-align: left;"><label style="display: block;"> RADIO BASE <small>(requerido)</small></label>\n' +
-								'    <select style="width: 100%;" id="radioBase" name="radioBase" class="form-control select2"><option value="">Seleccione una radio base</option></select>\n' +
+								'    <select style="width: 100%;" id="radioBase" name="radioBase" class="form-control select2 radioBase"><option value="">Seleccione una radio base</option></select>\n' +
 								'    <label style="display: block; margin-top: 15px;"> DISTANCIA <small>(requerido)</small></label>\n' +
 								'    <input style="width: 100%;" id="distance" name="distance" class="form-control" placeholder="Distancia..." />\n' +
 								'    <label style="display: block; margin-top: 15px;"> TIPO DE ENLACE </label>\n' +

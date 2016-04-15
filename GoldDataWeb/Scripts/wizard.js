@@ -372,6 +372,7 @@ function validateThirdStep() {
 		site.ResetForm();
 		contact.ClearContacts();
 		$validator.resetForm();
+		client.ResetForm();
 		$('#wizardClient').bootstrapWizard('show', 0);
 	}
 

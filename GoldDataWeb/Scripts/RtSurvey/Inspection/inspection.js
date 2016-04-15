@@ -24,7 +24,9 @@
 				$(".js-example-basic-multiple").select2();
 				inspection.LoadDropDownListMaterial("#materialsInspection", metaData.Materials.Data);
 				base.LoadDropDownList("#accesstype", metaData.AccessType.Data);
-				$(".js-example-basic-multiple").val(JSON.parse(typeAccessSelected)).trigger("change");
+				if (typeof typeAccessSelected != "undefined") {
+					$(".js-example-basic-multiple").val(JSON.parse(typeAccessSelected)).trigger("change");
+				}
 				inspection.GetEvent().AddmaterialEvent();
 				inspection.GetEvent().GenerateInspectionEvent();
 				inspection.GetEvent().MaterialInspectionButtomRemoveEvent();

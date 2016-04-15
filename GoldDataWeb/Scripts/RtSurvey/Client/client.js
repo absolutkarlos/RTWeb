@@ -17,6 +17,7 @@
 			$("#businessname").val("");
 			$(".edit").show();
 			$(".readOnly").hide();
+			$(".existingClient").hide();
 		},
 
 		ShowContentReadOnly: function() {

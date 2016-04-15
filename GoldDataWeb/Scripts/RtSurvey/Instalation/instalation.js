@@ -33,12 +33,22 @@
 			});
 		},
 
-		GetOrderShots: function() {
-			var orderShots = JSON.parse(listOrdersShotsInstalation);
+		GetOrderShots: function () {
+			var orderShots = [];
+			if (typeof listOrdersShotsInstalation != "undefined") {
+				orderShots = JSON.parse(listOrdersShotsInstalation);
+			}
+
 			var initialPreview = [];
 			$.each(orderShots, function (index, item) {
 				var caption = item.shotpath.split('/')[4];
-				initialPreview.push("<img src='" + item.shotpath + "' class='file-preview-image' alt='" + caption + "' title='" + caption + "'>");
+				initialPreview.push("<img style='display: table;margin-left: auto;margin-right: auto;' src='" + item.shotpath + "' class='file-preview-image' alt='" + caption + "' title='" + caption + "'>\n <div class='file-caption-name'>" + caption + "</div>" +
+									"<div class=\"file-actions\">\n" +
+									'    <div class="file-footer-buttons">\n' +
+									'       <button type="button" class="kv-file-remove btn btn-xs btn-default" title="Eliminar archivo"{dataUrl}{dataKey}><i class="glyphicon glyphicon-trash text-danger"></i></button>\n' +
+									'    </div>\n' +
+									'    <div class="clearfix"></div>\n' +
+									'</div>');
 			});
 			return initialPreview;
 		},
@@ -265,6 +275,7 @@
 						browseIcon: "<img src='/Content/Images/Icons/ic_add_a_photo_white_24dp_1x.png' />",
 						initialPreview: instalation.GetOrderShots(),
 						overwriteInitial: false,
+						initialPreviewShowDelete: true,
 						//previewTemplates: {
 						//	image: '<div class="file-preview-frame" id="{previewId}" data-fileindex="{fileindex}">\n' +
 						//		'   <img src="{data}" class="file-preview-image" title="{caption}" alt="{caption}" style="width:100%;height:400px">\n' +

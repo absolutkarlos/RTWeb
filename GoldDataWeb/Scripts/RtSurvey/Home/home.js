@@ -16,7 +16,7 @@
 			$("#refreshInfoOrderPanel").hide();
 			$('[rel="tooltip"]').tooltip();
 			$(".js-example-basic-multiple").select2();
-			preFactibility.init();
+			//preFactibility.init();
 			inspection.init();
 			instalation.init();
 		},
@@ -36,13 +36,14 @@
 			$("#panelClient").hide();
 			$("#refreshInfoOrderPanel").show();
 			$("#info").hide();
-			$("#next").hide();
+			$(".btn-next").hide();
+			$("#wizardInfo").find('.btn-next').hide();
 			$('.wizard-card').bootstrapWizard('show', 0);
 			if ($("#input-700NOC") && clearFileInput)
 				$("#input-700NOC").fileinput("clear");
 			home.GetEvent().IconRefreshAnimated("#refreshInfoOrder");
 			$.when(baseHome.LoadInfoOrderPanel(id)).then(function (panel) {
-				$("#next").show();
+				$("#wizardInfo").find('.btn-next').show();
 				home.GetEvent().IconRefreshAnimatedStop("#refreshInfoOrder");
 				$("#info").remove();
 				$("#refreshInfoOrderPanel").hide();
@@ -81,6 +82,7 @@
 					home.GetEvent().DropDownCountryChange();
 					home.GetEvent().DropDownClientTypeChange();
 					base.LoadRadioBase();
+					$("#clienttype").val("1").trigger("change");
 				} else {
 					base.ValidateHasError(result, function () {
 						alert("Error Cargando la MetaData");
@@ -124,7 +126,7 @@
 					$(".existingClient").show();
 					base.ClearDropDownList("#clients");
 					$.each(metaData.Data, function () {
-						$("#clients").append($("<option data-ruc='" + this.Ruc + "'/>").val(this.Id).text(this.BusinessName));
+						$("#clients").append($("<option data-ruc='" + this.Ruc + "'/>").val(this.Id).text(this.BusinessName.toUpperCase() + " - " + this.Country.Name.toUpperCase()));
 					});
 				} else {
 					$('#tabContact').find('a').prop('disabled', true);

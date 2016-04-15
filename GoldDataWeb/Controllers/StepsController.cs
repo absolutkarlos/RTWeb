@@ -116,35 +116,6 @@ namespace GoldDataWeb.Controllers
 		[HttpPost]
 		public JsonResult PreFactibilityCreate(StepsViewModel viewModel)
 		{
-			var newSite = new Site
-			{
-				LinktType = viewModel.Site.LinktType,
-				UpdateBy = short.Parse(GetAuthData().UserId.ToString())
-			};
-
-			SiteService.Execute(@"UpdateLinkType", Method.PUT, null, newSite.ToJson());
-
-			var lineSight = new LineSight
-			{
-				RadioBase = new RadioBase
-				{
-					Id = viewModel.LineSight.RadioBase.Id
-				},
-				Site = new Site
-				{
-					Id = viewModel.LineSight.Site.Id
-				},
-				Distance = viewModel.LineSight.Distance,
-				CreateAt = DateTime.Now,
-				CreateBy = short.Parse(GetAuthData().UserId.ToString()),
-				Status = new Status
-				{
-					Id = (int)Status.Type.Activo
-				}
-			};
-
-			LineSightService.Insert(lineSight);
-
 			var orderNew = new Order
 			{
 				Id = viewModel.Order.Id,
@@ -307,7 +278,7 @@ namespace GoldDataWeb.Controllers
 				SettingUp = viewModel.Order.SettingUp
 			};
 
-			OrderService.Execute(@"UpdateInformation", Method.PUT, null, orderNew.ToJson());
+			OrderService.Execute(@"UpdateSettingUp", Method.PUT, null, orderNew.ToJson());
 
 			var listMaterials = new List<OrderMaterial>();
 
