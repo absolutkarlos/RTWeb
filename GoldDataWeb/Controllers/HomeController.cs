@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -57,10 +58,63 @@ namespace GoldDataWeb.Controllers
 			return PartialView("_WizardTabInfo", homeViewModel);
 		}
 
+		public ActionResult InspectionPanel(int orderId)
+		{
+			var responseOrder = OrderService.Execute(@"getinfo", Method.GET, orderId.ToString());
+			var homeViewModel = new HomeViewModel
+			{
+				Order = responseOrder.Data
+			};
+			return PartialView("_WizardTabInspection", homeViewModel);
+		}
+
+		public ActionResult InstalationPanel(int orderId)
+		{
+			var responseOrder = OrderService.Execute(@"getinfo", Method.GET, orderId.ToString());
+			var homeViewModel = new HomeViewModel
+			{
+				Order = responseOrder.Data
+			};
+			return PartialView("_WizardTabInstalation", homeViewModel);
+		}
+
 		[HttpPost]
 		public ContentResult UploadFiles(UploadFileViewModel viewModel)
 		{
 			var r = new List<UploadFilesResultViewModel>();
+
+			var newSite = new Site
+			{
+				LinktType = viewModel.LinkType,
+				UpdateBy = short.Parse(GetAuthData().UserId.ToString())
+			};
+
+			SiteService.Execute(@"UpdateLinkType", Method.PUT, null, newSite.ToJson());
+
+			var lineSight = new LineSight
+			{
+				RadioBase = new RadioBase
+				{
+					Id = int.Parse(viewModel.RadioBaseId)
+				},
+				Site = new Site
+				{
+					Id = int.Parse(viewModel.SiteId)
+				},
+				Distance = int.Parse(viewModel.Distance),
+				CreateAt = DateTime.Now,
+				CreateBy = short.Parse(GetAuthData().UserId.ToString()),
+				Status = new Status
+				{
+					Id = (int)Status.Type.Activo
+				}
+			};
+
+			LineSightService.Insert(lineSight);
+
+			viewModel.OrderShotCount = OrderShotService.Execute<List<OrderShot>>(@"GetByOrder", Method.GET, viewModel.OrderId).Data.Count;
+
+			string path = Path.GetFileName(viewModel.OrderNumber) + "_" + (viewModel.OrderShotCount + 1);
 
 			for (int i = 0; i < Request.Files.Count; i++)
 			{
@@ -68,11 +122,9 @@ namespace GoldDataWeb.Controllers
 				if (hpf != null && hpf.ContentLength == 0)
 					continue;
 
-				string path = Path.GetFileName(viewModel.OrderNumber) + "_" + viewModel.OrderShotCount + @"." + Path.GetFileName(hpf.ContentType);
-				string savedFileName = Path.Combine(Server.MapPath("~/App_Data"), path);
-				//string savedFileName = Path.Combine(Server.MapPath("C:\"inetpub\"wwwroot\"RtSurvey\"OrderShots"), path);
+				path += @"." + Path.GetFileName(hpf.ContentType);
 
-				hpf.SaveAs(savedFileName);
+				hpf.SaveAs(Path.Combine(Server.MapPath("~/App_Data"), path));
 
 				OrderShotService.Insert(new OrderShot
 				{
@@ -82,7 +134,7 @@ namespace GoldDataWeb.Controllers
 					},
 					IdOrderShotType = viewModel.OrderShotType,
 					Comment = viewModel.Comment,
-					ShotPath = path,
+					ShotPath = Path.Combine(ConfigurationManager.AppSettings[@"UrlOrderShot"], path),
 					Status = new Status
 					{
 						Id = (int)Status.Type.Activo

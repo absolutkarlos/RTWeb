@@ -4,6 +4,18 @@
 
 		},
 
+		LoadInspectionPanel: function (orderId) {
+			return $.ajax({
+				method: "GET",
+				dataType: "html",
+				data: {
+					"orderId": orderId
+				},
+				url: base.GetRootInspectionPanel(),
+				error: base.ErrorAjax
+			});
+		},
+
 		InspectionCreate: function (data) {
 			return $.ajax({
 				method: "POST",

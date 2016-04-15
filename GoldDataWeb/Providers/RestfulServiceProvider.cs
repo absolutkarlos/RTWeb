@@ -9,9 +9,9 @@ namespace GoldDataWeb.Providers
 {
 	public class RestfulServiceProvider
 	{
-		private static IRestClient _client;
-		private static IRestResponse _response;
-		public static IRestRequest Request;
+		private readonly IRestClient _client;
+		private IRestResponse _response;
+		public IRestRequest Request;
 
 		protected const string TokenType = @"Bearer ";
 		protected const string ContentType = @"application/json";
@@ -45,6 +45,7 @@ namespace GoldDataWeb.Providers
 		public static string LineSightUrlApi = @"/api/linesight/";
 		public static string SiteAccessTypeUrlApi = @"/api/siteaccesstype/";
 		public static string OrderMaterialUrlApi = @"/api/ordermaterial/";
+		public static string OrderFlowServiceUrlApi = @"/api/orderflow/";
 
 		public string AuthorizationToken { private get; set; }
 

@@ -12,6 +12,7 @@ namespace GoldDataWeb.Models
 
 	public class Data
 	{
+		public string IdOrderFlow { get; set; }
 		public string EstimatedDateNextStep { get; set; }
 		public string Class { get; set; }
 		public string Color { get; set; } = @"none";

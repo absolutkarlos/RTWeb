@@ -1,4 +1,9 @@
-﻿<div class="tab-pane" id="inspection" style="margin-top: 40px;">
+﻿@using GD.Models.Commons
+@using GoldDataWeb.Models
+
+@model HomeViewModel
+
+<div class="tab-pane" id="inspection" style="margin-top: 40px;">
 	<div class="row">
 		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="text-align: center;">
 			<img src="~/Content/Images/Icons/building.9.png" style="height: 208px;"/>
@@ -6,15 +11,15 @@
 		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
 			<div class="form-group">
 				<label> ALTURA DE PISO <small>(requerido)</small></label>
-				@Html.TextBox(@"alturapiso", string.Empty, new {id = @"alturapiso", @class = @"form-control", placeholder = @"Altura por piso", style = @"width: 100%;"})
+				@Html.TextBox(@"alturapiso", Model.Order.Site.FloorHight, new {id = @"alturapiso", @class = @"form-control", placeholder = @"Altura por piso", style = @"width: 100%;"})
 			</div>
 			<div class="form-group">
 				<label> ALTURA DEL EDIFICIO <small>(requerido)</small></label>
-				@Html.TextBox(@"altura", string.Empty, new {id = @"altura", @class = @"form-control", placeholder = @"Altura del edificio", style = @"width: 100%;"})
+				@Html.TextBox(@"altura", Model.Order.Site.BuildingHight, new {id = @"altura", @class = @"form-control", placeholder = @"Altura del edificio", style = @"width: 100%;"})
 			</div>
 			<div class="form-group">
-				<label> CANTIDAD DE PISOS <small>(requerido)</small></label>
-				@Html.TextBox(@"cantidadpisos", string.Empty, new {id = @"cantidadpisos", @class = @"form-control bfh-number", style = @"width: 100%;", data_zeros = @"true", data_min = @"1", data_max = @"50", data_wrap = @"true"})
+				<label> CANTIDAD DE PISOS</label>
+				@Html.TextBox(@"cantidadpisos", Model.Order.Site.BuildingFloors, new {id = @"cantidadpisos", @class = @"form-control bfh-number", style = @"width: 100%;", data_zeros = @"true", data_min = @"1", data_max = @"50", data_wrap = @"true"})
 			</div>
 		</div>
 	</div>
@@ -24,7 +29,7 @@
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 			<div class="form-group">
 				<label> REQUERIMIENTOS ESPECIALES </label>
-				<textarea id="requerimientos" style="width: 100%; resize: none;" name="requerimientos" class="form-control" placeholder="Requerimientos..." rows="5" cols="15" aria-invalid="false"></textarea>
+				<textarea id="requerimientos" style="width: 100%; resize: none;" name="requerimientos" class="form-control" placeholder="Requerimientos..." rows="5" cols="15" aria-invalid="false">@Model.Order.SpecialRequirements</textarea>
 			</div>
 			<div class="form-group">
 				<label> TIPOS DE ACCESO <small>(requerido)</small></label>
@@ -34,11 +39,11 @@
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 			<div class="form-group">
 				<label> COSTOS ADICIONALES </label>
-				<textarea id="costo" style="width: 100%; resize: none;" name="costo" class="form-control" placeholder="Costos..." rows="5" cols="15" aria-invalid="false"></textarea>
+				<textarea id="costo" style="width: 100%; resize: none;" name="costo" class="form-control" placeholder="Costos..." rows="5" cols="15" aria-invalid="false">@Model.Order.AditionalCost</textarea>
 			</div>
 			<div class="form-group">
-				<label> TIEMPO ESTIMADO DE INSTALACIÓN <small>(requerido)</small></label>
-				@Html.TextBox(@"tiempoestimado", string.Empty, new {id = @"tiempoestimado", @class = @"form-control bfh-number", style = @"width: 100%;", data_zeros = @"true", data_min = @"1", data_max = @"50", data_wrap = @"true"})
+				<label> DIAS ESTIMADOS DE INSTALACIÓN</label>
+				@Html.TextBox(@"tiempoestimado", Model.Order.InstallationDays, new {id = @"tiempoestimado", @class = @"form-control bfh-number", style = @"width: 100%;", data_zeros = @"true", data_min = @"1", data_max = @"50", data_wrap = @"true"})
 			</div>
 		</div>
 	</div>
@@ -46,20 +51,54 @@
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<div class="form-group">
 				<label> COMENTARIO <small>(requerido)</small></label>
-				<textarea id="coment" name="coment" style="width: 100%; resize: none;" class="form-control" placeholder="Comentario..." rows="5" cols="15" aria-invalid="false"></textarea>
+				<textarea id="coment" name="coment" style="width: 100%; resize: none;" class="form-control" placeholder="Comentario..." rows="5" cols="15" aria-invalid="false">@Model.Order.Comments</textarea>
 			</div>
+		</div>
+	</div>
+	<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> Lista de materiales para la instalacíon</h6>
+	<hr>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class="list-group" id="listMetarialInspection">
+				<a class="list-group-item active" style="text-align: center; background-color: royalblue;">
+					MATERIALES AGREGADOS
+				</a>
+				<a class="list-group-item" id="materialInspectionListEmpty" style="text-align: center;height: 53px;" data-toggle="collapse" aria-expanded="false">
+					<span class="text-center" style="height: 100%;">No hay materiales agregados</span>
+				</a>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+			<div class="form-group">
+				<label> MATERIALES <small>(requerido)</small></label>
+				@Html.DropDownList(@"materialsInspection", new List<SelectListItem>(), @"Seleccione un material", new {id = @"materialsInspection", @class = @" form-control", style = @"width: 100%;"})
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<div class="form-group">
+				<label> CANTIDAD <small>(requerido)</small></label>
+				<input id="cantidad" name="cantidad " type="number" step="any" class="form-control" style="width: 100%;height: 38px;" min="0.1" value="1"/>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" style="height: 78px; text-align: center;">
+			<input id="addMaterial" type="button" class="btn btn-fill btn-info btn-wd btn-sm" value="Añadir Material" style="margin-top: 24px;height: 38px;">
 		</div>
 	</div>
 	<div class="row">
 		<hr/>
-		<div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
-			<input type="button" id="rechazarInspection" name="" class="btn btn-default btn-danger" value="Rechazar" data-toggle="confirmation" data-status="2" style="opacity: 2; margin-top: 40px; text-align: center; margin-right: 60px; width: 110px;">
+		<div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center; @(Model.Order.ListOrderFlow.Any(a => a.IdOrderStatus == (int) OrderStatus.Type.Inspeccion && a.IdStatus == (int) Status.Type.Activo) ? @"display: none;" : @"display: block;")">
+			<input type="button" id="rechazarInspection" name="" class="btn btn-default btn-danger" value="Rechazar" data-toggle="confirmation" data-status="2" style="opacity: 2; margin-top: 40px; text-align: center; margin-right: 60px; width: 110px;
+				@(Model.Order.ListOrderFlow.Any(a => a.IdOrderStatus == (int) OrderStatus.Type.Inspeccion && a.IdStatus == (int) Status.Type.Inactivo) ? @"display: none;" : @"display: inline-block;")">
 			<input type="button" id="aprobarInspection" name="" class="btn btn-default btn-success" value="Aprobar" data-toggle="confirmation" data-status="1" style="opacity: 2; margin-top: 40px; text-align: center; width: 110px;">
+		</div>
+		<div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
+			<input type="button" id="modificarInspection" name="" class="btn btn-default btn-warning" value="Modificar" data-toggle="confirmation" data-status="3" style="opacity: 2; margin-top: 40px; text-align: center; width: 110px;
+				@(Model.Order.ListOrderFlow.Any(a => a.IdOrderStatus == (int)OrderStatus.Type.Inspeccion && a.IdStatus == (int)Status.Type.Activo) ? @"display: inline-block;" : @"display: none;")">
 		</div>
 	</div>
 </div>
 
-<div id="confirm" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div id="confirmInspection" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 	<div class="modal-dialog modal-md">
 		<div class="modal-content">
 			<div class="modal-header" style="border-bottom: 1px solid #e5e5e5;">

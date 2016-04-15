@@ -5,8 +5,14 @@
 			this.GetEvent().GeneratePreFactibilityEvent();
 		},
 
-		LineSightCreate: function (orderid, orderStatusId, status, radioBaseId, distance, siteId) {
-			$.when(basePreFactibility.LineSightCreate(orderid, orderStatusId, status, radioBaseId, distance, siteId)).then(function (result) {
+		UpdateStatus: function (orderFlowId, orderId, status, radioBaseId, distance, siteId) {
+			$.when(basePreFactibility.UpdateStatus(orderFlowId, orderId, status, radioBaseId, distance, siteId)).then(function (result) {
+				$("#input-700NOC").fileinput('upload');
+			});
+		},
+
+		LineSightCreate: function (data) {
+			$.when(basePreFactibility.LineSightCreate(data)).then(function (result) {
 				$("#input-700NOC").fileinput('upload');
 			});
 		},
@@ -40,6 +46,31 @@
 			return JSON.stringify(comments);
 		},
 
+		ValidateShowButtons: function() {
+			if ($("#statusPreFactibility").hasClass("glyphicon-ok")) {
+				$("#aprobarPreFactibility, #rechazarPreFactibility").hide();
+			} else if ($("#statusPreFactibility").hasClass("glyphicon-remove")) {
+				$("#rechazarPreFactibility").hide();
+				$("#aprobarPreFactibility").show();
+			} else {
+				$("#aprobarPreFactibility, #rechazarPreFactibility").show();
+			}
+		},
+
+		GetPreFactibility: function (statusId) {
+			var preFactibilityViewModel = {
+				"Order.Id": $("#orderIdLabel").data("orderid"),
+				"Order.OrderStatus.Id": parseInt($("#orderIdLabel").data("orderstatustype")) + 1,
+				"Order.Status.Id": statusId,
+				"LineSight.Distance": $("#distance").val(),
+				"LineSight.RadioBase.Id": $("#radioBase").val(),
+				"LineSight.Site.Id": $("#orderIdLabel").data("siteid"),
+				"OrderFlow.Id": $("#statusPreFactibility").data("idorderflow"),
+				"IsUpdate": !$("#rechazarPreFactibility").is(":visible")
+			}
+			return JSON.stringify(preFactibilityViewModel);
+		},
+
 		GetEvent: function () {
 			return {
 				RadioBaseEvent: function () {
@@ -61,8 +92,8 @@
 						var formValid = $("#wizardInfoForm").valid();
 						var commentsValid = preFactibility.ValidateComments();
 						if (formValid && $('#input-700NOC').fileinput('getFileStack').length > 0 && commentsValid) {
-							$('#confirm').modal({ backdrop: 'static', keyboard: false }).one('click', '#buttomModalConfirm', function () {
-								preFactibility.LineSightCreate($("#orderIdLabel").data("orderid"), $("#orderIdLabel").data("orderstatustype"), statusId, $("#radioBase").val(), $("#distance").val(), $("#orderIdLabel").data("siteid"));
+							$('#confirmPreFactibility').modal({ backdrop: 'static', keyboard: false }).one('click', '#buttomModalConfirm', function () {
+								preFactibility.LineSightCreate(preFactibility.GetPreFactibility(statusId));
 							});
 						} else {
 							if ($('#input-700NOC').fileinput('getFileStack').length === 0) {
@@ -130,7 +161,7 @@
 						uploadUrl: base.GetRootUploadFile(), // server upload action
 						uploadAsync: true,
 						maxFileCount: 3,
-						allowedFileExtensions: ['jpg', 'gif', 'png'],
+						allowedFileExtensions: ['jpeg', 'jpg', 'gif', 'png'],
 						showUpload: false,
 						browseLabel: "",
 						browseIcon: "<img src='/Content/Images/Icons/ic_add_a_photo_white_24dp_1x.png' />",
@@ -142,20 +173,23 @@
 						},
 						uploadExtraData: function (previewId, index) {
 							return {
-								OrderNumber: $("#orderIdLabel").data("ordernumber") + "_SHOT-" + $("#orderIdLabel").data("ordershottype"),
+								OrderNumber: $("#orderIdLabel").data("ordernumber") + "_SHOT-" + "1",
 								OrderId: $("#orderIdLabel").data("orderid"),
-								OrderShotCount: parseInt($("#orderIdLabel").data("ordershotcount")) + (index + 1),
-								OrderShotType: parseInt($("#orderIdLabel").data("ordershottype")),
+								OrderShotType: 1,
+								LinkType: $("#linkType").val(),
 								Comment: $("#" + previewId).find("textarea").val()
 							};
 						},
 						layoutTemplates: {
 							footer: '<div class="file-thumbnail-footer">\n' +
 								'    <div class="file-caption-name" style="width:{width}">{caption}</div>\n' +
-								'    <div class="form-group" style="margin-top: 5px;text-align: left;"><label style="display: block;"> CELDA <small>(requerido)</small></label>\n' +
-								'    <select style="width: 100%;" id="radioBase" name="radioBase" class="form-control select2"><option value="">Seleccione una celda</option></select>\n' +
+								'    <div class="form-group" style="margin-top: 5px;text-align: left;"><label style="display: block;"> RADIO BASE <small>(requerido)</small></label>\n' +
+								'    <select style="width: 100%;" id="radioBase" name="radioBase" class="form-control select2"><option value="">Seleccione una radio base</option></select>\n' +
 								'    <label style="display: block; margin-top: 15px;"> DISTANCIA <small>(requerido)</small></label>\n' +
-								'    <input style="width: 100%;" id="distance" name="distance" class="form-control" placeholder="Distancia..." /></div>\n' +
+								'    <input style="width: 100%;" id="distance" name="distance" class="form-control" placeholder="Distancia..." />\n' +
+								'    <label style="display: block; margin-top: 15px;"> TIPO DE ENLACE </label>\n' +
+								'    <select style="width: 100%;" id="linkType" name="linkType" class="form-control">\n' +
+								'    <option value="Punto a Punto">Punto a Punto</option><option value="Multipunto">Multipunto</option></select></div>\n' +
 								'    <div class="form-group" style="margin-top: 5px;text-align: left;"><label> COMENTARIO <small>(requerido)</small></label>\n' +
 								'    <textarea style="width: 100%; resize: none;" name="Comment" class="form-control comments" placeholder="Comentario..." rows="3" cols="15" aria-invalid="false"></textarea></div>\n' +
 								'    {progress} {actions}\n' +
@@ -171,6 +205,7 @@
 					});
 					$(".fileinput-remove-button").css({ "border-left": "1px solid #DDD", "border-right": "2px solid #DDD" });
 					$(".file-caption").css({ "height": "38px" });
+					preFactibility.ValidateShowButtons();
 				}
 			}
 		}
