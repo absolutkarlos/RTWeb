@@ -7,8 +7,35 @@
 			this.GetEvent().MaterialInspectionButtomRemoveEvent();
 			this.GetEvent().DropDownMaterialsInpectionChange();
 			this.GetEvent().InputCatidadEvent();
+			this.GetEvent().InputNumberEvent();
 			$("#materialsInspection").select2();
 			this.ValidateShowButtons();
+		},
+
+		LoadInspectionPanel: function (id) {
+			$("#refreshInspectionPanel").css({ "display": "table" });
+			$("#contentPanelInspection").hide();
+			$.when(baseInspection.LoadInspectionPanel(id)).then(function (panel) {
+				var metaData = base.GetLocalMetaData();
+				$("#contentPanelInspection").remove();
+				$("#inspection").html(panel);
+				$("#refreshInspectionPanel").css({ "display": "none" });
+				$("#contentPanelInspection").show();
+				$(".js-example-basic-multiple").select2();
+				inspection.LoadDropDownListMaterial("#materialsInspection", metaData.Materials.Data);
+				base.LoadDropDownList("#accesstype", metaData.AccessType.Data);
+				if (typeof typeAccessSelected != "undefined") {
+					$(".js-example-basic-multiple").val(JSON.parse(typeAccessSelected)).trigger("change");
+				}
+				inspection.GetEvent().AddmaterialEvent();
+				inspection.GetEvent().GenerateInspectionEvent();
+				inspection.GetEvent().MaterialInspectionButtomRemoveEvent();
+				inspection.GetEvent().DropDownMaterialsInpectionChange();
+				inspection.GetEvent().InputCatidadEvent();
+				inspection.GetEvent().InputNumberEvent();
+				$("#materialsInspection").select2();
+				inspection.ValidateShowButtons();
+			});
 		},
 
 		LoadDropDownListMaterial: function (selector, data) {
@@ -152,6 +179,14 @@
 							$(this).addClass("myErrorClass");
 						} else {
 							$(this).removeClass("myErrorClass");
+						}
+					});
+				},
+
+				InputNumberEvent: function () {
+					$('#cantidadpisos, #tiempoestimado').blur(function () {
+						if ($(this).val() === "") {
+							$(this).val(1);
 						}
 					});
 				},

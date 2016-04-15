@@ -1,25 +1,31 @@
-﻿@using GD.Models.Commons
+﻿@using System.Globalization
+@using GD.Models.Commons
+@using GD.Models.Commons.Utilities
 @using GoldDataWeb.Models
 
 @model HomeViewModel
 
-<div class="tab-pane" id="inspection" style="margin-top: 40px;">
+<script type="text/javascript">
+	var typeAccessSelected = '@Html.Raw(Model.Order.Site.ListSiteAccessType.Select(s => s.IdAccessType).ToJson())'
+</script>
+
+<div id="contentPanelInspection">
 	<div class="row">
 		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="text-align: center;">
-			<img src="~/Content/Images/Icons/building.9.png" style="height: 208px;"/>
+			<img src="~/Content/Images/Icons/building.png" style="height: 208px;" />
 		</div>
 		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
 			<div class="form-group">
-				<label> ALTURA DE PISO <small>(requerido)</small></label>
-				@Html.TextBox(@"alturapiso", Model.Order.Site.FloorHight, new {id = @"alturapiso", @class = @"form-control", placeholder = @"Altura por piso", style = @"width: 100%;"})
+				<label> ALTURA DE PISO EN METROS <small>(requerido)</small></label>
+				@Html.TextBox(@"alturapiso", (Model.Order.Site.FloorHight.IsGreaterThanZero() ? Model.Order.Site.FloorHight.ToString(CultureInfo.InvariantCulture) : string.Empty), new { id = @"alturapiso", @class = @"form-control", placeholder = @"Altura por piso", style = @"width: 100%;" })
 			</div>
 			<div class="form-group">
-				<label> ALTURA DEL EDIFICIO <small>(requerido)</small></label>
-				@Html.TextBox(@"altura", Model.Order.Site.BuildingHight, new {id = @"altura", @class = @"form-control", placeholder = @"Altura del edificio", style = @"width: 100%;"})
+				<label> ALTURA DEL EDIFICIO EN METROS <small>(requerido)</small></label>
+				@Html.TextBox(@"altura", (Model.Order.Site.BuildingHight.IsGreaterThanZero() ? Model.Order.Site.BuildingHight.ToString(CultureInfo.InvariantCulture) : string.Empty), new { id = @"altura", @class = @"form-control", placeholder = @"Altura del edificio", style = @"width: 100%;" })
 			</div>
 			<div class="form-group">
 				<label> CANTIDAD DE PISOS</label>
-				@Html.TextBox(@"cantidadpisos", Model.Order.Site.BuildingFloors, new {id = @"cantidadpisos", @class = @"form-control bfh-number", style = @"width: 100%;", data_zeros = @"true", data_min = @"1", data_max = @"50", data_wrap = @"true"})
+				<input id="cantidadpisos" name="tiempoestimado " type="number" step="any" class="form-control" style="width: 100%; height: 38px;" min="1" value="@(Model.Order.Site.BuildingFloors.IsGreaterThanZero() ?  Model.Order.Site.BuildingFloors : 1)" />
 			</div>
 		</div>
 	</div>
@@ -33,7 +39,7 @@
 			</div>
 			<div class="form-group">
 				<label> TIPOS DE ACCESO <small>(requerido)</small></label>
-				@Html.DropDownList(@"accesstype", new List<SelectListItem>(), @"", new {id = @"accesstype", @class = @" form-control js-example-basic-multiple", multiple = @"multiple", style = @"width: 100%;"})
+				@Html.DropDownList(@"accesstype", new List<SelectListItem>(), @"", new { id = @"accesstype", @class = @" form-control js-example-basic-multiple", multiple = @"multiple", style = @"width: 100%;" })
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -43,7 +49,7 @@
 			</div>
 			<div class="form-group">
 				<label> DIAS ESTIMADOS DE INSTALACIÓN</label>
-				@Html.TextBox(@"tiempoestimado", Model.Order.InstallationDays, new {id = @"tiempoestimado", @class = @"form-control bfh-number", style = @"width: 100%;", data_zeros = @"true", data_min = @"1", data_max = @"50", data_wrap = @"true"})
+				<input id="tiempoestimado" name="tiempoestimado " type="number" step="any" class="form-control" style="width: 100%; height: 32px;" min="1" value="@(!string.IsNullOrWhiteSpace(Model.Order.InstallationDays) ? Model.Order.InstallationDays.ToString(CultureInfo.InvariantCulture) : @"1")" />
 			</div>
 		</div>
 	</div>
@@ -63,21 +69,40 @@
 				<a class="list-group-item active" style="text-align: center; background-color: royalblue;">
 					MATERIALES AGREGADOS
 				</a>
-				<a class="list-group-item" id="materialInspectionListEmpty" style="text-align: center;height: 53px;" data-toggle="collapse" aria-expanded="false">
-					<span class="text-center" style="height: 100%;">No hay materiales agregados</span>
-				</a>
+
+				@{
+					if (Model.Order.ListMaterials.Any())
+					{
+						for (int i = 0; i < Model.Order.ListMaterials.Count(); i++)
+						{
+							var item = Model.Order.ListMaterials.ElementAt(i);
+							<a href='@i' class='list-group-item materials' data-ordermaterial= "@item.ToJson()" style='padding: 0; height: 42px;' data-toggle='collapse' aria-expanded='false'>
+								<span class="pull-left" style="height: 100%; padding: 10px;">@item.Material.Name.ToUpper() <small style='color: #999999;'>@("(" + item.Quantity + @" " + item.Material.UnitMeasure.Name.ToUpper() + @")")</small></span>
+								<span data-idremove="@i" class="materialInspection-buttom-remove pull-right">
+									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+								</span>
+							</a>
+						}
+					}
+					else
+					{
+						<a class="list-group-item" id="materialInspectionListEmpty" style="text-align: center;height: 53px;" data-toggle="collapse" aria-expanded="false">
+							<span class="text-center" style="height: 100%;">No hay materiales agregados</span>
+						</a>
+					}
+				}
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
 			<div class="form-group">
 				<label> MATERIALES <small>(requerido)</small></label>
-				@Html.DropDownList(@"materialsInspection", new List<SelectListItem>(), @"Seleccione un material", new {id = @"materialsInspection", @class = @" form-control", style = @"width: 100%;"})
+				@Html.DropDownList(@"materialsInspection", new List<SelectListItem>(), @"Seleccione un material", new { id = @"materialsInspection", @class = @" form-control", style = @"width: 100%;" })
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 			<div class="form-group">
 				<label> CANTIDAD <small>(requerido)</small></label>
-				<input id="cantidad" name="cantidad " type="number" step="any" class="form-control" style="width: 100%;height: 38px;" min="0.1" value="1"/>
+				<input id="cantidad" name="cantidad " type="number" step="any" class="form-control" style="width: 100%; height: 38px;" min="0.1" value="1"/>
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" style="height: 78px; text-align: center;">
@@ -85,7 +110,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<hr/>
+		<hr />
 		<div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center; @(Model.Order.ListOrderFlow.Any(a => a.IdOrderStatus == (int) OrderStatus.Type.Inspeccion && a.IdStatus == (int) Status.Type.Activo) ? @"display: none;" : @"display: block;")">
 			<input type="button" id="rechazarInspection" name="" class="btn btn-default btn-danger" value="Rechazar" data-toggle="confirmation" data-status="2" style="opacity: 2; margin-top: 40px; text-align: center; margin-right: 60px; width: 110px;
 				@(Model.Order.ListOrderFlow.Any(a => a.IdOrderStatus == (int) OrderStatus.Type.Inspeccion && a.IdStatus == (int) Status.Type.Inactivo) ? @"display: none;" : @"display: inline-block;")">

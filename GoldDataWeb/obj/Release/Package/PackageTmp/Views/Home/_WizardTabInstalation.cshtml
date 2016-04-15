@@ -1,14 +1,19 @@
 ﻿@using GD.Models.Commons
+@using GD.Models.Commons.Utilities
 @using GoldDataWeb.Models
 
 @model HomeViewModel
 
-<div class="tab-pane" id="instalation" style="margin-top: 40px;">
+<script type="text/javascript">
+	var listOrdersShotsInstalation = '@Html.Raw(Model.Order.ListOrderShot.Select(s => s).ToJson())'
+</script>
+
+<div id="contentPanelInstalation">
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 			<div class="form-group">
 				<label> DETALLE DE INSTALACIÓN <small>(requerido)</small></label>
-				<textarea id="detail" style="width: 100%; resize: none;" name="detail" class="form-control" placeholder="Detalle..." rows="10" cols="15" aria-invalid="false"></textarea>
+				<textarea id="detail" style="width: 100%; resize: none;" name="detail" class="form-control" placeholder="Detalle..." rows="10" cols="15" aria-invalid="false">@Model.Order.SettingUp</textarea>
 			</div>
 		</div>
 	</div>
@@ -20,9 +25,28 @@
 				<a class="list-group-item active" style="text-align: center; background-color: royalblue;">
 					MATERIALES UTILIZADOS
 				</a>
-				<a class="list-group-item" id="materialInstalationListEmpty" style="text-align: center;height: 53px;" data-toggle="collapse" aria-expanded="false">
-					<span class="text-center" style="height: 100%;">No hay materiales agregados</span>
-				</a>
+
+				@{
+					if (Model.Order.ListMaterials.Any())
+					{
+						for (int i = 0; i < Model.Order.ListMaterials.Count(); i++)
+						{
+							var item = Model.Order.ListMaterials.ElementAt(i);
+							<a href='@i' class='list-group-item materialsInst' data-ordermaterial="@item.ToJson()" style='padding: 0; height: 42px;' data-toggle='collapse' aria-expanded='false'>
+								<span class="pull-left" style="height: 100%; padding: 10px;">@item.Material.Name.ToUpper() <small style='color: #999999;'>@("(" + item.Quantity + @" " + item.Material.UnitMeasure.Name.ToUpper() + @")")</small></span>
+								<span data-idremove="@i" class="materialInstalation-buttom-remove pull-right">
+									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+								</span>
+							</a>
+						}
+					}
+					else
+					{
+						<a class="list-group-item" id="materialInspectionListEmpty" style="text-align: center;height: 53px;" data-toggle="collapse" aria-expanded="false">
+							<span class="text-center" style="height: 100%;">No hay materiales agregados</span>
+						</a>
+					}
+				}
 			</div>
 		</div>
 		<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">

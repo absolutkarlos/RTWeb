@@ -29,7 +29,7 @@
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="box-shadow: none;">
-				<ul class="nav navbar-nav">
+				<ul class="nav navbar-nav" style="display: none;">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin: 0;">
 							<div id="countrySelected" style="display: inline-block;">
@@ -39,11 +39,11 @@
 							<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a class="optionCountry" style="cursor: pointer;" ><img src="~/Content/Images/flags/16/Venezuela.png" data-country="VE" > Venezuela (ES)</a></li>
-							<li><a class="optionCountry" style="cursor: pointer;" ><img src="~/Content/Images/flags/16/Panama.png" data-country="PA"> Panama (ES)</a></li>
+							<li><a class="optionCountry" style="cursor: pointer;" ><img src="~/Content/Images/flags/16/Venezuela.png" data-country="VE" > Español (VE)</a></li>
+							<li><a class="optionCountry" style="cursor: pointer;" ><img src="~/Content/Images/flags/16/Panama.png" data-country="PA"> Panama ()</a></li>
 
 							<li class="divider"></li>
-							<li><a style="cursor: pointer;"><img src="~/Content/Images/flags/16/United States of America.png"> USA (US) <span class="label label-default">soon</span></a></li>
+							<li><a style="cursor: pointer;"><img src="~/Content/Images/flags/16/United States of America.png"> E (US) <span class="label label-default">soon</span></a></li>
 							<li><a style="cursor: pointer;"><img src="~/Content/Images/flags/16/Germany.png"> Alemania <span class="label label-default">soon</span></a></li>
 							<li><a style="cursor: pointer;"><img src="~/Content/Images/flags/16/Portugal.png"> Portugal <span class="label label-default">soon</span></a></li>
 							<li><a style="cursor: pointer;"><img src="~/Content/Images/flags/16/Japan.png"> Japon <span class="label label-default">soon</span></a></li>
@@ -86,6 +86,7 @@
 
 	@Scripts.Render("http://www.google.com/jsapi")
 	@Scripts.Render("http://maps.googleapis.com/maps/api/js")
+	@Scripts.Render("http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js")
 
 	@Scripts.Render("~/Scripts/FullScreenControl.js")
 	@Scripts.Render("~/Scripts/jquery.bootstrap.wizard.js")
