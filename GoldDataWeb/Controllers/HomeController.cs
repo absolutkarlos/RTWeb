@@ -83,34 +83,38 @@ namespace GoldDataWeb.Controllers
 		{
 			var r = new List<UploadFilesResultViewModel>();
 
-			var newSite = new Site
+			if (viewModel.OrderShotType == (int)OrderShot.Type.LineSight)
 			{
-				LinktType = viewModel.LinkType,
-				UpdateBy = short.Parse(GetAuthData().UserId.ToString())
-			};
-
-			SiteService.Execute(@"UpdateLinkType", Method.PUT, null, newSite.ToJson());
-
-			var lineSight = new LineSight
-			{
-				RadioBase = new RadioBase
+				var newSite = new Site
 				{
-					Id = int.Parse(viewModel.RadioBaseId)
-				},
-				Site = new Site
-				{
-					Id = int.Parse(viewModel.SiteId)
-				},
-				Distance = int.Parse(viewModel.Distance),
-				CreateAt = DateTime.Now,
-				CreateBy = short.Parse(GetAuthData().UserId.ToString()),
-				Status = new Status
-				{
-					Id = (int)Status.Type.Activo
-				}
-			};
+					LinktType = viewModel.LinkType,
+					UpdateBy = short.Parse(GetAuthData().UserId.ToString())
+				};
 
-			LineSightService.Insert(lineSight);
+				SiteService.Execute(@"UpdateLinkType", Method.PUT, null, newSite.ToJson());
+
+				var lineSight = new LineSight
+				{
+					RadioBase = new RadioBase
+					{
+						Id = int.Parse(viewModel.RadioBaseId)
+					},
+					Site = new Site
+					{
+						Id = int.Parse(viewModel.SiteId)
+					},
+					Distance = int.Parse(viewModel.Distance),
+					CreateAt = DateTime.Now,
+					CreateBy = short.Parse(GetAuthData().UserId.ToString()),
+					Status = new Status
+					{
+						Id = (int)Status.Type.Activo
+					}
+				};
+
+				LineSightService.Insert(lineSight);
+			}
+
 
 			viewModel.OrderShotCount = OrderShotService.Execute<List<OrderShot>>(@"GetByOrder", Method.GET, viewModel.OrderId).Data.Count;
 

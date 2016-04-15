@@ -320,6 +320,6 @@
 	}
 }());
 
-$(function () {
-	instalation.init();
-});
+//$(function () {
+//	instalation.init();
+//});

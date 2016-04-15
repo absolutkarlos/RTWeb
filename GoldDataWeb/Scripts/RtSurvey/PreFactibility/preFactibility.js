@@ -234,6 +234,6 @@
 	}
 }());
 
-$(function () {
-	preFactibility.init();
-});
+//$(function () {
+//	preFactibility.init();
+//});

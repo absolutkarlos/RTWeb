@@ -242,6 +242,6 @@
 	}
 }());
 
-$(function () {
-	inspection.init();
-});
+//$(function () {
+//	inspection.init();
+//});
