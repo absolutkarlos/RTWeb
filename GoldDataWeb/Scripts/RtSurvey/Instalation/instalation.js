@@ -276,40 +276,13 @@
 						initialPreview: instalation.GetOrderShots(),
 						overwriteInitial: false,
 						initialPreviewShowDelete: true,
-						//previewTemplates: {
-						//	image: '<div class="file-preview-frame" id="{previewId}" data-fileindex="{fileindex}">\n' +
-						//		'   <img src="{data}" class="file-preview-image" title="{caption}" alt="{caption}" style="width:100%;height:400px">\n' +
-						//		'   {footer}\n' +
-						//		'</div>\n'
-						//},
 						uploadExtraData: function (previewId, index) {
 							return {
 								OrderNumber: $("#orderIdLabel").data("ordernumber") + "_SHOT-" + "2",
 								OrderId: $("#orderIdLabel").data("orderid"),
-								OrderShotCount: parseInt($("#orderIdLabel").data("ordershotcount")) + (index + 1),
 								OrderShotType: 2
-								//Comment: $("#" + previewId).find("textarea").val()
 							};
-						},
-						//layoutTemplates: {
-						//	footer: '<div class="file-thumbnail-footer">\n' +
-						//		'    <div class="file-caption-name" style="width:{width}">{caption}</div>\n' +
-						//		'    <div class="form-group" style="margin-top: 5px;text-align: left;"><label style="display: block;"> RADIO BASE <small>(requerido)</small></label>\n' +
-						//		'    <select style="width: 100%;" id="radioBase" name="radioBase" class="form-control select2"><option value="">Seleccione una radio base</option></select>\n' +
-						//		'    <label style="display: block; margin-top: 15px;"> DISTANCIA <small>(requerido)</small></label>\n' +
-						//		'    <input style="width: 100%;" id="distance" name="distance" class="form-control" placeholder="Distancia..." /></div>\n' +
-						//		'    <div class="form-group" style="margin-top: 5px;text-align: left;"><label> COMENTARIO <small>(requerido)</small></label>\n' +
-						//		'    <textarea style="width: 100%; resize: none;" name="Comment" class="form-control comments" placeholder="Comentario..." rows="3" cols="15" aria-invalid="false"></textarea></div>\n' +
-						//		'    {progress} {actions}\n' +
-						//		'</div>',
-						//	actions: '<div class="file-actions">\n' +
-						//		'    <div class="file-footer-buttons">\n' +
-						//		'       {delete}' +
-						//		'    </div>\n' +
-						//		'    <div class="file-upload-indicator" tabindex="-1" title="{indicatorTitle}">{indicator}</div>\n' +
-						//		'    <div class="clearfix"></div>\n' +
-						//		'</div>'
-						//}
+						}
 					});
 					$(".fileinput-remove-button").css({ "border-left": "1px solid #DDD", "border-right": "2px solid #DDD" });
 					$(".file-caption").css({ "height": "38px" });

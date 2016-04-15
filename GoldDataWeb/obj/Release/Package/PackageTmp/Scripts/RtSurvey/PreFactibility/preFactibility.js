@@ -161,7 +161,7 @@
 						language: "es",
 						uploadUrl: base.GetRootUploadFile(), // server upload action
 						uploadAsync: true,
-						maxFileCount: 3,
+						maxFileCount: 1,
 						resizePreference: 'width',
 						resizeImage: true,
 						allowedFileExtensions: ['jpeg', 'jpg', 'gif', 'png'],
@@ -234,6 +234,6 @@
 	}
 }());
 
-$(function () {
-	preFactibility.init();
-});
+//$(function () {
+//	preFactibility.init();
+//});

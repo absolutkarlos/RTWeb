@@ -87,6 +87,7 @@ namespace GoldDataWeb.Controllers
 			{
 				var newSite = new Site
 				{
+					Id = int.Parse(viewModel.SiteId),
 					LinktType = viewModel.LinkType,
 					UpdateBy = short.Parse(GetAuthData().UserId.ToString())
 				};
@@ -114,7 +115,6 @@ namespace GoldDataWeb.Controllers
 
 				LineSightService.Insert(lineSight);
 			}
-
 
 			viewModel.OrderShotCount = OrderShotService.Execute<List<OrderShot>>(@"GetByOrder", Method.GET, viewModel.OrderId).Data.Count;
 

@@ -5,7 +5,7 @@
 @model HomeViewModel
 
 <script type="text/javascript">
-	var listOrdersShotsInstalation = '@Html.Raw(Model.Order.ListOrderShot.Select(s => s.IdOrderShotType == (int)OrderShot.Type.Instalation).ToJson())'
+	var listOrdersShotsInstalation = '@Html.Raw(Model.Order.ListOrderShot.Where(s => s.IdOrderShotType == (int)OrderShot.Type.Instalation).ToJson())'
 </script>
 
 <div id="contentPanelInstalation">

@@ -16,7 +16,7 @@
 			$("#refreshInfoOrderPanel").hide();
 			$('[rel="tooltip"]').tooltip();
 			$(".js-example-basic-multiple").select2();
-			//preFactibility.init();
+			preFactibility.init();
 			inspection.init();
 			instalation.init();
 		},

@@ -12,9 +12,9 @@
 <div id="contentPanelInspection">
 	<div class="row">
 		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="text-align: center;">
-			<img src="~/Content/Images/Icons/building.png" style="height: 208px;" />
+			<img src="~/Content/Images/Icons/building.png" style="height: 200px; width: 200px;" />
 		</div>
-		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 			<div class="form-group">
 				<label> ALTURA DE PISO EN METROS <small>(requerido)</small></label>
 				@Html.TextBox(@"alturapiso", (Model.Order.Site.FloorHight.IsGreaterThanZero() ? Model.Order.Site.FloorHight.ToString(CultureInfo.InvariantCulture) : string.Empty), new { id = @"alturapiso", @class = @"form-control", placeholder = @"Altura por piso", style = @"width: 100%;" })
