@@ -72,12 +72,7 @@ var base = (function () {
 			$(contentId).niceScroll();
 		},
 
-<<<<<<< HEAD
 		RemoveLocalMetaData: function () {
-=======
-
-		RemoveLocalMetaData: function() {
->>>>>>> development
 			localStorage.removeItem("MetaData");
 		},
 
@@ -85,11 +80,7 @@ var base = (function () {
 			return countryAbbrevation;
 		},
 
-<<<<<<< HEAD
 		PlotPoints: function (theLatLng, map) {
-=======
-		PlotPoints: function(theLatLng) {
->>>>>>> development
 			path.push(theLatLng);
 			if (!!marker) {
 			    marker.setMap(null);
@@ -194,7 +185,6 @@ var base = (function () {
 			//var labelIndex = 0;
 			var metaData = base.GetLocalMetaData();
 			if ((metaData.RadioBase) && (metaData.RadioBase.Data) && (metaData.RadioBase.Data.length > 0)) {
-<<<<<<< HEAD
 			    $.each(metaData.RadioBase.Data, function (index, item) {
 			        var radioBase = new window.google.maps.Circle({
 			            strokeColor: '#FFFFFF',
@@ -218,29 +208,6 @@ var base = (function () {
 			        titles.push(item.Name);
 			        markers.push(marker);
 			    });
-=======
-				$.each(metaData.RadioBase.Data, function(index, item) {
-					var radioBase = new window.google.maps.Circle({
-						strokeColor: '#0000',
-						strokeOpacity: 0,
-						strokeWeight: 1,
-						fillColor: '#0000',
-						fillOpacity: 0.15,
-						map: map,
-						center: { lat: parseFloat(item.Latitude), lng: parseFloat(item.Longitude) },
-						radius: (10 * 1000)
-					});
-					//var infowindow = new google.maps.InfoWindow({});
-					var marker = new window.google.maps.Marker({
-						position: { lat: parseFloat(item.Latitude), lng: parseFloat(item.Longitude) },
-						//label: labels[labelIndex++ % labels.length],
-						title: item.Name,
-						map: map
-					});
-					//infowindow.setContent(item.Name);
-					//infowindow.open(map, marker);
-				});
->>>>>>> development
 			}
 			var options_markerclusterer = {
 			    zoomOnClick: false
@@ -322,13 +289,8 @@ var base = (function () {
 
 			//map.controls[google.maps.ControlPosition.TOP_CENTER].push('<input onclick="deleteMarkers();" type=button value="Borrar Marcadores">');
 
-<<<<<<< HEAD
 			window.google.maps.event.addListener(map, 'click', function (event) {
 			    base.PlotPoints(event.latLng, map);
-=======
-			window.google.maps.event.addListener(map, 'click', function(event) {
-				base.PlotPoints(event.latLng);
->>>>>>> development
 			});
 
 			window.google.maps.event.addListener(map, 'rightclick', function(event) {
@@ -347,13 +309,8 @@ var base = (function () {
 					});
 					contentStr = "elevation=" + elevations[e.row].elevation + "<br>location=" + elevations[e.row].location.toUrlValue(6);
 					mousemarker.contentStr = contentStr;
-<<<<<<< HEAD
 					window.google.maps.event.addListener(mousemarker, 'click', function () {
 					    mmInfowindowOpen = true;
-=======
-					window.google.maps.event.addListener(mousemarker, 'click', function() {
-						mmInfowindowOpen = true;
->>>>>>> development
 						mouseOverInfowindow.setContent(this.contentStr);
 						mouseOverInfowindow.open(map, mousemarker);
 					});
@@ -381,13 +338,8 @@ var base = (function () {
 					//infoWindow.setPosition(pos);
 					//infoWindow.setContent('Esta es tu ubicación actual.');
 					map.setCenter(new window.google.maps.LatLng(pos.lat, pos.lng));
-<<<<<<< HEAD
 				}, function () {
 					infoWindow = new window.google.maps.InfoWindow({ map: map });
-=======
-				}, function() {
-					var infoWindow = new window.google.maps.InfoWindow({ map: map });
->>>>>>> development
 					HandleGoogelMapError(true, infoWindow, map.getCenter());
 				});
 			} else {
