@@ -14,6 +14,41 @@ namespace GD.Models.Commons.Utilities
 {
 	public class Utility
 	{
+		public struct Coordenates
+		{
+			public int Degress;
+			public int Minutes;
+			public decimal Seconds;
+			public string Geo; // N,S,E,W
+		}
+
+		public static string ConvertToDegressMinutesSeconds(double position, bool isLong)
+		{
+			Coordenates ret = new Coordenates();
+
+			// Negative: North
+			// Positive: South
+			// if isLong = true
+			// Negative: East
+			// Positive: West
+			double absValue = Math.Abs(Math.Round(position * 1000000));
+			int sign = Math.Sign(position);
+
+			ret.Degress = (int)Math.Floor(absValue / 1000000);
+			ret.Minutes = (int)Math.Floor(((absValue / 1000000) - Math.Floor(absValue / 1000000)) * 60);
+			ret.Seconds = (Decimal)Math.Floor(((((absValue / 1000000) - Math.Floor(absValue / 1000000)) * 60) - Math.Floor(((absValue / 1000000) - Math.Floor(absValue / 1000000)) * 60)) * 100000) * 60 / 100000;
+
+			if (isLong)
+				ret.Geo = sign > 0 ? @"W" : @"E";
+			else
+				if (sign > 0)
+					ret.Geo = @"N";
+			else
+				ret.Geo = @"S";
+
+			return ret.Geo + @" " + ret.Degress + @"º " + ret.Minutes + @"' " + ret.Seconds + '"';
+		}
+
 		public static string RestClient(string url, string contentType)
 		{
 			var request = (HttpWebRequest)WebRequest.Create(url);

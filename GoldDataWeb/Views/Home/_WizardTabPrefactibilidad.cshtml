@@ -1,17 +1,23 @@
-﻿<div class="tab-pane" id="prefactibilidad">
+﻿@using GD.Models.Commons
+@using GoldDataWeb.Models
+
+@model HomeViewModel
+
+<div class="tab-pane" id="prefactibilidad">
 	<div class="row">
 		<h4 class="info-text"> Evaluar la prefactibilidad de una orden de servicio </h4>
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<input id="input-700NOC" name="input_noc" type="file" multiple class="file-loading">
 		</div>
-		<div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
-			<input type="button" id="rechazarPreFactibility" name="" class="btn btn-default btn-danger" value="Rechazar" data-toggle="confirmation" data-status="2" style="opacity: 2;margin-top: 40px;text-align: center;margin-right: 60px;width: 110px;">
+		<div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center; @(Model.Order.ListOrderFlow.Any(a => a.IdOrderStatus == (int)OrderStatus.Type.Prefactibilidad && a.IdStatus == (int)Status.Type.Activo) ? @"display: none;" : @"display: block;")">
+			<input type="button" id="rechazarPreFactibility" name="" class="btn btn-default btn-danger" value="Rechazar" data-toggle="confirmation" data-status="2" style="opacity: 2;margin-top: 40px;text-align: center;margin-right: 60px;width: 110px;
+				@(Model.Order.ListOrderFlow.Any(a => a.IdOrderStatus == (int)OrderStatus.Type.Prefactibilidad && a.IdStatus == (int)Status.Type.Inactivo) ? @"display: none;" : @"display: inline-block;")">
 			<input type="button" id="aprobarPreFactibility" name="" class="btn btn-default btn-success" value="Aprobar" data-toggle="confirmation" data-status="1" style="opacity: 2;margin-top: 40px;text-align: center;width: 110px;">
 		</div>
 	</div>
 </div>
 
-<div id="confirm" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div id="confirmPreFactibility" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 	<div class="modal-dialog modal-md">
 		<div class="modal-content">
 			<div class="modal-header" style="border-bottom: 1px solid #e5e5e5;">

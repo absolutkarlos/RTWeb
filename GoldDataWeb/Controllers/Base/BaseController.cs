@@ -41,6 +41,7 @@ namespace GoldDataWeb.Controllers.Base
 		private Service<SiteAccessType> _siteAccessTypeService;
 		private Service<LineSight> _lineSightService;
 		private Service<OrderMaterial> _orderMaterialService;
+		private Service<OrderFlow> _orderFlowService;
 
 		public AuthService AuthService => _authService ?? (_authService = new AuthService());
 		public Service<User> UserService => _userService ?? (_userService = new Service<User>(RestfulServiceProvider.UserUrlApi, GetTokenAuth()));
@@ -69,6 +70,7 @@ namespace GoldDataWeb.Controllers.Base
 		public Service<SiteAccessType> SiteAccessTypeService => _siteAccessTypeService ?? (_siteAccessTypeService = new Service<SiteAccessType>(RestfulServiceProvider.SiteAccessTypeUrlApi, GetTokenAuth()));
 		public Service<LineSight> LineSightService => _lineSightService ?? (_lineSightService = new Service<LineSight>(RestfulServiceProvider.LineSightUrlApi, GetTokenAuth()));
 		public Service<OrderMaterial> OrderMaterialService => _orderMaterialService ?? (_orderMaterialService = new Service<OrderMaterial>(RestfulServiceProvider.OrderMaterialUrlApi, GetTokenAuth()));
+		public Service<OrderFlow> OrderFlowService => _orderFlowService ?? (_orderFlowService = new Service<OrderFlow>(RestfulServiceProvider.OrderFlowServiceUrlApi, GetTokenAuth()));
 
 
 		public Auth ValidateRememberAuth()

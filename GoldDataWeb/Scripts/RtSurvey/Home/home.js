@@ -9,20 +9,25 @@
 			this.GetEvent().AddNewOrder();
 			this.GetEvent().ExistingOrder();
 			this.GetEvent().ClientsEvent();
-			preFactibility.GetEvent().NOCFileUploadEvent();
-			preFactibility.GetEvent().GeneratePreFactibilityEvent();
-			inspection.GetEvent().GenerateInspectionEvent();
 			this.LoadMetaData();
+			this.SelectedOrder($("#orderIdLabel").data("orderid"));
 			this.InitializeOrderStatusBar();
 			base.ApplyNiceScroll("html");
 			base.ApplyNiceScroll("#contentPanelOrders");
 			$("#refreshInfoOrderPanel").hide();
 			$('[rel="tooltip"]').tooltip();
 			$(".js-example-basic-multiple").select2();
+			preFactibility.init();
+			inspection.init();
+			instalation.init();
+			home.CrateClipBoard("#clipBoard");
+		},
+
+		CrateClipBoard: function(control) {
+			var clipboard = new Clipboard(control);
 		},
 
 		LoadDataDropDowns: function (data) {
-			base.LoadDropDownList("#contactCountry", data.Countries.Data);
 			base.LoadDropDownList("#country", data.Countries.Data);
 			base.LoadDropDownList("#position", data.Position.Data);
 			base.LoadDropDownList("#entitytype", data.EntityType.Data);
@@ -30,7 +35,16 @@
 			base.LoadDropDownList("#clienttype", data.ClientType.Data);
 			base.LoadDropDownList("#accesstype", data.AccessType.Data);
 			base.LoadDropDownList("#celdas", data.RadioBase.Data);
-			base.LoadDropDownList("#materials", data.Materials.Data);
+		},
+
+		SelectedOrder: function(orderId) {
+			$.each($(".order"), function(index, item) {
+				if ($(item).data("orderid") === orderId) {
+					$(item).addClass("orderActive");
+				} else {
+					$(item).removeClass("orderActive");
+				}
+			});
 		},
 
 		LoadInfoOrderPanel: function (id, clearFileInput) {
@@ -38,13 +52,14 @@
 			$("#panelClient").hide();
 			$("#refreshInfoOrderPanel").show();
 			$("#info").hide();
-			$("#next").hide();
+			$(".btn-next").hide();
+			$("#wizardInfo").find('.btn-next').hide();
 			$('.wizard-card').bootstrapWizard('show', 0);
 			if ($("#input-700NOC") && clearFileInput)
 				$("#input-700NOC").fileinput("clear");
 			home.GetEvent().IconRefreshAnimated("#refreshInfoOrder");
 			$.when(baseHome.LoadInfoOrderPanel(id)).then(function (panel) {
-				$("#next").show();
+				$("#wizardInfo").find('.btn-next').show();
 				home.GetEvent().IconRefreshAnimatedStop("#refreshInfoOrder");
 				$("#info").remove();
 				$("#refreshInfoOrderPanel").hide();
@@ -54,6 +69,14 @@
 				home.GetEvent().AddNewOrder();
 				$('[data-toggle="popover"]').popover();
 				$(".js-example-basic-multiple").select2();
+				preFactibility.ValidateShowButtons();
+				inspection.ValidateShowButtons();
+				instalation.ValidateShowButtons();
+				$("#input-700NOC").fileinput('clear');
+				base.ApplyNiceScroll("scrollContactInfo");
+				inspection.LoadInspectionPanel($("#orderIdLabel").data("orderid"));
+				instalation.LoadInstalationPanel($("#orderIdLabel").data("orderid"));
+				home.CrateClipBoard("#clipBoard");
 			});
 		},
 
@@ -64,6 +87,7 @@
 				home.GetEvent().IconRefreshAnimatedStop("#refreshOrders");
 				base.ApplyNiceScroll("#contentPanelOrders");
 				home.GetEvent().ViewInfoOrder();
+				home.SelectedOrder($("#orderIdLabel").data("orderid"));
 			});
 		},
 
@@ -76,6 +100,7 @@
 					home.GetEvent().DropDownCountryChange();
 					home.GetEvent().DropDownClientTypeChange();
 					base.LoadRadioBase();
+					$("#clienttype").val("1").trigger("change");
 				} else {
 					base.ValidateHasError(result, function () {
 						alert("Error Cargando la MetaData");
@@ -119,7 +144,7 @@
 					$(".existingClient").show();
 					base.ClearDropDownList("#clients");
 					$.each(metaData.Data, function () {
-						$("#clients").append($("<option data-ruc='" + this.Ruc + "'/>").val(this.Id).text(this.BusinessName));
+						$("#clients").append($("<option data-ruc='" + this.Ruc + "'/>").val(this.Id).text(this.BusinessName.toUpperCase() + " - " + this.Country.Name.toUpperCase()));
 					});
 				} else {
 					$('#tabContact').find('a').prop('disabled', true);
@@ -156,6 +181,7 @@
 						$(".edit").show();
 						$(".readOnly").hide();
 						$(".existingClient").hide();
+						$("#clienttype").val("1").trigger("change");
 					});
 				},
 
@@ -181,9 +207,14 @@
 					});
 				},
 
+				CopyCoordenates: function () {
+					
+				},
+
 				ViewInfoOrder: function () {
 					$('.order').click(function (event) {
-						event.preventDefault();
+						//event.preventDefault();
+						home.SelectedOrder($(this).data("orderid"));
 						home.LoadInfoOrderPanel($(this).data("orderid"), true);
 					});
 				},
@@ -281,7 +312,7 @@
 						scrollSpeed: 500,
 						//easing: 'easeOutBounce',
 						onScrollStart: function () {
-							$('nav').css({ "background-color": "rgba(0, 0, 0, 0.65)" });
+							//$('nav').css({ "background-color": "rgba(0, 0, 0, 0.65)" });
 						},
 						onScrollEnd: function () {
 
@@ -294,10 +325,10 @@
 					$(window).scroll(function (event) {
 						var st = $(this).scrollTop();
 						if (st > lastScrollTop) {
-							$('nav').css({ "background-color": "rgba(0, 0, 0, 0.65)" });
+							//$('nav').css({ "background-color": "rgba(0, 0, 0, 0.65)" });
 						} else {
-							if ($(window).scrollTop() <= ($("header").height() - 75))
-								$('nav').css({ "background-color": "rgba(0, 0, 0, 0)" });
+							//if ($(window).scrollTop() <= ($("header").height() - 75))
+								//$('nav').css({ "background-color": "rgba(0, 0, 0, 0)" });
 						}
 						lastScrollTop = st;
 					});
@@ -308,8 +339,8 @@
 						if ((event.originalEvent.wheelDelta >= 0) && ($(window).scrollTop() <= ($("header").height() - 75))) {
 							$('header').animatescroll({
 								onScrollStart: function () {
-									if ($(window).scrollTop() <= ($("header").height() - 75))
-										$('nav').css({ "background-color": "rgba(0, 0, 0, 0)" });
+									//if ($(window).scrollTop() <= ($("header").height() - 75))
+									//	$('nav').css({ "background-color": "rgba(0, 0, 0, 0)" });
 								},
 								onScrollEnd: function () {
 
@@ -317,9 +348,9 @@
 							});
 						}
 						else {
-							if ($(window).scrollTop() <= ($("header").height() - 75)) {
-								home.GetEvent().AnimateScrollContentPage("page");
-							}
+							//if ($(window).scrollTop() <= ($("header").height() - 75)) {
+							//	home.GetEvent().AnimateScrollContentPage("page");
+							//}
 						}
 					});
 				},

@@ -18,6 +18,9 @@ namespace GD.Models.Commons
 		[JsonProperty(@"orderstatus")]
 		public OrderStatus OrderStatus { get; set; }
 
+		[JsonProperty(@"installationdays")]
+		public string InstallationDays { get; set; }
+
 		[JsonProperty(@"ordernumber")]
 		public string OrderNumber { get; set; }
 

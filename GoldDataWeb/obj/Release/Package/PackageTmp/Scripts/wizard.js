@@ -66,22 +66,24 @@ $(document).ready(function () {
 				pattern: /^\d+$/
 			},
 			accesstype: "required",
-			coment: "required"
+			coment: "required",
+			detail: "required"
 		},
 		messages: {
-				distance: "Ingrese la distancia entre el sitio y la celda seleccionada",
-				radioBase: "Seleccione una celda",
-				alturapiso: {
-					required: "Ingrese la altura de los pisos del edificio",
-					pattern: "La altura de los pisos del edificio solo debe contener numeros"
-				},
-				altura: {
-					required: "Ingrese la altura del edificio",
-					pattern: "La altura del edificio solo debe contener numeros"
-				},
-				accesstype: "Seleccione un tipo de acceso",
-				coment: "Ingrese un comentario"
-			}
+			distance: "Ingrese la distancia entre el sitio y la celda seleccionada",
+			radioBase: "Seleccione una celda",
+			alturapiso: {
+				required: "Ingrese la altura de los pisos del edificio",
+				pattern: "La altura de los pisos del edificio solo debe contener numeros"
+			},
+			altura: {
+				required: "Ingrese la altura del edificio",
+				pattern: "La altura del edificio solo debe contener numeros"
+			},
+			accesstype: "Seleccione un tipo de acceso",
+			coment: "Ingrese un comentario",
+			detail: "Ingrese el proceso de instalaci&oacute;n detallado"
+		}
 	});
 
 	$validator = $("#wizardClientForm").validate({
@@ -142,11 +144,12 @@ $(document).ready(function () {
 			state: "required",
 			city: "required",
 			zone: "required",
+			clients: "required",
 			contactfullname: "required",
 			position: "required",
 			phone: {
 				required: true,
-				pattern: /^\+([0-9]{10})|(\([0-9]{3}\)\s+[0-9]{3}\-[0-9]{4})/
+				//pattern: /^\+([0-9]{10})|([0-9]{10}[(\)\-])/
 			},
 			email: {
 				required: true,
@@ -176,11 +179,12 @@ $(document).ready(function () {
 			state: "Seleccione el estado",
 			city: "Seleccione la ciudad",
 			zone: "Seleccione la zona",
+			clients: "Seleccione un cliente",
 			contactfullname: "Ingrese el nombre de la marca.",
 			position: "Ingrese el nombre del negocio.",
 			phone: {
-				required: "Ingrese un numero de telefono",
-				pattern: "Su numero de telefono debe tener 8 caracteres"
+				required: "Ingrese un numero de telefono"
+				//pattern: "Su numero de telefono debe tener 8 caracteres"
 			},
 			email: {
 				required: "Ingrese una direcci&oacute;n de email",
@@ -243,7 +247,6 @@ $(document).ready(function () {
 			return true;
 		},
 		onTabClick: function (tab, navigation, index) {
-			// Disable the posibility to click on tabs
 			return false;
 		},
 		onTabShow: function (tab, navigation, index) {
@@ -260,8 +263,10 @@ $(document).ready(function () {
 				}
 			} else if ($total > 1) {
 				if ((navigation.context.id === "wizardInfo") && (index === 1) && !$("#statusInspection").hasClass("glyphicon-ok")) {
+					//$('#wizardInfo').bootstrapWizard('disable', 2);
 					$(wizard).find('.btn-next').hide();
 				} else {
+					//$('#wizardInfo').bootstrapWizard('enable', 2);
 					$(wizard).find('.btn-next').show();
 				}
 				$(wizard).find('.btn-finish').hide();
@@ -270,7 +275,7 @@ $(document).ready(function () {
 				$(wizard).find('.btn-next').hide();
 			}
 
-			if (index == 2) {
+			if ((index === 2) && (navigation.context.id !== "wizardInfo")) {
 				base.RefreshMap();
 			}
 		}
@@ -367,6 +372,7 @@ function validateThirdStep() {
 		site.ResetForm();
 		contact.ClearContacts();
 		$validator.resetForm();
+		client.ResetForm();
 		$('#wizardClient').bootstrapWizard('show', 0);
 	}
 

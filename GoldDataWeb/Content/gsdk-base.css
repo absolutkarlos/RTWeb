@@ -804,7 +804,7 @@ label{
     text-transform: uppercase;
     background-color: #999999;
     color: #FFFFFF !important;
-    font-size: 14px;
+    font-size: 15px;
 }
 .wizard-card.ct-wizard-green .nav-pills > li.active a{
     background-color: goldenrod;

@@ -4,18 +4,14 @@
 
 		},
 
-		LineSightCreate: function (orderid, orderStatusId, status, radioBaseId, distance, siteId) {
+		LineSightCreate: function (data) {
 			return $.ajax({
 				method: "POST",
+				async: false,
 				dataType: "json",
-				data: {
-					"LineSight.Distance": distance,
-					"LineSight.RadioBase.Id": radioBaseId,
-					"LineSight.Site.Id": siteId,
-					"Order.Id": orderid,
-					"Order.OrderStatus.Id": parseInt(orderStatusId) + 1,
-					"Order.Status.Id": status
-				},
+				data: data,
+				processData: false,
+				contentType: "application/json",
 				url: base.GetRootStepPreFactibilityCreate(),
 				error: base.ErrorAjax
 			});

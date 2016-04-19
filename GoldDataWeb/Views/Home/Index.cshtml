@@ -1,11 +1,10 @@
 ﻿@using GD.Models.Commons
-@using GD.Models.Commons.Utilities
 @using GoldDataWeb.Models
 
 @model HomeViewModel
 
 @{
-	ViewBag.Title = "Inicio";
+	ViewBag.Title = "";
 }
 
 @section css{
@@ -22,155 +21,146 @@
 }
 
 <div id="homeContainer">
-	<header style="border-bottom: 2px solid #FDD835; box-shadow: 0 5px 15px #616161; height: 100vh;">
+	<header style="border-bottom: 2px solid #FDD835; box-shadow: 0 5px 15px #616161; height: 76px; position: fixed; z-index: 3;">
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			<!-- Indicators -->
-			<ol class="carousel-indicators">
-				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-				<li data-target="#myCarousel" data-slide-to="1"></li>
-				<li data-target="#myCarousel" data-slide-to="2"></li>
-				<li data-target="#myCarousel" data-slide-to="3"></li>
-				<li data-target="#myCarousel" data-slide-to="4"></li>
-				<li data-target="#myCarousel" data-slide-to="5"></li>
-				<li data-target="#myCarousel" data-slide-to="6"></li>
-				<li data-target="#myCarousel" data-slide-to="7"></li>
-				<li data-target="#myCarousel" data-slide-to="8"></li>
-				<li data-target="#myCarousel" data-slide-to="9"></li>
-				<li data-target="#myCarousel" data-slide-to="10"></li>
-				<li data-target="#myCarousel" data-slide-to="11"></li>
-				<li data-target="#myCarousel" data-slide-to="12"></li>
-				<li data-target="#myCarousel" data-slide-to="13"></li>
-			</ol>
+			@*<ol class="carousel-indicators">
+					<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					<li data-target="#myCarousel" data-slide-to="1"></li>
+					<li data-target="#myCarousel" data-slide-to="2"></li>
+					<li data-target="#myCarousel" data-slide-to="3"></li>
+					<li data-target="#myCarousel" data-slide-to="4"></li>
+					<li data-target="#myCarousel" data-slide-to="5"></li>
+					<li data-target="#myCarousel" data-slide-to="6"></li>
+					<li data-target="#myCarousel" data-slide-to="7"></li>
+					<li data-target="#myCarousel" data-slide-to="8"></li>
+					<li data-target="#myCarousel" data-slide-to="9"></li>
+					<li data-target="#myCarousel" data-slide-to="10"></li>
+					<li data-target="#myCarousel" data-slide-to="11"></li>
+					<li data-target="#myCarousel" data-slide-to="12"></li>
+					<li data-target="#myCarousel" data-slide-to="13"></li>
+				</ol>*@
 
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner" role="listbox">
 				<div class="item active">
-					<img src="~/Content/Images/banner/Venezuela/CaracasAvBolivar.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Venezuela</h3>
-						<p>Caracas, Avenida Bolivar.</p>
-					</div>
+					<img src="http://rtsurvey.golddata.net/Images/Venezuela-Caracas-Avila.jpg" style="height: 75px;" />
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Venezuela/CaracasParqueCentral.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Venezuela</h3>
-						<p>Caracas, Parque Central.</p>
-					</div>
+					<img src="http://rtsurvey.golddata.net/Images/Venezuela-Caracas-Chuao.jpg" style="height: 75px;" />
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Venezuela/PuenteSobreLagoMaracaibo.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Venezuela</h3>
-						<p>Puente sobre el lago de Maracaibo.</p>
-					</div>
+					<img src="http://rtsurvey.golddata.net/Images/Venezuela-Caracas-ChulaVista.jpg" style="height: 75px;" />
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Venezuela/Maracabo.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Venezuela</h3>
-						<p>Ciudad de Maracaibo.</p>
-					</div>
+					<img src="http://rtsurvey.golddata.net/Images/Venezuela-Caracas-ElSilencio.jpg" style="height: 75px;" />
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Miami/MiamiFlorida01.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Estados Unidos</h3>
-						<p>Florida, Miami.</p>
-					</div>
+					<img src="http://rtsurvey.golddata.net/Images/Venezuela-Caracas-ParqueCentral.jpg" style="height: 75px;" />
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Miami/MiamiFlorida02.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Estados Unidos</h3>
-						<p>Florida, Miami.</p>
-					</div>
+					<img src="http://rtsurvey.golddata.net/Images/Venezuela-Caracas-Santafe.jpg" style="height: 75px;" />
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Miami/MiamiFlorida03.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Estados Unidos</h3>
-						<p>Florida, Miami.</p>
-					</div>
+					<img src="http://rtsurvey.golddata.net/Images/Venezuela-Caracas-ValleArriba.jpg" style="height: 75px;" />
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Panama/PanamaCity01.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Panama</h3>
-						<p>Ciudad de Panama.</p>
-					</div>
+					<img src="http://rtsurvey.golddata.net/Images/Venezuela-Lara-Barquisimeto.jpg" style="height: 75px;" />
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Panama/PanamaCity02.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Panama</h3>
-						<p>Ciudad de Panama.</p>
-					</div>
+					<img src="http://rtsurvey.golddata.net/Images/Venezuela-Zulia-PuenteGeneralRafaelUrdaneta.jpg" style="height: 75px;" />
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Panama/PanamaCityTrumpTower.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Panama</h3>
-						<p>Trump Tower.</p>
-					</div>
+					<img src="http://rtsurvey.golddata.net/Images/Venezuela-Zulia-PuentesobreelLagodeMaracaibo.jpg" style="height: 75px;" />
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Panama/PuenteBicentenarioCanaldePanama.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Panama</h3>
-						<p>Puente Bicentenario, Canal de Panama.</p>
-					</div>
+					<img src="http://rtsurvey.golddata.net/Images/Panama-AmadorCauseway.jpg" style="height: 75px;" />
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Panama/PuentedelasAmericasDesdeCerroAncon.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Panama</h3>
-						<p>Puente de las Americas Desde Cerro Ancon.</p>
-					</div>
+					<img src="http://rtsurvey.golddata.net/Images/Panama-CanaldePanama01.JPG" style="height: 75px;" />
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/Panama/VolcanBaru.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>Panama</h3>
-						<p>Volcan Baru.</p>
-					</div>
+					<img src="http://rtsurvey.golddata.net/Images/Panama-CanaldePanama02.jpg" style="height: 75px;" />
 				</div>
 
 				<div class="item">
-					<img src="~/Content/Images/banner/General/TelecomSystems.jpg" width="460" height="200" style="height: 99.8vh;" />
-					<div class="carousel-caption">
-						<h3>General</h3>
-						<p>Telecom System</p>
-					</div>
+					<img src="http://rtsurvey.golddata.net/Images/Panama-CanaldePanama03.jpg" style="height: 75px;" />
 				</div>
 
+				<div class="item">
+					<img src="http://rtsurvey.golddata.net/Images/Panama-PanamaCity01.jpg" style="height: 75px;" />
+				</div>
+
+				<div class="item">
+					<img src="http://rtsurvey.golddata.net/Images/Panama-PanamaCity02.jpg" style="height: 75px;" />
+				</div>
+
+				<div class="item">
+					<img src="http://rtsurvey.golddata.net/Images/Panama-PanamaCity03.jpg" style="height: 75px;" />
+				</div>
+
+				<div class="item">
+					<img src="http://rtsurvey.golddata.net/Images/Panama-PanamaCity04.jpg" style="height: 75px;" />
+				</div>
+
+				<div class="item">
+					<img src="http://rtsurvey.golddata.net/Images/Panama-PanamaCity05.jpg" style="height: 75px;" />
+				</div>
+
+				<div class="item">
+					<img src="http://rtsurvey.golddata.net/Images/Panama-PuentedelasAmericas.jpg" style="height: 75px;" />
+				</div>
+
+				<div class="item">
+					<img src="http://rtsurvey.golddata.net/Images/Panama-VolcanBaru.jpg" style="height: 75px;" />
+				</div>
+
+				<div class="item">
+					<img src="http://rtsurvey.golddata.net/Images/USA-Florida-Miami01.jpg" style="height: 75px;" />
+				</div>
+
+				<div class="item">
+					<img src="http://rtsurvey.golddata.net/Images/USA-Florida-Miami02.jpg" style="height: 75px;" />
+				</div>
+
+				<div class="item">
+					<img src="http://rtsurvey.golddata.net/Images/USA-Florida-Miami03.jpg" style="height: 75px;" />
+				</div>
+
+				<div class="item">
+					<img src="http://rtsurvey.golddata.net/Images/USA-Florida-Miami04.jpg" style="height: 75px;" />
+				</div>
+
+				<div class="item">
+					<img src="http://rtsurvey.golddata.net/Images/USA-Florida-Miami06.jpg" style="height: 75px;" />
+				</div>
 			</div>
 
 			<!-- Left and right controls -->
-			<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-				<span class="sr-only">Previous</span>
-			</a>
-			<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-				<span class="sr-only">Next</span>
-			</a>
+			@*<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+					<span class="glyphicon glyphicon-chevron-left" aria-hidden="true" ></span>
+					<span class="sr-only">Previous</span>
+				</a>
+				<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+					<span class="glyphicon glyphicon-chevron-right" aria-hidden="true" ></span>
+					<span class="sr-only">Next</span>
+				</a>*@
 		</div>
 	</header>
 
-	<a data-start="display: block" data-100-start="display: none" class="btn-scroll-down scroll" style="display: block; z-index: 1032; cursor: pointer;"></a>
+	@*<a data-start="display: block" data-100-start="display: none" class="btn-scroll-down scroll" style="display: block; z-index: 1032; cursor: pointer;"></a>*@
 
 	@*<div class="user">
 			<img class="img-circle" src="http://demos.creative-tim.com/images/rotating_card_profile2.png">
@@ -180,16 +170,16 @@
 
 	<div id="page" class="container" style="height: 100vh; width: 100%;">
 		<div class="row" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 100px;">
-			<div class="col-lg-4">
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 				@*<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>*@
 				<div class="well well-sm" style="height: 125px;">
 					<div class="row">
-						<div class="col-sm-6 col-md-5">
+						<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 							<a href="#" class="thumbnail">
 								<img src="~/Content/Images/Logotipo_GD150x150.png" style="height: 95px;" />
 							</a>
 						</div>
-						<div class="col-sm-6 col-md-7">
+						<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 							<h4 style="margin-top: 0;">
 								@Model.User.Name
 							</h4>
@@ -206,18 +196,23 @@
 						</div>
 					</div>
 				</div>
-
 				<div id="panelordenes" class="list-group" style="min-height: 635px; max-height: 635px; border-radius: 4px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.15), 0 0 1px 1px rgba(0, 0, 0, 0.1);">
+					<div style="display: table; height: 41px; float: right;" title="Actualizar panel de ordenes">
+						<div style="display: table-row;">
+							<div style="display: table-cell; vertical-align: middle; height: 41px; width: 30px; color: white;">
+								<span id="refreshOrders" class="glyphicon glyphicon-refresh pull-right refreshOrders" aria-hidden="true" style="margin-right: 15px; font-size: large; cursor: pointer;z-index: 3;"></span>
+							</div>
+						</div>
+					</div>
 					<a class="list-group-item active" style="background-color: royalblue;">
-						MIS ORDENES
-						<span id="refreshOrders" class="glyphicon glyphicon-refresh pull-right refreshOrders" aria-hidden="true" style="font-size: large; cursor: pointer;"></span>
+						FACTIBILIDADES
 					</a>
 					@{
 						Html.RenderPartial("_OrderPanel", Model.Orders);
 					}
 				</div>
 			</div>
-			<div class="col-lg-8">
+			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
 				@if (user.IsRole(Rol.Type.Ventas) || user.IsRole(Rol.Type.Manager))
 				{
 					<div style="width: 100%;">
@@ -232,7 +227,7 @@
 							<form action="" method="" id="wizardInfoForm">
 								<div class="wizard-header">
 									<h3 style="margin-top: 0;">
-										<b>Orden</b> de servicio <br>
+										<b>Orden</b> de inspección <br>
 										<small>Este panel nos permitirá visualizar la informacíon completa de la orden.</small>
 									</h3>
 								</div>
@@ -271,14 +266,37 @@
 										{
 											if (user.IsRole(Rol.Type.Noc) || user.IsRole(Rol.Type.Manager))
 											{
-												Html.RenderPartial(@"_WizardTabPrefactibilidad");
+												Html.RenderPartial(@"_WizardTabPrefactibilidad", Model);
 											}
 
 											if (user.IsRole(Rol.Type.Field))
 											{
-												Html.RenderPartial(@"_WizardTabInspection");
-
-												Html.RenderPartial(@"_WizardTabInstalation");
+												<div class="tab-pane" id="inspection" style="margin-top: 40px; ">
+													<div id="refreshInspectionPanel" style="display: none; width: 100%;display: none;">
+														<div style="display: table-row;">
+															<div style="width: 100%; height: 549px; display: table-cell; vertical-align: middle; text-align: center;">
+																<img src="~/Content/Images/loading.gif" />
+																<span style="color: darkgray; display: block;"> Cargando información de la inspección</span>
+															</div>
+														</div>
+													</div>
+													@{
+														Html.RenderPartial(@"_WizardTabInspection");
+													}
+												</div>
+												<div class="tab-pane" id="instalation" style="margin-top: 40px;">
+													<div id="refreshInstalationPanel" style="display: none; width: 100%;">
+														<div style="display: table-row;">
+															<div style="width: 100%; height: 549px; display: table-cell; vertical-align: middle; text-align: center;">
+																<img src="~/Content/Images/loading.gif"/>
+																<span style="color: darkgray; display: block;"> Cargando información de la instalación</span>
+															</div>
+														</div>
+													</div>
+													@{
+														Html.RenderPartial(@"_WizardTabInstalation");
+													}
+												</div>
 											}
 										}
 									}
@@ -306,7 +324,7 @@
 								<form action="" method="" id="wizardClientForm">
 									<div class="wizard-header">
 										<h3 style="margin-top: 0;">
-											<b>Generar</b> orden de servicio <br>
+											<b>Generar</b> orden de inspección <br>
 											<small>Esta información nos permitirá generar una orden automaticamente.</small>
 										</h3>
 									</div>
@@ -343,7 +361,7 @@
 							</div>
 						</div>
 					</div>
-				}
+											}
 			</div>
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="footer">
@@ -362,43 +380,21 @@
 	@Scripts.Render("http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false")
 	@Scripts.Render("~/bundles/jqueryval")
 	@Scripts.Render("~/Scripts/additional-methods.js")
-	@Scripts.Render("~/Scripts/FullScreenControl.js")
-	@Scripts.Render("~/Scripts/jquery.bootstrap.wizard.js")
-	@Scripts.Render("~/Scripts/bootstrap-formhelpers.js")
-	@Scripts.Render("~/Scripts/select2.full.js")
 	@Scripts.Render("~/Scripts/wizard.js")
-	@Scripts.Render("~/Scripts/jquery.nicescroll.js")
-	@Scripts.Render("~/Scripts/canvas-to-blob.js")
-	@Scripts.Render("~/Scripts/fileinput.js")
-	@Scripts.Render("~/Scripts/bootstrap-confirmation.js")
-	@Scripts.Render("~/Scripts/fileinput_locale_es.js")
-    
-    @Scripts.Render("http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js")
 
-    @Scripts.Render("~/Scripts/RtSurvey/Home/baseHome.js")
+	@Scripts.Render("~/Scripts/RtSurvey/Home/baseHome.js")
+	@Scripts.Render("~/Scripts/RtSurvey/Client/baseClient.js")
+	@Scripts.Render("~/Scripts/RtSurvey/Contact/baseContact.js")
+	@Scripts.Render("~/Scripts/RtSurvey/Site/baseSite.js")
+	@Scripts.Render("~/Scripts/RtSurvey/PreFactibility/basePreFactibility.js")
+	@Scripts.Render("~/Scripts/RtSurvey/Inspection/baseInspection.js")
+	@Scripts.Render("~/Scripts/RtSurvey/Instalation/baseInstalation.js")
 
-    @Scripts.Render("~/Scripts/RtSurvey/Client/baseClient.js")
-
-    @Scripts.Render("~/Scripts/RtSurvey/Contact/baseContact.js")
-
-    @Scripts.Render("~/Scripts/RtSurvey/Site/baseSite.js")
-
-    @Scripts.Render("~/Scripts/RtSurvey/PreFactibility/basePreFactibility.js")
-
-    @Scripts.Render("~/Scripts/RtSurvey/Inspection/baseInspection.js")
-
-
-    @Scripts.Render("~/Scripts/RtSurvey/base.js")
-
-    @Scripts.Render("~/Scripts/RtSurvey/Home/home.js")
-
-    @Scripts.Render("~/Scripts/RtSurvey/Client/client.js")
-
-    @Scripts.Render("~/Scripts/RtSurvey/Contact/contact.js")
-
-    @Scripts.Render("~/Scripts/RtSurvey/Site/site.js")
-
-    @Scripts.Render("~/Scripts/RtSurvey/PreFactibility/preFactibility.js")
-
-    @Scripts.Render("~/Scripts/RtSurvey/Inspection/inspection.js")
+	@Scripts.Render("~/Scripts/RtSurvey/Home/home.js")
+	@Scripts.Render("~/Scripts/RtSurvey/Client/client.js")
+	@Scripts.Render("~/Scripts/RtSurvey/Contact/contact.js")
+	@Scripts.Render("~/Scripts/RtSurvey/Site/site.js")
+	@Scripts.Render("~/Scripts/RtSurvey/PreFactibility/preFactibility.js")
+	@Scripts.Render("~/Scripts/RtSurvey/Inspection/inspection.js")
+	@Scripts.Render("~/Scripts/RtSurvey/Instalation/instalation.js")
 }
