@@ -616,6 +616,28 @@ h1 small, h2 small, h3 small, h1 .small, h2 .small, h3 .small {
         top: -10px;
     }
 
+	.leyenda:before{
+        border-bottom: 11px solid rgba(0, 0, 0, 0.2);
+        border-left: 11px solid rgba(0, 0, 0, 0);
+        border-right: 11px solid rgba(0, 0, 0, 0);
+        content: "";
+        display: inline-block;
+        position: absolute;
+        left: 100%;
+        margin-left: -18%;
+        top: -11px;
+    }
+    .leyenda:after {
+        border-bottom: 11px solid #FFFFFF;
+        border-left: 11px solid rgba(0, 0, 0, 0);
+        border-right: 11px solid rgba(0, 0, 0, 0);
+        content: "";
+        display: inline-block;
+        position: absolute;
+        left: 100%;
+        margin-left: -18%;
+        top: -10px;
+    }
 }
 
 @media (max-width: 768px){

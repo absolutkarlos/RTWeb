@@ -514,6 +514,8 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\canvas-to-blob.js" />
     <Content Include="Scripts\canvas-to-blob.min.js" />
+    <Content Include="Scripts\clipboard.js" />
+    <Content Include="Scripts\clipboard.min.js" />
     <Content Include="Scripts\fileinput.js" />
     <Content Include="Scripts\fileinput.min.js" />
     <Content Include="Scripts\fileinput_locale_es.js" />

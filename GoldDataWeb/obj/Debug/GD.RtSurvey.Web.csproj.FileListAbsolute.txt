@@ -68,5 +68,6 @@ C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWeb\GoldDataW
 C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWeb\GoldDataWeb\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWeb\GoldDataWeb\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWeb\GoldDataWeb\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWeb\GoldDataWeb\obj\Debug\GD.RtSurvey.Web.csprojResolveAssemblyReference.cache
 C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWeb\GoldDataWeb\obj\Debug\GoldDataWeb.dll
 C:\Users\Beyker Rancel\Documents\FreeLance\Carlos Vásquez\GoldDataWeb\GoldDataWeb\obj\Debug\GoldDataWeb.pdb
