@@ -74,7 +74,7 @@ var base = (function () {
 		GetCountryAbbrevation: function() {
 			return countryAbbrevation;
 		},
-
+        
 		PlotPoints: function (theLatLng, map) {
 			path.push(theLatLng);
 			if (!!marker) {
@@ -90,7 +90,7 @@ var base = (function () {
 			geocoder.geocode({ 'location': marker.position }, function (results, status) {
 			    if (status === window.google.maps.GeocoderStatus.OK) {
 			        if (results[0]) {
-			            $("#coords").val(marker.position);
+			            //$("#coords").val(marker.position);
 			            $("#latitude").val(marker.position.lat);
 			            $("#longitude").val(marker.position.lng);
 			            infowindow = new window.google.maps.InfoWindow({});
@@ -127,7 +127,7 @@ var base = (function () {
 			});
 			map.panTo(marker.position);
 			markers.push(marker);
-			$("#coords").val(marker.position);
+			//$("#coords").val(marker.position);
 			// Display a polyline of the elevation path.
 			var pathOptions = {
 				path: path,
@@ -241,7 +241,7 @@ var base = (function () {
 							map: map
                         });
                         map.panTo(marker.position);
-                        $("#coords").val(marker.position);
+                        //$("#coords").val(marker.position);
 						var formattedAddress = base.FormaterAddressMaps(results[0]);
 						//infowindow.setContent(formattedAddress);
 						//infowindow.open(map, marker);
@@ -273,6 +273,54 @@ var base = (function () {
 
 			// Create an ElevationService.
 			elSvc = new window.google.maps.ElevationService();
+
+			var input = document.getElementById('coords');
+			var searchBox = new google.maps.places.SearchBox(input);
+
+			map.addListener('bounds_changed', function () {
+			    searchBox.setBounds(map.getBounds());
+			});
+            
+			var markersplaces = [];
+
+			searchBox.addListener('places_changed', function() {
+			    var places = searchBox.getPlaces();
+			    if (places.length == 0) {
+			        return;
+			    }
+			    markersplaces.forEach(function(marker) {
+			        marker.setMap(null);
+			    });
+			    markersplaces = [];
+
+			    var bounds = new google.maps.LatLngBounds();
+			    places.forEach(function(place) {
+			        var icon = {
+			            url: place.icon,
+			            size: new google.maps.Size(71, 71),
+			            origin: new google.maps.Point(0, 0),
+			            anchor: new google.maps.Point(17, 34),
+			            scaledSize: new google.maps.Size(25, 25)
+			        };
+			        
+			        //markersplaces.push(new google.maps.Marker({
+			         //   map: map,
+			         //   icon: icon,
+			         //   title: place.name,
+			         //   position: place.geometry.location
+			        //}));
+
+			        if (place.geometry.viewport) {
+			            // Only geocodes have viewport.
+			            bounds.union(place.geometry.viewport);
+			        } else {
+			            bounds.extend(place.geometry.location);
+			        }
+			    });
+			    map.fitBounds(bounds);
+			});
+
+
 
 			map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(FullScreenControl(map, ["Modo pantalla completa"], ["Salir del modo pantalla completa"]));
 
