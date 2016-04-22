@@ -297,7 +297,7 @@ var base = (function () {
 			        marker.setMap(null);
 			    });
 			    markersplaces = [];
-
+			    
 			    var bounds = new google.maps.LatLngBounds();
 			    places.forEach(function(place) {
 			        var icon = {
@@ -307,14 +307,16 @@ var base = (function () {
 			            anchor: new google.maps.Point(17, 34),
 			            scaledSize: new google.maps.Size(25, 25)
 			        };
+			        if (!!marker) {
+			            marker.setMap(null);
+			        }
+			        marker = new window.google.maps.Marker({
+			            position: place.geometry.location,
+			            map: map,
+                        title: place.name
+			        });
 			        
-			        //markersplaces.push(new google.maps.Marker({
-			         //   map: map,
-			         //   icon: icon,
-			         //   title: place.name,
-			         //   position: place.geometry.location
-			        //}));
-
+			
 			        if (place.geometry.viewport) {
 			            // Only geocodes have viewport.
 			            bounds.union(place.geometry.viewport);
