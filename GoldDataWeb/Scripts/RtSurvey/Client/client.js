@@ -69,6 +69,9 @@
 			return baseClient.ClientCreate(this.GetClient()).success(function(response) {
 				var valid = base.ValidateHasError(response, function() {
 					alert("error creando el cliente");
+					$("#modal").find(".modal-body").empty();
+					$("#modal").find(".modal-body").append("<h5>Registro de <b>cliente</b> invalido, ocurrio un error intentando registrar al cliente, si el error persiste contacte al administrador del sistema.</h5>");
+					$('#modal').modal('show');
 				});
 
 				if (!valid) {
@@ -77,6 +80,17 @@
 
 				return valid;
 			});
+		},
+
+		ExistingClientValidate: function () {
+			return baseClient.ExistingClientValidate(this.GetClient()).success(function (resp) {
+				if (resp.Data > 0) {
+					var data = client.GetClient();
+					$("#modal").find(".modal-body").empty();
+					$("#modal").find(".modal-body").append("<h5>Registro de <b>cliente</b> invalido, el cliente ya se encuentra registrado en el país que selecciono anteriormente.</h5>");
+					$('#modal').modal('show');
+				}
+			}).responseJSON.Data > 0;
 		},
 
 		GetEvent: function () {

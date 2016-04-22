@@ -10,6 +10,7 @@
 			this.GetEvent().ExistingOrder();
 			this.GetEvent().ClientsEvent();
 			this.LoadMetaData();
+			this.SelectedOrder($("#orderIdLabel").data("orderid"));
 			this.InitializeOrderStatusBar();
 			base.ApplyNiceScroll("html");
 			base.ApplyNiceScroll("#contentPanelOrders");
@@ -19,6 +20,11 @@
 			preFactibility.init();
 			inspection.init();
 			instalation.init();
+			home.CrateClipBoard("#clipBoard");
+		},
+
+		CrateClipBoard: function(control) {
+			var clipboard = new Clipboard(control);
 		},
 
 		LoadDataDropDowns: function (data) {
@@ -29,6 +35,16 @@
 			base.LoadDropDownList("#clienttype", data.ClientType.Data);
 			base.LoadDropDownList("#accesstype", data.AccessType.Data);
 			base.LoadDropDownList("#celdas", data.RadioBase.Data);
+		},
+
+		SelectedOrder: function(orderId) {
+			$.each($(".order"), function(index, item) {
+				if ($(item).data("orderid") === orderId) {
+					$(item).addClass("orderActive");
+				} else {
+					$(item).removeClass("orderActive");
+				}
+			});
 		},
 
 		LoadInfoOrderPanel: function (id, clearFileInput) {
@@ -60,6 +76,7 @@
 				base.ApplyNiceScroll("scrollContactInfo");
 				inspection.LoadInspectionPanel($("#orderIdLabel").data("orderid"));
 				instalation.LoadInstalationPanel($("#orderIdLabel").data("orderid"));
+				home.CrateClipBoard("#clipBoard");
 			});
 		},
 
@@ -70,6 +87,7 @@
 				home.GetEvent().IconRefreshAnimatedStop("#refreshOrders");
 				base.ApplyNiceScroll("#contentPanelOrders");
 				home.GetEvent().ViewInfoOrder();
+				home.SelectedOrder($("#orderIdLabel").data("orderid"));
 			});
 		},
 
@@ -189,11 +207,15 @@
 					});
 				},
 
+				CopyCoordenates: function () {
+					
+				},
+
 				ViewInfoOrder: function () {
 					$('.order').click(function (event) {
-						event.preventDefault();
+						//event.preventDefault();
+						home.SelectedOrder($(this).data("orderid"));
 						home.LoadInfoOrderPanel($(this).data("orderid"), true);
-
 					});
 				},
 

@@ -425,3 +425,21 @@ textarea.myErrorClass:-ms-input-placeholder {
 select.myErrorClass:-ms-input-placeholder {
 	color: #444 !important;
 }
+
+.orderActive {
+	background-color: lightgray !important;
+}
+
+.zh-estimate-badge {
+	display: inline-block;
+	font-size: 11px;
+	font-weight: bold;
+	line-height: 1;
+	background-color: rgb(63, 77, 156);
+	color: rgb(255, 255, 255);
+	padding: 2px 5px;
+	border-radius: 50px;
+	border: 1px solid rgb(63, 77, 156);
+	height: 15px;
+	width: 15px;
+}

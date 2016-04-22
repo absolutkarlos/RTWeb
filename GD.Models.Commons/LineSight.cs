@@ -19,7 +19,7 @@ namespace GD.Models.Commons
 		public RadioBase RadioBase { get; set; }
 
 		[JsonProperty(@"distance")]
-		public int Distance { get; set; }
+		public float Distance { get; set; }
 
 		[JsonProperty(@"status")]
 		public Status Status { get; set; }

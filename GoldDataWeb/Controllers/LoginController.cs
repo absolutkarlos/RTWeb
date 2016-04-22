@@ -42,8 +42,24 @@ namespace GoldDataWeb.Controllers
 		{
 			Session.Abandon();
 			Session.Clear();
+			DeleteCookie(@"RefreshToken");
 			FormsAuthentication.SignOut();
 			return RedirectToAction(@"Index");
+		}
+
+		[HttpPost]
+		[Authorize]
+		public JsonResult RefreshToken()
+		{
+			var response = AuthService.RefreshToken(GetAuthData());
+			if (response.UserId.IsGreaterThanZero())
+			{
+				DeleteCookie(@"RefreshToken");
+				FormsAuthentication.SignOut();
+				CreateAuthCookie(response);
+			}
+
+			return Json(new { UpdateToken = response.UserId.IsGreaterThanZero() });
 		}
 	}
 }

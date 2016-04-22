@@ -443,3 +443,207 @@ select.myErrorClass:-ms-input-placeholder {
 	height: 15px;
 	width: 15px;
 }
+
+
+
+
+
+
+
+
+
+*, *:before, *:after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+}
+
+/*body {
+  font: 14px/1 'Open Sans', sans-serif;
+  color: #555;
+  background: #eee;
+}
+
+h1 {
+  padding: 50px 0;
+  font-weight: 400;
+  text-align: center;
+}
+
+p {
+  margin: 0 0 20px;
+  line-height: 1.5;
+}*/
+
+.mainTab {
+	/*min-width: 320px;*/
+	/*max-width: 800px;*/
+	/*padding: 30px;*/
+	margin: 0 auto;
+	background: #fff;
+}
+
+.sectionTab {
+	display: none;
+	padding: 20px 0 0;
+	border-top: 1px solid #ddd;
+}
+
+.inputTab {
+	display: none;
+}
+
+.labelTab {
+	display: inline-block;
+	margin: 0 0 -1px;
+	padding: 15px 25px;
+	font-weight: 600;
+	text-align: center;
+	color: #888;
+	border: 1px solid transparent;
+	cursor: pointer;
+}
+
+	.labelTab:before {
+		font-family: fontawesome;
+		font-weight: normal;
+		margin-right: 10px;
+	}
+
+	.labelTab[for*='1'] {
+		background-image: url('Images/Icons/ic_prefactibilidad_light.png');
+		background-repeat: no-repeat;
+		background-position-x: 20px;
+		background-position-y: 10px;
+		padding-left: 55px;
+	}
+
+		.labelTab[for*='1']:hover {
+			background-image: url('Images/Icons/ic_prefactibilidad_black.png');
+			background-position-x: 24px;
+			background-position-y: 14px;
+			padding-left: 55px;
+			color: black;
+		}
+
+	.labelTab[for*='2'] {
+		background-image: url('Images/Icons/ic_inspeccion_light.png');
+		background-repeat: no-repeat;
+		background-position-x: 20px;
+		background-position-y: 10px;
+		padding-left: 55px;
+	}
+
+		.labelTab[for*='2']:hover {
+			background-image: url('Images/Icons/ic_inspeccion_black.png');
+			background-position-x: 24px;
+			background-position-y: 14px;
+			padding-left: 55px;
+			color: black;
+		}
+
+	.labelTab[for*='3'] {
+		background-image: url('Images/Icons/ic_instalacion_light.png');
+		background-repeat: no-repeat;
+		background-position-x: 20px;
+		background-position-y: 10px;
+		padding-left: 55px;
+	}
+
+		.labelTab[for*='3']:hover {
+			background-image: url('Images/Icons/ic_instalacion_black.png');
+			background-position-x: 24px;
+			background-position-y: 14px;
+			padding-left: 55px;
+			color: black;
+		}
+
+#tab1:checked + .labelTab {
+	color: black;
+	background-image: url('Images/Icons/ic_prefactibilidad_black.png');
+	background-position-x: 24px;
+	background-position-y: 14px;
+	padding-left: 55px;
+	border: 1px solid #ddd;
+	border-top: 2px solid orange;
+	border-bottom: 1px solid #fff;
+}
+
+#tab2:checked + .labelTab {
+	color: black;
+	background-image: url('Images/Icons/ic_inspeccion_black.png');
+	background-position-x: 24px;
+	background-position-y: 14px;
+	padding-left: 55px;
+	border: 1px solid #ddd;
+	border-top: 2px solid orange;
+	border-bottom: 1px solid #fff;
+}
+
+#tab3:checked + .labelTab {
+	color: black;
+	background-image: url('Images/Icons/ic_instalacion_black.png');
+	background-position-x: 24px;
+	background-position-y: 14px;
+	padding-left: 55px;
+	border: 1px solid #ddd;
+	border-top: 2px solid orange;
+	border-bottom: 1px solid #fff;
+}
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4 {
+	display: block;
+}
+
+@media screen and (min-width: 1025px) {
+	.mainTab {
+		padding: 30px;
+	}
+}
+
+@media screen and (max-width: 650px) {
+	.labelTab {
+		font-size: 0;
+		padding: 20px;
+		padding-bottom: 25px;
+	}
+
+		.labelTab:before {
+			margin: 0;
+			font-size: 18px;
+		}
+}
+
+@media screen and (max-width: 400px) {
+	.labelTab {
+		padding: 20px;
+		padding-bottom: 25px;
+	}
+
+	.tabStatus {
+		font-size: smaller;
+	}
+}
+
+.carousel-indicators li {
+	background-color: #999;
+	background-color: rgba(70,70,70,.25);
+	border: 1px solid rgba(0,0,0,0.50);
+}
+
+.carousel-indicators .active {
+	background-color: #444;
+}
+
+
+.popover {
+	max-width: 800px;
+}
+

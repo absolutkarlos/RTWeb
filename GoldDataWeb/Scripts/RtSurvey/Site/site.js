@@ -60,12 +60,16 @@
 			return serviceTypes;
 		},
 
+		CalculateBandWidth: function() {
+			return parseFloat($("#broadband").val() * Math.pow(1000, $("#unittype").val())).toString();
+		},
+
 		GetSite: function () {
 			var siteViewModel = {
 				"CountryAbbrevation": base.GetCountryAbbrevation(),
 				"Site.Name": $("#siteName").val(),
 				"Site.Client.Id": client.GetClientId(),
-				"Site.BandWidth": $("#broadband").val(),
+				"Site.BandWidth": this.CalculateBandWidth(),
 				"Site.Longitude": $("#longitude").val(),
 				"Site.Latitude": $("#latitude").val(),
 				"Site.Address": $("#sitedetailedadress").val(),

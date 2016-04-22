@@ -1,4 +1,4 @@
-/**/*.user
-/**/*.suo
-packages
-/**/obj
+*.user
+*.suo
+**/packages/*
+*.obj

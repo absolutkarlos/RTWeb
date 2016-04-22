@@ -1,6 +1,9 @@
 ﻿var home = (function () {
+	var currentSlide;
+	var rand;
 	return {
-		init: function () {
+		init: function() {
+			this.GetEvent().InitializeOrderStatusBar();
 			this.GetEvent().Select2Event();
 			this.GetEvent().WindowScrollEvent();
 			this.GetEvent().ButtomScrollDownEvent();
@@ -9,21 +12,23 @@
 			this.GetEvent().AddNewOrder();
 			this.GetEvent().ExistingOrder();
 			this.GetEvent().ClientsEvent();
+			this.GetEvent().InitializeCarousel();
+			this.GetEvent().InitializePopover();
 			this.LoadMetaData();
 			this.SelectedOrder($("#orderIdLabel").data("orderid"));
-			this.InitializeOrderStatusBar();
+			this.CreateClipBoard("#clipBoard");
 			base.ApplyNiceScroll("html");
 			base.ApplyNiceScroll("#contentPanelOrders");
-			$("#refreshInfoOrderPanel").hide();
-			$('[rel="tooltip"]').tooltip();
-			$(".js-example-basic-multiple").select2();
 			preFactibility.init();
 			inspection.init();
 			instalation.init();
-			home.CrateClipBoard("#clipBoard");
+			$("#refreshInfoOrderPanel").hide();
+			$('[rel="tooltip"]').tooltip();
+			$(".js-example-basic-multiple").select2();
+			base.ValidateExpireToken();
 		},
 
-		CrateClipBoard: function(control) {
+		CreateClipBoard: function(control) {
 			var clipboard = new Clipboard(control);
 		},
 
@@ -52,7 +57,6 @@
 			$("#panelClient").hide();
 			$("#refreshInfoOrderPanel").show();
 			$("#info").hide();
-			$(".btn-next").hide();
 			$("#wizardInfo").find('.btn-next').hide();
 			$('.wizard-card').bootstrapWizard('show', 0);
 			if ($("#input-700NOC") && clearFileInput)
@@ -64,10 +68,10 @@
 				$("#info").remove();
 				$("#refreshInfoOrderPanel").hide();
 				$("#contentPanelInfo").prepend(panel);
-				home.InitializeOrderStatusBar();
+				home.GetEvent().InitializeOrderStatusBar();
 				site.GetEvent().CreteOrderButtomEvent();
 				home.GetEvent().AddNewOrder();
-				$('[data-toggle="popover"]').popover();
+				home.GetEvent().InitializePopover();
 				$(".js-example-basic-multiple").select2();
 				preFactibility.ValidateShowButtons();
 				inspection.ValidateShowButtons();
@@ -76,7 +80,7 @@
 				base.ApplyNiceScroll("scrollContactInfo");
 				inspection.LoadInspectionPanel($("#orderIdLabel").data("orderid"));
 				instalation.LoadInstalationPanel($("#orderIdLabel").data("orderid"));
-				home.CrateClipBoard("#clipBoard");
+				home.CreateClipBoard("#clipBoard");
 			});
 		},
 
@@ -107,10 +111,6 @@
 					});
 				}
 			});
-		},
-
-		InitializeOrderStatusBar: function () {
-			$('#rootwizard').bootstrapWizard({ 'tabClass': 'bwizard-steps' });
 		},
 
 		GetExistingClient: function (clientId) {
@@ -158,6 +158,66 @@
 
 		GetEvent: function () {
 			return {
+				InitializeOrderStatusBar: function () {
+					$('#rootwizard').bootstrapWizard({
+						'tabClass': 'bwizard-steps',
+						onTabClick: function (tab, navigation, index) {
+							return false;
+						},
+						onTabShow: function (tab, navigation, index) {
+							$(tab).parent().removeClass("active");
+							$.each($(".tabStatus"), function(index, item) {
+								var statusControl = $($(item).find("span .glyphicon"));
+								if (statusControl.hasClass("glyphicon-ok") || statusControl.hasClass("glyphicon-remove")) {
+									$(item).parent().parent().addClass("active");
+								}
+							});
+						}
+					});
+
+					$(".tabStatus").click(function() {
+						$(this).parent().click();
+					});
+				},
+
+				InitializeCarousel: function () {
+					$('.carousel').carousel({
+						interval: 1200000
+					});
+					currentSlide = Math.floor((Math.random() * $('.item').length));
+					rand = currentSlide;
+					$('#myCarousel').carousel(currentSlide);
+					$('#myCarousel').fadeIn(1000);
+					setInterval(function () {
+						while (rand == currentSlide) {
+							rand = Math.floor((Math.random() * $('.item').length));
+						}
+						currentSlide = rand;
+						$('#myCarousel').carousel(rand);
+					}, 1199999);
+				},
+
+				InitializePopover: function () {
+					$("#popoverPref").popover({
+						html: true,
+						content: function () {
+							return $("#contentPref").html();
+						}
+					});
+					$("#popoverInsp").popover({
+						html: true,
+						content: function () {
+							return $("#contentInsp").html();
+						}
+					});
+					$("#popoverInst").popover({
+						html: true,
+						content: function () {
+							return $("#contentInst").html();
+						}
+					});
+				},
+
 				ClientsEvent: function () {
 					$("#clients").change(function () {
 						$(".readOnly").hide();
@@ -328,7 +388,7 @@
 							//$('nav').css({ "background-color": "rgba(0, 0, 0, 0.65)" });
 						} else {
 							//if ($(window).scrollTop() <= ($("header").height() - 75))
-								//$('nav').css({ "background-color": "rgba(0, 0, 0, 0)" });
+							//$('nav').css({ "background-color": "rgba(0, 0, 0, 0)" });
 						}
 						lastScrollTop = st;
 					});

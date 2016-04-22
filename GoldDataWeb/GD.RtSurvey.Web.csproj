@@ -469,6 +469,12 @@
     <Content Include="Content\Images\Icons\building.png" />
     <Content Include="Content\Images\Icons\ic_add_a_photo_white_24dp_1x.png" />
     <Content Include="Content\Images\Icons\ic_edit_location_black_24dp_2x.png" />
+    <Content Include="Content\Images\Icons\ic_inspeccion_black.png" />
+    <Content Include="Content\Images\Icons\ic_inspeccion_light.png" />
+    <Content Include="Content\Images\Icons\ic_instalacion_black.png" />
+    <Content Include="Content\Images\Icons\ic_instalacion_light.png" />
+    <Content Include="Content\Images\Icons\ic_prefactibilidad_black.png" />
+    <Content Include="Content\Images\Icons\ic_prefactibilidad_light.png" />
     <Content Include="Content\Images\Icons\playlist_add_black.png" />
     <Content Include="Content\Images\ic_action_add_country_light.png" />
     <Content Include="Content\Images\ic_action_logout.png" />
