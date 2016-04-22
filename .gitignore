@@ -2,3 +2,5 @@
 *.suo
 **/packages/*
 *.obj/*
+GoldDataWeb/obj/
+GD.Models.Commons/obj/
