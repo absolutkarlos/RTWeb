@@ -3,6 +3,7 @@
 		init: function () {
 			this.GetEvent().NOCFileUploadEvent();
 			this.GetEvent().GeneratePreFactibilityEvent();
+			this.ValidateShowButtons();
 		},
 
 		UpdateStatus: function (orderFlowId, orderId, status, radioBaseId, distance, siteId) {
@@ -46,14 +47,24 @@
 			return JSON.stringify(comments);
 		},
 
-		ValidateShowButtons: function() {
-			if ($("#statusPreFactibility").hasClass("glyphicon-ok")) {
-				$("#aprobarPreFactibility, #rechazarPreFactibility").hide();
-			} else if ($("#statusPreFactibility").hasClass("glyphicon-remove")) {
-				$("#rechazarPreFactibility").hide();
-				$("#aprobarPreFactibility").show();
-			} else {
-				$("#aprobarPreFactibility, #rechazarPreFactibility").show();
+		ValidateShowButtons: function () {
+			if ($("#user").data("rol") == 4 || $("#user").data("rol") == 6) {
+				if ($("#statusPreFactibility").hasClass("glyphicon-ok")) {
+					$("#tabInfo").css({ "width": "100%" });
+					$("#tabPreFactibilidad, #prefactibilidad").hide();
+					$("#wizardInfo").find('.btn-next').hide();
+				} else if ($("#statusPreFactibility").hasClass("glyphicon-remove")) {
+					$("#tabInfo").css({ "width": "50%" });
+					$("#rechazarPreFactibility").hide();
+					$("#aprobarPreFactibility").show();
+					$("#tabPreFactibilidad, #prefactibilidad").show();
+					$("#wizardInfo").find('.btn-next').show();
+				} else {
+					$("#tabInfo").css({ "width": "50%" });
+					$("#aprobarPreFactibility, #rechazarPreFactibility").show();
+					$("#tabPreFactibilidad, #prefactibilidad").show();
+					$("#wizardInfo").find('.btn-next').show();
+				}
 			}
 		},
 
@@ -207,7 +218,7 @@
 								'    <div class="file-caption-name" style="width:{width}">{caption}</div>\n' +
 								'    <div class="form-group" style="margin-top: 5px;text-align: left;"><label style="display: block;"> RADIO BASE <small>(requerido)</small></label>\n' +
 								'    <select style="width: 100%;" id="radioBase" name="radioBase" class="form-control select2 radioBase"><option value="">Seleccione una radio base</option></select>\n' +
-								'    <label style="display: block; margin-top: 15px;"> DISTANCIA <small>(requerido)</small></label>\n' +
+								'    <label style="display: block; margin-top: 15px;"> DISTANCIA EN KILOMETROS <small>(requerido)</small></label>\n' +
 								'    <input style="width: 100%;" id="distance" name="distance" class="form-control" placeholder="Distancia..." />\n' +
 								'    <label style="display: block; margin-top: 15px;"> TIPO DE ENLACE </label>\n' +
 								'    <select style="width: 100%;" id="linkType" name="linkType" class="form-control">\n' +
@@ -227,7 +238,6 @@
 					});
 					$(".fileinput-remove-button").css({ "border-left": "1px solid #DDD", "border-right": "2px solid #DDD" });
 					$(".file-caption").css({ "height": "38px" });
-					preFactibility.ValidateShowButtons();
 				}
 			}
 		}

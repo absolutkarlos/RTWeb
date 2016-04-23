@@ -35,6 +35,9 @@ namespace GD.Models.Commons
 		[JsonProperty(@"rememberme")]
 		public bool RememberMe { get; set; }
 
+		[JsonProperty(@"refresh_token")]
+		public string refresh_token { get; set; }
+
 		[JsonProperty(@"grant_type")]
 		public string grant_type { get; set; }
 	}

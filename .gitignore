@@ -1,4 +1,6 @@
 *.user
 *.suo
-obj
-packages
+**/packages/*
+*.obj/*
+GoldDataWeb/obj/
+GD.Models.Commons/obj/

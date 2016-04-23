@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Runtime.Serialization;
 using GD.Models.Commons.Utilities;
 using Newtonsoft.Json;
@@ -61,6 +62,7 @@ namespace GD.Models.Commons
 		public DateTime? UpdateAt { get; set; }
 
 
+		public IEnumerable<LineSight> ListLineSight { get; set; }
 		public IEnumerable<ServiceType> ListServiceType { get; set; }
 		public IEnumerable<SiteSchedule> ListSiteSchedule { get; set; }
 		public IEnumerable<SiteAccessType> ListSiteAccessType { get; set; }
@@ -122,6 +124,27 @@ namespace GD.Models.Commons
 			}
 
 			AdditionalData.Clear();
+		}
+
+
+		public string GetBandWidth()
+		{
+			var result = BandWidth;
+			var k = 1000;
+			string[] sizes = { @"MB", @"GB", @"TB", @"PB", @"EB", @"ZB", @"YB" };
+			var i = (int)Math.Floor(Math.Log(result) / Math.Log(k));
+
+			if (!result.IsGreaterThanZero())
+			{
+				return @"0 MB";
+			}
+
+			for (int j = 0; j < i; j++)
+			{
+				result= result/k;
+			}
+
+			return result.ToString(CultureInfo.InvariantCulture) + ' ' + sizes[i];
 		}
 	}
 }

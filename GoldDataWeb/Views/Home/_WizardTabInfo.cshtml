@@ -6,57 +6,9 @@
 @model HomeViewModel
 
 @{
-	var status = new StatusBarViewModel
-	{
-		Nuevo = new Data(),
-		Prefactibility = new Data(),
-		Instalation = new Data(),
-		Inspection = new Data()
-	};
 	if (Model.Order != null)
 	{
-		foreach (var orderFlow in Model.Order.ListOrderFlow)
-		{
-			switch (orderFlow.IdOrderStatus)
-			{
-				case (int)OrderStatus.Type.Nuevo:
-					status.Nuevo = new Data
-					{
-						IdOrderFlow = orderFlow.Id.ToString(),
-						EstimatedDateNextStep = orderFlow.StimatedDateNextStep.Value.ToLongDateString(),
-						Class = (orderFlow.Status.Id == (int)Status.Type.Activo) ? @"glyphicon-ok" : (orderFlow.Status.Id == (int)Status.Type.Inactivo) ? @"glyphicon-remove" : string.Empty,
-						Color = (orderFlow.Status.Id == (int)Status.Type.Activo) ? @"limegreen" : @"crimson"
-					};
-					break;
-				case (int)OrderStatus.Type.Prefactibilidad:
-					status.Prefactibility = new Data
-					{
-						IdOrderFlow = orderFlow.Id.ToString(),
-						EstimatedDateNextStep = (orderFlow.Status.Id == (int)Status.Type.Activo) ? orderFlow.StimatedDateNextStep.Value.ToLongDateString() : string.Empty,
-						Class = (orderFlow.Status.Id == (int)Status.Type.Activo) ? @"glyphicon-ok" : (orderFlow.Status.Id == (int)Status.Type.Inactivo) ? @"glyphicon-remove" : string.Empty,
-						Color = (orderFlow.Status.Id == (int)Status.Type.Activo) ? @"limegreen" : @"crimson"
-					};
-					break;
-				case (int)OrderStatus.Type.Inspeccion:
-					status.Inspection = new Data
-					{
-						IdOrderFlow = orderFlow.Id.ToString(),
-						EstimatedDateNextStep = (orderFlow.Status.Id == (int)Status.Type.Activo) ? orderFlow.StimatedDateNextStep.Value.ToLongDateString() : string.Empty,
-						Class = (orderFlow.Status.Id == (int)Status.Type.Activo) ? @"glyphicon-ok" : (orderFlow.Status.Id == (int)Status.Type.Inactivo) ? @"glyphicon-remove" : string.Empty,
-						Color = (orderFlow.Status.Id == (int)Status.Type.Activo) ? @"limegreen" : @"crimson"
-					};
-					break;
-				case (int)OrderStatus.Type.Instalacion:
-					status.Instalation = new Data
-					{
-						IdOrderFlow = orderFlow.Id.ToString(),
-						EstimatedDateNextStep = (orderFlow.Status.Id == (int)Status.Type.Activo) ? orderFlow.StimatedDateNextStep.Value.ToLongDateString() : string.Empty,
-						Class = (orderFlow.Status.Id == (int)Status.Type.Activo) ? @"glyphicon-ok" : (orderFlow.Status.Id == (int)Status.Type.Inactivo) ? @"glyphicon-remove" : string.Empty,
-						Color = (orderFlow.Status.Id == (int)Status.Type.Activo) ? @"limegreen" : @"crimson"
-					};
-					break;
-			}
-		}
+		var status = Model.GetStatusBarViewModel();
 
 		<div class="tab-pane active" id="info">
 			<div class="row">
@@ -73,14 +25,77 @@
 					</div>
 				</div>
 
-				<div class="col-sm-12">
+			<div id="contentPref" style="display: none;">
+				<div style='display: table; width: 370px;'>
+					<div style='display: table-row;'>
+						<div style='display: table-cell;padding: 5px;'>
+							<b>FECHA ESTIMADA: </b>
+						</div>
+						<div style='display: table-cell;padding: 5px;'>
+							@status.Nuevo.EstimatedDateNextStep.ToUpper()
+						</div>
+					</div>
+					<div style='display: table-row;'>
+						<div style='display: table-cell;padding: 5px;'>
+							<b>FECHA EFECTIVA: </b>
+						</div>
+						<div style='display: table-cell;padding: 5px;'>
+							@(!string.IsNullOrWhiteSpace(status.Prefactibility.EffectiveDate) ? status.Prefactibility.EffectiveDate.ToUpper() : @"NO DISPONIBLE")
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="contentInsp" style="display: none;">
+				<div style='display: table;width: 370px;'>
+					<div style='display: table-row;'>
+						<div style='display: table-cell;padding: 5px;'>
+							<b>FECHA ESTIMADA: </b>
+						</div>
+						<div style='display: table-cell;padding: 5px;'>
+							@status.Prefactibility.EstimatedDateNextStep.ToUpper()
+						</div>
+					</div>
+					<div style='display: table-row;'>
+						<div style='display: table-cell;padding: 5px;'>
+							<b>FECHA EFECTIVA: </b>
+						</div>
+						<div style='display: table-cell;padding: 5px;'>
+							@(!string.IsNullOrWhiteSpace(status.Inspection.EffectiveDate) ? status.Inspection.EffectiveDate.ToUpper() : @"NO DISPONIBLE")
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="contentInst" style="display: none;">
+				<div style='display: table;width: 370px;'>
+					<div style='display: table-row;'>
+						<div style='display: table-cell;padding: 5px;'>
+							<b>FECHA ESTIMADA: </b>
+						</div>
+						<div style='display: table-cell;padding: 5px;'>
+							@status.Inspection.EstimatedDateNextStep.ToUpper()
+						</div>
+					</div>
+					<div style='display: table-row;'>
+						<div style='display: table-cell;padding: 5px;'>
+							<b>FECHA EFECTIVA: </b>
+						</div>
+						<div style='display: table-cell;padding: 5px;'>
+							@(!string.IsNullOrWhiteSpace(status.Instalation.EffectiveDate) ? status.Instalation.EffectiveDate.ToUpper() : @"NO DISPONIBLE")
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-12">
 					<div class="row">
 						<div class="col-sm-12">
 							<div id="rootwizard" style="margin-bottom: 15px;">
 								<ul>
 									<li style="cursor: pointer; padding: 0;">
-										<div data-toggle="popover" title="Pre-Factibilidad" data-content="@(!string.IsNullOrWhiteSpace(status.Nuevo.EstimatedDateNextStep) ? @"Fecha estimada de respuesta el " + status.Nuevo.EstimatedDateNextStep : @"Fecha estimada de respuesta no disponible.")" data-placement="top" style="padding: 12px 17px 10px 30px; font-size: 13px;">
-											<a data-toggle="tab">
+										<div id="popoverPref" title="PRE-FACTIBILIDAD" data-placement="top" style="padding: 12px 17px 10px 30px; font-size: 13px;">
+											<a data-toggle="tab" class="tabStatus">
 												<span class="label">
 													<span id="statusPreFactibility" class="glyphicon @status.Prefactibility.Class" data-idorderflow="@status.Prefactibility.IdOrderFlow" aria-hidden="true" style="width: 11px; color: @status.Prefactibility.Color;"></span>
 												</span> PRE-FACTIBILIDAD
@@ -88,8 +103,8 @@
 										</div>
 									</li>
 									<li style="cursor: pointer; padding: 0;">
-										<div data-toggle="popover" title="Inspección" data-content="@(!string.IsNullOrWhiteSpace(status.Prefactibility.EstimatedDateNextStep) ? @"Fecha estimada de respuesta el " + status.Prefactibility.EstimatedDateNextStep : @"Fecha estimada de respuesta aun no disponible.")" data-placement="top" style="padding: 12px 17px 10px 30px; font-size: 13px;">
-											<a data-toggle="tab">
+										<div id="popoverInsp" title="INSPECCIÓN" data-placement="top" style="padding: 12px 17px 10px 30px; font-size: 13px;">
+											<a data-toggle="tab" class="tabStatus">
 												<span class="label">
 													<span id="statusInspection" class="glyphicon @status.Inspection.Class" data-idorderflow="@status.Inspection.IdOrderFlow" aria-hidden="true" style="width: 11px; color: @status.Inspection.Color;"></span>
 												</span> INSPECCIÓN
@@ -97,8 +112,8 @@
 										</div>
 									</li>
 									<li style="cursor: pointer; padding: 0;">
-										<div data-toggle="popover" title="Instalación" data-content="@(!string.IsNullOrWhiteSpace(status.Inspection.EstimatedDateNextStep) ? @"Fecha estimada de respuesta el " + status.Inspection.EstimatedDateNextStep : @"Fecha estimada de respuesta aun no disponible.")" data-placement="top" style="padding: 12px 17px 10px 30px; font-size: 13px;">
-											<a data-toggle="tab">
+										<div id="popoverInst" title="INSTALACIÓN" data-placement="top" style="padding: 12px 17px 10px 30px; font-size: 13px;">
+											<a data-toggle="tab" class="tabStatus">
 												<span class="label">
 													<span id="statusInstalation" class="glyphicon @status.Instalation.Class" data-idorderflow="@status.Instalation.IdOrderFlow" aria-hidden="true" style="width: 11px; color: @status.Instalation.Color;"></span>
 												</span> INSTALACIÓN
@@ -114,25 +129,25 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
-							<h5 class="info-text" style="margin-bottom: 10px; font-weight: bold; display: inline;"> Coordenadas de Localización </h5>
+							<h6 class="info-text" style="margin-bottom: 10px; font-weight: bold; display: inline;"> COORDENADAS DE LOCALIZACIÓN </h6>
 							<div style="display: inline; cursor: pointer;" id="clipBoard" data-clipboard-text="@(Model.Order.Site.Latitude + @", " + Model.Order.Site.Longitude)">
 								<img src="~/Content/Images/copy-icon.png" title="Copiar coordenadas" style="height: 20px;" />
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 							<div class="form-group">
-								<label class="Infolabel">Latitud <b>(@(Utility.ConvertToDegressMinutesSeconds(double.Parse(Model.Order.Site.Latitude, CultureInfo.InvariantCulture), true)))</b></label>
+								<label class="Infolabel">LATITUD <b>(@(Utility.ConvertToDegressMinutesSeconds(double.Parse(Model.Order.Site.Latitude, CultureInfo.InvariantCulture), true)))</b></label>
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 							<div class="form-group">
-								<label class="Infolabel">Longitud <b>(@(Utility.ConvertToDegressMinutesSeconds(double.Parse(Model.Order.Site.Longitude, CultureInfo.InvariantCulture), true)))</b></label>
+								<label class="Infolabel">LONGITUD <b>(@(Utility.ConvertToDegressMinutesSeconds(double.Parse(Model.Order.Site.Longitude, CultureInfo.InvariantCulture), true)))</b></label>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<h5 class="info-text" style="margin-bottom: 0; font-weight: bold;"> Detalles de la Ubicación </h5>
+					<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> DETALLES DE LA UBICACIÓN </h6>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 					<div class="form-group">
@@ -147,7 +162,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<h5 class="info-text" style="margin-bottom: 5px; font-weight: bold;"> Ancho de Banda </h5>
+							<h6 class="info-text" style="margin-bottom: 5px; font-weight: bold;"> ANCHO DE BANDA </h6>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 							@{
@@ -155,20 +170,15 @@
 								{
 									<div class="form-group">
 										<label class="Infolabel">
-											<span>@Model.Order.Site.BandWidth.ToString(CultureInfo.InvariantCulture)</span>
+											<span>@Model.Order.Site.GetBandWidth()</span>
 										</label><br>
 									</div>
-									@*<div class="form-group" style="display: table; width: 100%; margin-bottom: 0;">
-											<label class="Infolabel" style="height: 81px; display: table-cell; vertical-align: bottom;">
-												@Model.Order.Site.BandWidth.ToString(CultureInfo.InvariantCulture)
-											</label>
-										</div>*@
 								}
 								else
 								{
 									<div style="display: table; width: 100%;">
 										<div style="display: table-row; width: 100%">
-											<label class="Infolabel" style="display: table-cell; vertical-align: bottom;">No posee ancho de banda asignado</label>
+											<label class="Infolabel" style="display: table-cell; vertical-align: bottom;">NO POSEE ANCHO DE BANDA ASIGNADO</label>
 										</div>
 									</div>
 								}
@@ -179,23 +189,23 @@
 				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<h5 class="info-text" style="margin-bottom: 5px; font-weight: bold;"> Tipos de Acceso </h5>
+							<h6 class="info-text" style="margin-bottom: 5px; font-weight: bold;"> TIPOS DE SERVICIO </h6>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 							@{
-								if (Model.Order.Site.ListSiteAccessType.Any())
+								if (!string.IsNullOrWhiteSpace(Model.Order.Site.BandWidth.ToString(CultureInfo.InvariantCulture)))
 								{
 									<div class="form-group">
 										<label class="Infolabel">
-											<span>@(AccessType.GetConcatAccessTypes(Model.Order.Site.ListSiteAccessType.ToList()))</span>
+											@(ServiceType.GetConcatServiceTypes(Model.Order.Site.ListServiceType.ToList()))
 										</label><br>
 									</div>
 								}
 								else
 								{
-									<div style="display: table; width: 100%; margin-bottom: 20px;">
+									<div style="display: table; width: 100%;">
 										<div style="display: table-row; width: 100%">
-											<label class="Infolabel" style="display: table-cell; vertical-align: bottom;">Tipos de acceso no disponible.</label>
+											<label class="Infolabel" style="display: table-cell; vertical-align: bottom;">NO POSEE NINGUN TIPO DE SERVICIO ASIGNADO</label>
 										</div>
 									</div>
 								}
@@ -206,57 +216,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-							<h5 class="info-text" style="margin-bottom: 0; font-weight: bold;"> Tipos de Servicio </h5>
-							<div class="row">
-								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-									@{
-										if (Model.Order.Site.ListServiceType.Any())
-										{
-											<div class="form-group" style="display: table; width: 100%; margin-bottom: 20px;">
-												<label class="Infolabel" style="height: 60px; display: table-cell; vertical-align: bottom;">
-													@(ServiceType.GetConcatServiceTypes(Model.Order.Site.ListServiceType.ToList()))
-												</label>
-											</div>
-										}
-										else
-										{
-											<div style="display: table; width: 100%; margin-bottom: 20px;">
-												<div style="display: table-row; width: 100%">
-													<label class="Infolabel" style="height: 60px; display: table-cell; vertical-align: bottom;">No posee ningun tipo de servicio asignado</label>
-												</div>
-											</div>
-										}
-									}
-								</div>
-							</div>
-						</div>
-						<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-							<h5 class="info-text" style="margin-bottom: 0; font-weight: bold;"> Materiales </h5>
-							<div class="row">
-								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-									@{
-										if (Model.Order.ListMaterials.Any())
-										{
-											<div class="form-group" style="display: table; width: 100%; margin-bottom: 20px;">
-												<label class="Infolabel" style="height: 60px; display: table-cell; vertical-align: bottom;">
-													@(Material.GetConcatMaterials(Model.Order.ListMaterials.ToList()))
-												</label>
-											</div>
-										}
-										else
-										{
-											<div style="display: table; width: 100%; margin-bottom: 20px;">
-												<div style="display: table-row; width: 100%">
-													<label class="Infolabel" style="height: 60px; display: table-cell; vertical-align: bottom;">No hay materiales agregados.</label>
-												</div>
-											</div>
-										}
-									}
-								</div>
-							</div>
-						</div>
-						<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-							<h5 class="info-text" style="margin-bottom: 0; font-weight: bold;"> Contactos </h5>
+							<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> CONTACTOS </h6>
 							<div class="row" style="margin-bottom: 20px;">
 								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="@(Model.Order.Site.Client.ListEntityContact.Count() > 3 ? @"height: 245px; overflow-y: auto;" : string.Empty)">
 									@{
@@ -282,7 +242,7 @@
 										{
 											<div style="display: table; width: 100%;">
 												<div style="display: table-row; width: 100%">
-													<label class="Infolabel" style="height: 81px; display: table-cell; vertical-align: bottom;">No hay contactos agregados.</label>
+													<label class="Infolabel" style="height: 81px; display: table-cell; vertical-align: bottom;">NO HAY CONTACTOS AGREGADOS</label>
 												</div>
 											</div>
 										}
@@ -291,14 +251,14 @@
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-							<h5 class="info-text" style="margin-bottom: 0; font-weight: bold;"> Horarios de Atención </h5>
+							<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> HORARIOS DE ATENCIÓN </h6>
 							<div class="row" style="margin-bottom: 20px;">
 								@{
 									if (Model.Order.Site.ListSiteSchedule.Any())
 									{
 										var groups = Model.Order.Site.ListSiteSchedule.GroupBy(g => new { g.StartTime, g.EndTime }).ToList();
 
-										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="@(groups.Count() > 3 ? @"height: 245px; overflow-y: auto;" : string.Empty)">
+										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="@(groups.Count > 3 ? @"height: 245px; overflow-y: auto;" : string.Empty)">
 
 											@foreach (var group in groups)
 											{
@@ -318,7 +278,7 @@
 									{
 										<div style="display: table; width: 100%;">
 											<div style="display: table-row; width: 100%">
-												<label class="Infolabel" style="height: 81px; display: table-cell; vertical-align: bottom;">No hay horarios agregados.</label>
+												<label class="Infolabel" style="height: 81px; display: table-cell; vertical-align: bottom;">NO HAY HORARIOS AGREGADOS</label>
 											</div>
 										</div>
 									}
@@ -326,50 +286,307 @@
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<h5 class="info-text" style="margin-bottom: 5px;font-weight: bold;"> Pre-Factibilidad </h5>
-							<div class="row">
-								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-									@{
-										if (Model.Order.ListOrderShot.Any(a => a.OrderShotType.Id == (int)OrderShot.Type.LineSight))
-										{
-											foreach (var orderShot in Model.Order.ListOrderShot)
-											{
-												if (orderShot.OrderShotType.Id == (int)OrderShot.Type.LineSight)
+							<main class="mainTab">
+
+								<input class="inputTab" id="tab1" type="radio" name="tabs" checked>
+								<label for="tab1" class="labelTab">PRE-FACTIBILIDAD</label>
+
+								<input class="inputTab" id="tab2" type="radio" name="tabs">
+								<label for="tab2" class="labelTab">INSPECCIÓN</label>
+
+								<input class="inputTab" id="tab3" type="radio" name="tabs">
+								<label for="tab3" class="labelTab">INSTALACIÓN</label>
+
+								<section id="content1" class="sectionTab">
+									<div class="row">
+										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+											@{
+												if (Model.Order.ListOrderShot.Any(a => a.OrderShotType.Id == (int)OrderShot.Type.LineSight))
 												{
-													var url = new Uri(orderShot.ShotPath);
-													var caption = url.Segments.LastOrDefault();
-													var path = orderShot.ShotPath;
-													<div class="file-preview-frame" data-fileindex="0" style="width: 100%;">
-														<img src="@path" class="file-preview-image" title="@caption.ToUpper()" alt="@caption.ToUpper()" style="width: 100%; height: 300px;" />
-														<div class="file-thumbnail-footer">
-															<div class="file-caption-name" style="width: auto">@caption.ToUpper()</div>
-															<div class="form-group" style="margin-top: 5px; text-align: left;">
-																<label> Comentario </label>
-																<textarea style="width: 100%; resize: none;" name="Comment" class="form-control comments" placeholder="Comentario..." rows="3" cols="15" aria-invalid="false" readonly="readonly">@(orderShot.Comment != null ? orderShot.Comment.ToUpper() : string.Empty)</textarea>
-															</div>
-															<div class="file-thumb-progress hide">
-																<div class="progress">
-																	<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0;">
-																		0%
+													foreach (var orderShot in Model.Order.ListOrderShot)
+													{
+														if (orderShot.OrderShotType.Id == (int)OrderShot.Type.LineSight)
+														{
+															var url = new Uri(orderShot.ShotPath);
+															var caption = url.Segments.LastOrDefault();
+															var path = orderShot.ShotPath;
+															<div class="file-preview-frame" data-fileindex="0">
+																<img src="@path" class="file-preview-image" title="@caption.ToUpper()" alt="@caption.ToUpper()" style="width: 100%; height: 300px;" />
+																<div class="file-thumbnail-footer">
+																	<div class="file-caption-name" style="width: auto">@caption.ToUpper()</div>
+																	<div class="row" style="margin-bottom: 10px;">
+																		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+																			<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> RADIO BASE </h6>
+																			<div class="form-group" style="display: table; width: 100%; margin-bottom: 0; text-align: left;">
+																				<label class="Infolabel" style="display: table-cell; vertical-align: bottom;">
+																					@{
+																						if (!string.IsNullOrWhiteSpace(Model.Order.Site.ListLineSight.ElementAt(0).RadioBase.Name))
+																						{
+																							@Model.Order.Site.ListLineSight.ElementAt(0).RadioBase.Name.ToUpper()
+																							<small> (@(Utility.ConvertToDegressMinutesSeconds(double.Parse(Model.Order.Site.ListLineSight.ElementAt(0).RadioBase.Latitude, CultureInfo.InvariantCulture), true)
+																										+ @", " + Utility.ConvertToDegressMinutesSeconds(double.Parse(Model.Order.Site.ListLineSight.ElementAt(0).RadioBase.Longitude, CultureInfo.InvariantCulture), true)))
+																							</small>
+																						}
+																						else
+																						{
+																							<span>RADIO BASE NO DISPONIBLE</span>
+																						}
+																					}
+																				</label>
+																			</div>
+																		</div>
+																		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+																			<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> DISTANCIA </h6>
+																			<div class="form-group" style="display: table; width: 100%; margin-bottom: 0; text-align: left;">
+																				<label class="Infolabel" style="display: table-cell; vertical-align: bottom;">
+																					@(Model.Order.Site.ListLineSight.ElementAt(0).Distance > 0 ? Model.Order.Site.ListLineSight.ElementAt(0).Distance + @" KM" : @"DISTANCIA NO DISPONIBLE")
+																				</label>
+																			</div>
+																		</div>
+																		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+																			<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> TIPO DE ENLACE </h6>
+																			<div class="form-group" style="display: table; width: 100%; margin-bottom: 0; text-align: left;">
+																				<label class="Infolabel" style="display: table-cell; vertical-align: bottom;">
+																					@(!string.IsNullOrWhiteSpace(Model.Order.Site.LinktType) ? Model.Order.Site.LinktType.ToUpper() : @"TIPO DE ENLACE NO DISPONIBLE")
+																				</label>
+																			</div>
+																		</div>
+																		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+																			<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> OBSERVACIONES </h6>
+																			<div class="form-group" style="display: table; width: 100%; margin-bottom: 0;text-align: left;">
+																				<label class="Infolabel" style="display: table-cell; vertical-align: bottom;">
+																					@(!string.IsNullOrWhiteSpace(orderShot.Comment) ? orderShot.Comment.ToUpper() : @"NO POSEE OBSERVACIONES")
+																				</label>
+																			</div>
+																		</div>
 																	</div>
 																</div>
 															</div>
+														}
+													}
+												}
+												else
+												{
+													<div style="display: table; width: 100%;">
+														<div style="display: table-row; width: 100%">
+															<label class="Infolabel" style="height: 50px; display: table-cell; vertical-align: bottom;">EN ESPERA DE RESPUESTA</label>
 														</div>
 													</div>
 												}
 											}
-										}
-										else
-										{
-											<div style="display: table; width: 100%;">
-												<div style="display: table-row; width: 100%">
-													<label class="Infolabel" style="height: 50px; display: table-cell; vertical-align: bottom;">En espera de respuesta.</label>
+										</div>
+									</div>
+								</section>
+
+								<section id="content2" class="sectionTab">
+									<div class="row">
+										<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" style="text-align: center;margin-bottom: 10px;">
+											<img src="~/Content/Images/Icons/building.png" style="height: 200px; width: 200px;" />
+										</div>
+										<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+											<div class="form-group">
+												<h6 class="info-text" style="text-align: left; margin-bottom: 0; font-weight: bold;"> ALTURA DE PISO </h6>
+												<div class="form-group" style="display: table; width: 100%; margin-bottom: 0;text-align: left;">
+													<label class="Infolabel" style="display: table-cell; vertical-align: bottom;">
+														@(Model.Order.Site.FloorHight.IsGreaterThanZero() ? Model.Order.Site.FloorHight.ToString(CultureInfo.InvariantCulture) + @" METROS" : @"NO DISPONIBLE")
+													</label>
 												</div>
 											</div>
-										}
-									}
-								</div>
-							</div>
+											<div class="form-group">
+												<h6 class="info-text" style="text-align: left; margin-bottom: 0; font-weight: bold;"> ALTURA DEL EDIFICIO </h6>
+												<div class="form-group" style="display: table; width: 100%; margin-bottom: 0;text-align: left;">
+													<label class="Infolabel" style="display: table-cell; vertical-align: bottom;">
+														@(Model.Order.Site.BuildingHight.IsGreaterThanZero() ? Model.Order.Site.BuildingHight.ToString(CultureInfo.InvariantCulture) + @" METROS" : @"NO DISPONIBLE")
+													</label>
+												</div>
+											</div>
+											<div class="form-group">
+												<h6 class="info-text" style="text-align: left; margin-bottom: 0; font-weight: bold;"> CANTIDAD DE PISOS </h6>
+												<div class="form-group" style="display: table; width: 100%; margin-bottom: 0;text-align: left;">
+													<label class="Infolabel" style="display: table-cell; vertical-align: bottom;">
+														@(Model.Order.Site.BuildingFloors.IsGreaterThanZero() ? Model.Order.Site.BuildingFloors.ToString(CultureInfo.InvariantCulture) : @"NO DISPONIBLE")
+													</label>
+												</div>
+											</div>
+										</div>
+									</div>
+									<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> INFORMACIÓN SOBRE LA AZOTEA </h6>
+									<hr>
+									<div class="row">
+										<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+											<div class="form-group">
+												<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> REQUERIMIENTOS ESPECIALES </h6>
+												<div class="form-group" style="display: table; width: 100%; margin-bottom: 0; text-align: left;">
+													<label class="Infolabel" style="display: table-cell; vertical-align: bottom;">
+														@(!string.IsNullOrWhiteSpace(Model.Order.SpecialRequirements) ? Model.Order.SpecialRequirements.ToUpper() : @"NO POSEE REQUERIMIENTOS ESPECIALES")
+													</label>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+											<div class="form-group">
+												<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> TIPOS DE ACCESSO </h6>
+												@{
+													if (Model.Order.Site.ListSiteAccessType.Any())
+													{
+														<div class="form-group">
+															<label class="Infolabel">
+																<span>@(AccessType.GetConcatAccessTypes(Model.Order.Site.ListSiteAccessType.ToList()).ToUpper())</span>
+															</label><br>
+														</div>
+													}
+													else
+													{
+														<div style="display: table; width: 100%; margin-bottom: 20px;">
+															<div style="display: table-row; width: 100%">
+																<label class="Infolabel" style="display: table-cell; vertical-align: bottom;">TIPOS DE ACCESO NO DISPONIBLE</label>
+															</div>
+														</div>
+													}
+												}
+											</div>
+										</div>
+
+										<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+											<div class="form-group">
+												<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> COSTOS ADICIONALES </h6>
+												<div class="form-group" style="display: table; width: 100%; margin-bottom: 0; text-align: left;">
+													<label class="Infolabel" style="display: table-cell; vertical-align: bottom;">
+														@(!string.IsNullOrWhiteSpace(Model.Order.AditionalCost) ? Model.Order.AditionalCost.ToUpper() : @"NO POSEE COSTOS ADICIONALES")
+													</label>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+											<div class="form-group">
+												<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> DIAS ESTIMADOS DE INSTALACIÓN </h6>
+												<div class="form-group" style="display: table; width: 100%; margin-bottom: 0; text-align: left;">
+													<label class="Infolabel" style="display: table-cell; vertical-align: bottom;">
+														@(!string.IsNullOrWhiteSpace(Model.Order.InstallationDays) ? Model.Order.InstallationDays : @"NO DISPONIBLE")
+													</label>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+											<div class="form-group">
+												<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> OBSERVACIONES </h6>
+												<div class="form-group" style="display: table; width: 100%; margin-bottom: 0;text-align: left;">
+													<label class="Infolabel" style="display: table-cell; vertical-align: bottom;">
+														@(!string.IsNullOrWhiteSpace(Model.Order.Comments) ? Model.Order.Comments.ToUpper() : @"NO POSEE OBSERVACIONES")
+													</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</section>
+
+								<section id="content3" class="sectionTab">
+									<div class="row">
+										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+											<div class="form-group">
+												<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> OBSERVACIONES </h6>
+												<div class="form-group" style="display: table; width: 100%; margin-bottom: 0;text-align: left;">
+													<label class="Infolabel" style="display: table-cell; vertical-align: bottom;">
+														@(!string.IsNullOrWhiteSpace(Model.Order.SettingUp) ? Model.Order.SettingUp.ToUpper() : @"NO POSEE OBSERVACIONES")
+													</label>
+												</div>
+											</div>
+										</div>
+									</div>
+									<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> LISTA DE MATERIALES UTILIZADOS EN LA INSTALACÍON </h6>
+									<hr>
+									<div class="row">
+										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+											<div class="list-group" id="listMetarialInstalation">
+												<a class="list-group-item active" style="text-align: center; background-color: royalblue;">
+													MATERIALES UTILIZADOS
+												</a>
+
+												@{
+													if (Model.Order.ListMaterials.Any())
+													{
+														for (int i = 0; i < Model.Order.ListMaterials.Count(); i++)
+														{
+															var item = Model.Order.ListMaterials.ElementAt(i);
+															<a href='@i' class='list-group-item materialsInst' data-ordermaterial="@item.ToJson()" style='padding: 0; height: 42px;' data-toggle='collapse' aria-expanded='false'>
+																<span class="pull-left" style="height: 100%; padding: 10px;">@item.Material.Name.ToUpper() <small style='color: #999999;'>@("(" + item.Quantity + @" " + item.Material.UnitMeasure.Name.ToUpper() + @")")</small></span>
+																<span style="display: none;" data-idremove="@i" class="materialInstalation-buttom-remove pull-right">
+																	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+																</span>
+															</a>
+														}
+													}
+													else
+													{
+														<a class="list-group-item" id="materialInspectionListEmpty" style="text-align: center; height: 53px;" data-toggle="collapse" aria-expanded="false">
+															<span class="text-center" style="height: 100%;">NO HAY MATERIALES AGREGADOS</span>
+														</a>
+													}
+												}
+											</div>
+										</div>
+									</div>
+									<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> GALERIA DE IMAGENES </h6>
+									<hr>
+									<div class="row">
+										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+											@{
+												var listOrderShotsInst = Model.Order.ListOrderShot.Where(a => a.OrderShotType.Id == (int) OrderShot.Type.Instalation).ToList();
+												if (listOrderShotsInst.Any())
+												{
+													<div id="carouselInst" class="carousel slide" data-ride="carousel" style="width: 80%;margin-left: auto;margin-right: auto;">
+														<!-- Indicators -->
+														<ol class="carousel-indicators" style="bottom: 10px;">
+
+															@for (int i = 0; i < listOrderShotsInst.Count; i++)
+															{
+																<li data-target="#carouselInst" data-slide-to="@i" class="@(i == 0 ? @"active" : string.Empty)" ></li>
+															}
+
+														</ol>
+
+														<div class="carousel-inner" role="listbox">
+															@for (int i = 0; i < listOrderShotsInst.Count; i++)
+															{
+																var orderShot = listOrderShotsInst.ElementAt(i);
+
+																var url = new Uri(orderShot.ShotPath);
+																var caption = url.Segments.LastOrDefault();
+																var path = orderShot.ShotPath;
+
+																<div class="item @(i == 0 ? @"active" : string.Empty)">
+																	<img src="@path" alt="@caption" >
+																</div>
+															}
+														</div>
+
+														<!-- Left and right controls -->
+														<a class="left carousel-control" href="#carouselInst" role="button" data-slide="prev">
+															<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+															<span class="sr-only">ANTERIOR</span>
+														</a>
+														<a class="right carousel-control" href="#carouselInst" role="button" data-slide="next">
+															<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+															<span class="sr-only">SIGUIENTE</span>
+														</a>
+													</div>
+												}
+												else
+												{
+													<div style="display: table; width: 100%;">
+														<div style="display: table-row; width: 100%">
+															<label class="Infolabel" style="height: 50px; display: table-cell; vertical-align: bottom;">IMAGENES NO DISPONIBLES</label>
+														</div>
+													</div>
+												}
+											}
+										</div>
+									</div>
+								</section>
+							</main>
 						</div>
 					</div>
 				</div>
@@ -381,7 +598,7 @@
 		<div class="tab-pane active" id="info">
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
-					Información no Disponible
+					INFORMACIÓN NO DISPONIBLE
 				</div>
 			</div>
 		</div>

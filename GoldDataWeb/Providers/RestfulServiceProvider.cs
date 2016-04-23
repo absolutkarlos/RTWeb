@@ -17,7 +17,8 @@ namespace GoldDataWeb.Providers
 		protected const string ContentType = @"application/json";
 		protected string HostApi = ConfigurationManager.AppSettings[@"HostApi"];
 		public static string GrantType = @"password";
-		
+		public static string GrantTypeRefresh = @"refresh_token";
+
 		public static string AuthUrlApi = @"/token";
 		public static string UserUrlApi = @"/api/user/";
 		public static string RolUrlApi = @"/api/rol/";

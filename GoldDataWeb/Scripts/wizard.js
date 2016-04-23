@@ -164,7 +164,7 @@ $(document).ready(function () {
 			siteName: "required",
 			broadband: {
 				required: true,
-				pattern: /^\d+$/
+				pattern: /^\d*\.?\d*$/
 			},
 			servicetype: "required",
 			sitedetailedadress: "required"
@@ -324,7 +324,8 @@ $(document).ready(function () {
 function validateFirstStep() {
 	var valid = $("#wizardClientForm").valid();
 	var hasError = true;
-	if (valid) {
+	var existingClient = client.ExistingClientValidate();
+	if (valid && !existingClient) {
 		var resp = client.ClientCreate();
 		hasError = resp.responseJSON.ErrorMessage !== null;
 		if (!hasError) {

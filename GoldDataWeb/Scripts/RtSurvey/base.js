@@ -16,26 +16,30 @@ var base = (function () {
 	var countryAbbrevation = "";
 	var infowindow;
 	var titles = [];
-
+	var intervalCountdown;
+	var timeOutToken;
 	return {
-		GetRootMetaData: function() { return "/MetaData/Index" },
-		GetRootState: function() { return "/MetaData/State" },
-		GetRootCity: function() { return "/MetaData/city" },
-		GetRootZone: function() { return "/MetaData/Zone" },
-		GetRootStepClientCreate: function() { return "/Steps/ClientCreate" },
-		GetRootStepContactsCreate: function() { return "/Steps/ContactsCreate" },
-		GetRootStepOrderCreate: function() { return "/Steps/OrderCreate" },
-		GetRootUpdateOrderPanel: function() { return "/Home/OrderPanel" },
+		GetRootLogOff: function () { return "/Login/LogOff" },
+		GetRootRefreshToken: function () { return "/Login/RefreshToken" },
+		GetRootMetaData: function () { return "/MetaData/Index" },
+		GetRootState: function () { return "/MetaData/State" },
+		GetRootCity: function () { return "/MetaData/city" },
+		GetRootZone: function () { return "/MetaData/Zone" },
+		GetRootStepClientCreate: function () { return "/Steps/ClientCreate" },
+		GetRootStepContactsCreate: function () { return "/Steps/ContactsCreate" },
+		GetRootStepOrderCreate: function () { return "/Steps/OrderCreate" },
+		GetRootUpdateOrderPanel: function () { return "/Home/OrderPanel" },
 		GetRootInfoOrderPanel: function () { return "/Home/InfoOrderPanel" },
 		GetRootInspectionPanel: function () { return "/Home/InspectionPanel" },
 		GetRootInstalationPanel: function () { return "/Home/InstalationPanel" },
-		GetRootUploadFile: function() { return "/Home/UploadFiles" },
-		GetRootClients: function() { return "/MetaData/Clients" },
-		GetRootGetClient: function() { return "/MetaData/GetClient" },
-		GetRootStepPreFactibilityCreate: function() { return "/Steps/PreFactibilityCreate" },
-		GetRootStepInspectionCreate: function() { return "/Steps/InspectionCreate" },
-		GetRootStepInstalationCreate: function() { return "/Steps/InstalationCreate" },
-		GetRootUpdateStatus: function() { return "/Steps/UpdateOrderStatus" },
+		GetRootUploadFile: function () { return "/Home/UploadFiles" },
+		GetRootClients: function () { return "/MetaData/Clients" },
+		GetRootGetClient: function () { return "/MetaData/GetClient" },
+		GetRootStepPreFactibilityCreate: function () { return "/Steps/PreFactibilityCreate" },
+		GetRootStepInspectionCreate: function () { return "/Steps/InspectionCreate" },
+		GetRootStepInstalationCreate: function () { return "/Steps/InstalationCreate" },
+		GetRootUpdateStatus: function () { return "/Steps/UpdateOrderStatus" },
+		GetRootExistingClientValidate: function () { return "/Home/ExistingClientValidate" },
 
 		defaultAjaxTimeout: 5000,
 
@@ -61,14 +65,14 @@ var base = (function () {
 
 		getRegularExpressionPhone: "/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\\2([0-9]{4})/",
 
-		init: function() {
-			jQuery.fn.exists = function() { return this.length > 0; }
+		init: function () {
+			jQuery.fn.exists = function () { return this.length > 0; }
 			this.ChangeCountryUserSelected();
 			this.LoadCountryUserSelected();
 			$("body").animatescroll();
 		},
 
-		ApplyNiceScroll: function(contentId) {
+		ApplyNiceScroll: function (contentId) {
 			$(contentId).niceScroll();
 		},
 
@@ -76,23 +80,24 @@ var base = (function () {
 			localStorage.removeItem("MetaData");
 		},
 
-		GetCountryAbbrevation: function() {
+		GetCountryAbbrevation: function () {
 			return countryAbbrevation;
 		},
         
 		PlotPoints: function (theLatLng, map) {
 			path.push(theLatLng);
 			if (!!marker) {
-			    marker.setMap(null);
+				marker.setMap(null);
 			}
 			marker = new window.google.maps.Marker({
 				position: theLatLng,
 				map: map
 			});
 			map.panTo(marker.position);
-			
+
 			var geocoder = new window.google.maps.Geocoder;
 			geocoder.geocode({ 'location': marker.position }, function (results, status) {
+<<<<<<< HEAD
 			    if (status === window.google.maps.GeocoderStatus.OK) {
 			        if (results[0]) {
 			            //$("#coords").val(marker.position);
@@ -110,18 +115,37 @@ var base = (function () {
 			    } else {
 			        window.alert('Geocoder failed due to: ' + status);
 			    }
+=======
+				if (status === window.google.maps.GeocoderStatus.OK) {
+					if (results[0]) {
+						$("#coords").val(marker.position);
+						$("#latitude").val(marker.position.lat);
+						$("#longitude").val(marker.position.lng);
+						infowindow = new window.google.maps.InfoWindow({});
+						var formattedAddress = base.FormaterAddressMaps(results[0]);
+						infowindow.setContent(formattedAddress);
+						infowindow.open(map, marker);
+						$("#sitedetailedadress").val(formattedAddress);
+						//$("coords").val(marker.position)
+					} else {
+						window.alert('No results found');
+					}
+				} else {
+					window.alert('Geocoder failed due to: ' + status);
+				}
+>>>>>>> master
 			});
 
 		},
 
-		DeleteMarkers: function() {
+		DeleteMarkers: function () {
 			for (var i = 0; i < markers.length; i++) {
 				markers[i].setMap(map);
 			}
 			markers = [];
 		},
 
-		PlottingComplete: function(theLatLng) {
+		PlottingComplete: function (theLatLng) {
 
 			path.push(theLatLng);
 
@@ -154,7 +178,7 @@ var base = (function () {
 
 		// Takes an array of ElevationResult objects, draws the path on the map
 		// and plots the elevation profile on a Visualization API ColumnChart.
-		PlotElevation: function(results, status) {
+		PlotElevation: function (results, status) {
 			if (status === window.google.maps.ElevationStatus.OK) {
 				elevations = results;
 
@@ -180,73 +204,79 @@ var base = (function () {
 			}
 		},
 
-		LoadRadioBase: function() {
+		LoadRadioBase: function () {
 			//var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 			//var labelIndex = 0;
 			var metaData = base.GetLocalMetaData();
 			if ((metaData.RadioBase) && (metaData.RadioBase.Data) && (metaData.RadioBase.Data.length > 0)) {
-			    $.each(metaData.RadioBase.Data, function (index, item) {
-			        var radioBase = new window.google.maps.Circle({
-			            strokeColor: '#FFFFFF',
-			            strokeOpacity: 0,
-			            clickable: false,
-			            strokeWeight: 1,
-			            fillColor: '#FFFFFF',
-			            fillOpacity: 0.1,
-			            map: map,
-			            center: { lat: parseFloat(item.Latitude), lng: parseFloat(item.Longitude) },
-			            radius: (10 * 1000)
-			        });
-			        //var infowindow = new google.maps.InfoWindow({});
-			        var marker = new window.google.maps.Marker({
-			            position: { lat: parseFloat(item.Latitude), lng: parseFloat(item.Longitude) },
-			            //label: labels[labelIndex++ % labels.length],
-			            title: item.Name,
-			            map: map
-			        });
-			        //infowindow.setContent(item.Name);
-			        titles.push(item.Name);
-			        markers.push(marker);
-			    });
+				$.each(metaData.RadioBase.Data, function (index, item) {
+					var radioBase = new window.google.maps.Circle({
+						strokeColor: '#FFFFFF',
+						strokeOpacity: 0,
+						clickable: false,
+						strokeWeight: 1,
+						fillColor: '#FFFFFF',
+						fillOpacity: 0.1,
+						map: map,
+						center: { lat: parseFloat(item.Latitude), lng: parseFloat(item.Longitude) },
+						radius: (10 * 1000)
+					});
+					//var infowindow = new google.maps.InfoWindow({});
+					var marker = new window.google.maps.Marker({
+						position: { lat: parseFloat(item.Latitude), lng: parseFloat(item.Longitude) },
+						//label: labels[labelIndex++ % labels.length],
+						title: item.Name,
+						map: map
+					});
+					//infowindow.setContent(item.Name);
+					titles.push(item.Name);
+					markers.push(marker);
+				});
 			}
 			var options_markerclusterer = {
-			    zoomOnClick: false
+				zoomOnClick: false
 			};
 
 			var markerCluster = new MarkerClusterer(map, markers, options_markerclusterer);
 
 			google.maps.event.addListener(markerCluster, 'clusterclick', function (cluster) {
-			    var totalmarkers = cluster.getMarkers();
-			    var array = [];
-			    var num = 0;
-			    for (i = 0; i < totalmarkers.length; i++) {
-			        num++;
-			        array.push(totalmarkers[i].getTitle() + '<br>');
-			    }
-			    if (map.getZoom() <= markerCluster.getMaxZoom()) {
-			        infoWindow.setContent(totalmarkers.length + " markers<br>" + array);
-			        infoWindow.setPosition(cluster.getCenter());
-			        infoWindow.open(map);
-			    }
+				var totalmarkers = cluster.getMarkers();
+				var array = [];
+				var num = 0;
+				for (i = 0; i < totalmarkers.length; i++) {
+					num++;
+					array.push(totalmarkers[i].getTitle() + '<br>');
+				}
+				if (map.getZoom() <= markerCluster.getMaxZoom()) {
+					infoWindow.setContent(totalmarkers.length + " markers<br>" + array);
+					infoWindow.setPosition(cluster.getCenter());
+					infoWindow.open(map);
+				}
 			});
 		},
 
-		GeoCodeLatLng: function(latlng) {
+		GeoCodeLatLng: function (latlng) {
 			var geocoder = new window.google.maps.Geocoder;
-			geocoder.geocode({ 'location': latlng }, function(results, status) {
+			geocoder.geocode({ 'location': latlng }, function (results, status) {
 				if (status === window.google.maps.GeocoderStatus.OK) {
 					if (results[0]) {
 						map.setZoom(12);
 						infowindow = new window.google.maps.InfoWindow({});
 						if (!!marker) {
-						    marker.setpos(null);
+							marker.setpos(null);
 						}
-                        marker = new window.google.maps.Marker({
+						marker = new window.google.maps.Marker({
 							position: latlng,
 							map: map
+<<<<<<< HEAD
                         });
                         map.panTo(marker.position);
                         //$("#coords").val(marker.position);
+=======
+						});
+						map.panTo(marker.position);
+						$("#coords").val(marker.position);
+>>>>>>> master
 						var formattedAddress = base.FormaterAddressMaps(results[0]);
 						//infowindow.setContent(formattedAddress);
 						//infowindow.open(map, marker);
@@ -260,14 +290,14 @@ var base = (function () {
 			});
 		},
 
-		HandleGoogelMapError: function(browserHasGeolocation, infoWindow, pos) {
+		HandleGoogelMapError: function (browserHasGeolocation, infoWindow, pos) {
 			infoWindow.setPosition(pos);
 			infoWindow.setContent(browserHasGeolocation ?
 				'Error: El servicio de geolocalización falló.' :
 				'Error: Su navegador no soporta geolocalización.');
 		},
 
-		InitializeGoogleMap: function() {
+		InitializeGoogleMap: function () {
 			map = new window.google.maps.Map(document.getElementById('googleMap'), {
 				zoom: 12,
 				mapTypeId: window.google.maps.MapTypeId.HYBRID
@@ -340,16 +370,16 @@ var base = (function () {
 			//map.controls[google.maps.ControlPosition.TOP_CENTER].push('<input onclick="deleteMarkers();" type=button value="Borrar Marcadores">');
 
 			window.google.maps.event.addListener(map, 'click', function (event) {
-			    base.PlotPoints(event.latLng, map);
+				base.PlotPoints(event.latLng, map);
 			});
 
-			window.google.maps.event.addListener(map, 'rightclick', function(event) {
+			window.google.maps.event.addListener(map, 'rightclick', function (event) {
 				base.PlottingComplete(event.latLng);
 			});
 
 			mouseOverInfowindow = new window.google.maps.InfoWindow({});
 
-			window.google.visualization.events.addListener(chart, 'onmouseover', function(e) {
+			window.google.visualization.events.addListener(chart, 'onmouseover', function (e) {
 				var contentStr;
 				if (mousemarker == null) {
 					mousemarker = new window.google.maps.Marker({
@@ -360,7 +390,7 @@ var base = (function () {
 					contentStr = "elevation=" + elevations[e.row].elevation + "<br>location=" + elevations[e.row].location.toUrlValue(6);
 					mousemarker.contentStr = contentStr;
 					window.google.maps.event.addListener(mousemarker, 'click', function () {
-					    mmInfowindowOpen = true;
+						mmInfowindowOpen = true;
 						mouseOverInfowindow.setContent(this.contentStr);
 						mouseOverInfowindow.open(map, mousemarker);
 					});
@@ -374,12 +404,12 @@ var base = (function () {
 			});
 
 			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(function(position) {
+				navigator.geolocation.getCurrentPosition(function (position) {
 					var pos = {
 						lat: position.coords.latitude,
 						lng: position.coords.longitude
 					};
-                  
+
 					$("#longitude").val(pos.lng);
 					$("#latitude").val(pos.lat);
 
@@ -399,12 +429,12 @@ var base = (function () {
 			}
 		},
 
-		FormaterAddressMaps: function(address) {
+		FormaterAddressMaps: function (address) {
 			var formattedAddress = "";
 			var length = address.address_components.length;
 			if (length > 0) {
 				var addressComponentsrRverse = address.address_components.reverse();
-				$.each(addressComponentsrRverse, function(index, item) {
+				$.each(addressComponentsrRverse, function (index, item) {
 					if (item.types[0] === "country") {
 						countryAbbrevation = item.short_name;
 					}
@@ -419,12 +449,60 @@ var base = (function () {
 			return formattedAddress;
 		},
 
+		ValidateExpireToken: function () {
+			var data = JSON.parse(base.readCookie("RefreshToken"));
+			timeOutToken = setTimeout(function () {
+				base.ShowModalSessionExpire();
+			}, ((parseInt(data.ExpiresIn) * 1000) - 31000));
+		},
 
-		ValidateHasError: function(data, callback) {
+		Countdown: function () {
+			var seg = parseInt($("#timeSession").text());
+			if (seg > 0) {
+				$("#timeSession").text(seg - 1);
+			} else {
+				clearInterval(intervalCountdown);
+				clearTimeout(timeOutToken);
+				$('#confirm').modal('hide');
+				$.when(baseHome.LogOff()).then(function () {
+					$("#timeSession").text(30);
+					location.reload();
+				});
+			}
+		},
+
+		ShowModalSessionExpire: function () {
+			$('#confirm').modal({ backdrop: 'static', keyboard: false }).one('click', '#buttomModalConfirm', function () {
+				clearInterval(intervalCountdown);
+				clearTimeout(timeOutToken);
+				$("#timeSession").text(30);
+				$.when(baseHome.RefreshToken()).then(function (resp) {
+					if (resp.UpdateToken) {
+						base.ValidateExpireToken();
+					} else {
+						baseHome.LogOff();
+						location.reload();
+					}
+				});
+			});
+			$('#buttomModalCancel').on('click', function (e) {
+				$("#timeSession").text(30);
+				clearInterval(intervalCountdown);
+				clearTimeout(timeOutToken);
+				$.when(baseHome.LogOff()).then(function () {
+					location.reload();
+				});
+			});
+			intervalCountdown = setInterval(function () {
+				base.Countdown();
+			}, 1000);
+		},
+
+		ValidateHasError: function (data, callback) {
 			var valid = (data.ErrorMessage !== null);
 			if (valid) {
 				if (data.Status === 401) {
-					alert("Su sesion a expirado");
+					base.ShowModalSessionExpire();
 				} else {
 					callback();
 				}
@@ -432,35 +510,35 @@ var base = (function () {
 			return valid;
 		},
 
-		ErrorAjax: function(data) {
+		ErrorAjax: function (data) {
 			if (data) {
 
 			}
 		},
 
-		RefreshMap: function() {
+		RefreshMap: function () {
 			window.google.maps.event.trigger(map, 'resize');
 		},
 
-		GetLocalMetaData: function() {
+		GetLocalMetaData: function () {
 			if (localStorage.getItem("MetaData")) {
 				return JSON.parse(localStorage.getItem("MetaData"));
 			}
 			return null;
 		},
 
-		LoadDropDownList: function(selector, data) {
-			$.each(data, function() {
+		LoadDropDownList: function (selector, data) {
+			$.each(data, function () {
 				$(selector).append($("<option />").val(this.Id).text(this.Name));
 			});
 		},
 
-		ResetDropDownList: function(selector) {
+		ResetDropDownList: function (selector) {
 			$(selector + ' option[value=""]').prop("selected", true);
 			$(selector).select2("");
 		},
 
-		ClearDropDownList: function(selector) {
+		ClearDropDownList: function (selector) {
 			var option = $(selector + ' option[value=""]');
 			$(selector).empty();
 			$(selector).append(option);
@@ -468,11 +546,11 @@ var base = (function () {
 			$(selector).select2("");
 		},
 
-		getLanguageCookie: function() {
+		getLanguageCookie: function () {
 			return self.readCookie(self.getEducaStoreCookie);
 		},
 
-		checkIfCookieExist: function() {
+		checkIfCookieExist: function () {
 
 			var self = this;
 
@@ -480,7 +558,7 @@ var base = (function () {
 				self.createCookie(self.getEducaStoreCookie, self.getEducaStoreDefaultLang, 365);
 		},
 
-		isBrowserMobile: function() {
+		isBrowserMobile: function () {
 
 			var returning = false;
 
@@ -492,7 +570,7 @@ var base = (function () {
 		},
 
 
-		checkIfIE: function() {
+		checkIfIE: function () {
 			var ua = window.navigator.userAgent;
 			var msie = ua.indexOf("MSIE ");
 
@@ -503,7 +581,7 @@ var base = (function () {
 		},
 
 
-		createCookie: function(name, value, days) {
+		createCookie: function (name, value, days) {
 			var expires;
 			if (days) {
 				var date = new Date();
@@ -516,7 +594,7 @@ var base = (function () {
 		},
 
 
-		readCookie: function(name) {
+		readCookie: function (name) {
 			var nameEq = name + "=";
 			var ca = document.cookie.split(';');
 			for (var i = 0; i < ca.length; i++) {
@@ -528,12 +606,12 @@ var base = (function () {
 		},
 
 
-		eraseCookie: function(name) {
+		eraseCookie: function (name) {
 			this.createCookie(name, "", -1);
 		},
 
 		/*Format strings with arguments*/
-		format: function(str, arguments1) {
+		format: function (str, arguments1) {
 			for (var i = 0; i < arguments1.length; i++) {
 				var reg = new RegExp("\\{" + i + "\\}", "gm");
 				str = str.replace(reg, arguments1[i]);
@@ -542,7 +620,7 @@ var base = (function () {
 		},
 
 		/*Gets all query string and returns them as an array*/
-		getUrlValues: function() {
+		getUrlValues: function () {
 			var vars = [], hash;
 			var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
 			for (var i = 0; i < hashes.length; i++) {
@@ -555,47 +633,47 @@ var base = (function () {
 
 		/* Set of functions to validate if is an specific mobile OS */
 		isMobile: {
-			Android: function() {
+			Android: function () {
 				return /Android/i.test(navigator.userAgent);
 			},
-			BlackBerry: function() {
+			BlackBerry: function () {
 				return /BlackBerry/i.test(navigator.userAgent);
 			},
-			iOS: function() {
+			iOS: function () {
 				return /iPhone|iPad|iPod/i.test(navigator.userAgent);
 			},
-			Windows: function() {
+			Windows: function () {
 				return /IEMobile/i.test(navigator.userAgent);
 			}
 		},
 
 
 		/* Method to redirect to specific URL*/
-		redirectURL: function(url) {
+		redirectURL: function (url) {
 			window.location.href = url;
 		},
 
-		ChangeCountryUserSelected: function() {
-			$(".optionCountry").click(function() {
+		ChangeCountryUserSelected: function () {
+			$(".optionCountry").click(function () {
 				$("#countrySelected").empty().append($(this).html());
 				localStorage.setItem("countrySelected", $("#countrySelected").find("img").data("country"));
 			});
 		},
 
-		GetCountryUserSelected: function() {
+		GetCountryUserSelected: function () {
 			return $("#countrySelected").find("img").data("country");
 		},
 
-		LoadCountryUserSelected: function() {
-			if(localStorage.getItem("countrySelected")) {
-				$.each($(".optionCountry"), function(index, item) {
+		LoadCountryUserSelected: function () {
+			if (localStorage.getItem("countrySelected")) {
+				$.each($(".optionCountry"), function (index, item) {
 					if ($(item).find("img").data("country") === localStorage.getItem("countrySelected")) {
 						$("#countrySelected").empty().append($(item).html());
 					}
 				});
 			}
 		}
-}
+	}
 }());
 
 $(function () {

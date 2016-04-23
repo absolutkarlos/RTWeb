@@ -123,6 +123,8 @@ namespace GoldDataWeb.Controllers.Base
 			//encrypt the ticket and add it to a cookie
 			HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
 			Response.Cookies.Add(cookie);
+
+			Response.Cookies.Add(new HttpCookie(@"RefreshToken", (new { auth.ExpiresIn, RefreshToken = auth.refresh_token }).ToJson()));
 		}
 
 		public void CreateLoginCookie(Auth auth)

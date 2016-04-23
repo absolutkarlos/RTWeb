@@ -18,5 +18,12 @@ namespace GoldDataWeb.Providers.Services
 			Service.AddObjectToRequest(auth);
 			return Service.Post<Auth>();
 		}
+
+		public Auth RefreshToken(Auth auth)
+		{
+			auth.grant_type = RestfulServiceProvider.GrantTypeRefresh;
+			Service.AddObjectToRequest(auth);
+			return Service.Post<Auth>();
+		}
 	}
 }

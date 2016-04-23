@@ -4,6 +4,22 @@
 
 		},
 
+		LogOff: function () {
+			return $.ajax({
+				method: "GET",
+				url: base.GetRootLogOff(),
+				error: base.ErrorAjax
+			});
+		},
+
+		RefreshToken: function () {
+			return $.ajax({
+				method: "POST",
+				url: base.GetRootRefreshToken(),
+				error: base.ErrorAjax
+			});
+		},
+
 		GetExistingClient: function (clientId) {
 			return $.ajax({
 				method: "GET",
