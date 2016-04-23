@@ -83,7 +83,7 @@ var base = (function () {
 		GetCountryAbbrevation: function () {
 			return countryAbbrevation;
 		},
-        
+
 		PlotPoints: function (theLatLng, map) {
 			path.push(theLatLng);
 			if (!!marker) {
@@ -97,28 +97,10 @@ var base = (function () {
 
 			var geocoder = new window.google.maps.Geocoder;
 			geocoder.geocode({ 'location': marker.position }, function (results, status) {
-<<<<<<< HEAD
-			    if (status === window.google.maps.GeocoderStatus.OK) {
-			        if (results[0]) {
-			            //$("#coords").val(marker.position);
-			            $("#latitude").val(marker.position.lat);
-			            $("#longitude").val(marker.position.lng);
-			            infowindow = new window.google.maps.InfoWindow({});
-			            var formattedAddress = base.FormaterAddressMaps(results[0]);
-			            infowindow.setContent(formattedAddress);
-			            infowindow.open(map, marker);
-			            $("#sitedetailedadress").val(formattedAddress);
-                        //$("coords").val(marker.position)
-			        } else {
-			            window.alert('No results found');
-			        }
-			    } else {
-			        window.alert('Geocoder failed due to: ' + status);
-			    }
-=======
+
 				if (status === window.google.maps.GeocoderStatus.OK) {
 					if (results[0]) {
-						$("#coords").val(marker.position);
+						//$("#coords").val(marker.position);
 						$("#latitude").val(marker.position.lat);
 						$("#longitude").val(marker.position.lng);
 						infowindow = new window.google.maps.InfoWindow({});
@@ -133,7 +115,6 @@ var base = (function () {
 				} else {
 					window.alert('Geocoder failed due to: ' + status);
 				}
->>>>>>> master
 			});
 
 		},
@@ -268,15 +249,11 @@ var base = (function () {
 						marker = new window.google.maps.Marker({
 							position: latlng,
 							map: map
-<<<<<<< HEAD
-                        });
-                        map.panTo(marker.position);
-                        //$("#coords").val(marker.position);
-=======
+
 						});
 						map.panTo(marker.position);
-						$("#coords").val(marker.position);
->>>>>>> master
+						//$("#coords").val(marker.position);
+
 						var formattedAddress = base.FormaterAddressMaps(results[0]);
 						//infowindow.setContent(formattedAddress);
 						//infowindow.open(map, marker);
@@ -313,48 +290,48 @@ var base = (function () {
 			var searchBox = new google.maps.places.SearchBox(input);
 
 			map.addListener('bounds_changed', function () {
-			    searchBox.setBounds(map.getBounds());
+				searchBox.setBounds(map.getBounds());
 			});
-            
+
 			var markersplaces = [];
 
-			searchBox.addListener('places_changed', function() {
-			    var places = searchBox.getPlaces();
-			    if (places.length == 0) {
-			        return;
-			    }
-			    markersplaces.forEach(function(marker) {
-			        marker.setMap(null);
-			    });
-			    markersplaces = [];
-			    
-			    var bounds = new google.maps.LatLngBounds();
-			    places.forEach(function(place) {
-			        var icon = {
-			            url: place.icon,
-			            size: new google.maps.Size(71, 71),
-			            origin: new google.maps.Point(0, 0),
-			            anchor: new google.maps.Point(17, 34),
-			            scaledSize: new google.maps.Size(25, 25)
-			        };
-			        if (!!marker) {
-			            marker.setMap(null);
-			        }
-			        marker = new window.google.maps.Marker({
-			            position: place.geometry.location,
-			            map: map,
-                        title: place.name
-			        });
-			        
-			
-			        if (place.geometry.viewport) {
-			            // Only geocodes have viewport.
-			            bounds.union(place.geometry.viewport);
-			        } else {
-			            bounds.extend(place.geometry.location);
-			        }
-			    });
-			    map.fitBounds(bounds);
+			searchBox.addListener('places_changed', function () {
+				var places = searchBox.getPlaces();
+				if (places.length == 0) {
+					return;
+				}
+				markersplaces.forEach(function (marker) {
+					marker.setMap(null);
+				});
+				markersplaces = [];
+
+				var bounds = new google.maps.LatLngBounds();
+				places.forEach(function (place) {
+					var icon = {
+						url: place.icon,
+						size: new google.maps.Size(71, 71),
+						origin: new google.maps.Point(0, 0),
+						anchor: new google.maps.Point(17, 34),
+						scaledSize: new google.maps.Size(25, 25)
+					};
+					if (!!marker) {
+						marker.setMap(null);
+					}
+					marker = new window.google.maps.Marker({
+						position: place.geometry.location,
+						map: map,
+						title: place.name
+					});
+
+
+					if (place.geometry.viewport) {
+						// Only geocodes have viewport.
+						bounds.union(place.geometry.viewport);
+					} else {
+						bounds.extend(place.geometry.location);
+					}
+				});
+				map.fitBounds(bounds);
 			});
 
 
