@@ -97,7 +97,7 @@ namespace GoldDataWeb.Controllers
 				var newSite = new Site
 				{
 					Id = int.Parse(viewModel.SiteId),
-					LinktType = viewModel.LinkType,
+					LinkType = viewModel.LinkType,
 					UpdateBy = short.Parse(GetAuthData().UserId.ToString())
 				};
 

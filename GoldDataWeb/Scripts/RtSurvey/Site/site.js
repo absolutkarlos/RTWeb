@@ -27,8 +27,10 @@
 			$("#broadband").val("");
 			$("#longitude").val("");
 			$("#latitude").val("");
+			$("#coords").val("");
+			$("#siteName").val("");
 			$("#sitedetailedadress").val("");
-			$(".js-example-basic-multiple").val(null).trigger("change");
+			$(".js-example-basic-multiple").val(0).trigger("change");
 			$.each($(".week:checked"), function (index, item) {
 				$(item).parent().removeClass('active');
 				$(item).prop("checked", false);

@@ -3,7 +3,6 @@
 	var rand;
 	return {
 		init: function() {
-			this.GetEvent().InitializeOrderStatusBar();
 			this.GetEvent().Select2Event();
 			this.GetEvent().WindowScrollEvent();
 			this.GetEvent().ButtomScrollDownEvent();
@@ -55,7 +54,7 @@
 		LoadInfoOrderPanel: function (id, clearFileInput) {
 			$("#panelInfo").show();
 			$("#panelClient").hide();
-			$("#refreshInfoOrderPanel").show();
+			$("#refreshInfoOrderPanel").css({ "display": "table" });
 			$("#info").hide();
 			$("#wizardInfo").find('.btn-next').hide();
 			$('.wizard-card').bootstrapWizard('show', 0);
@@ -68,7 +67,6 @@
 				$("#info").remove();
 				$("#refreshInfoOrderPanel").hide();
 				$("#contentPanelInfo").prepend(panel);
-				home.GetEvent().InitializeOrderStatusBar();
 				site.GetEvent().CreteOrderButtomEvent();
 				home.GetEvent().AddNewOrder();
 				home.GetEvent().InitializePopover();
@@ -198,19 +196,25 @@
 				},
 
 				InitializePopover: function () {
-					$("#popoverPref").popover({
+					$("#one").popover({
+						html: true,
+						content: function () {
+							return $("#contentNew").html();
+						}
+					});
+					$("#two").popover({
 						html: true,
 						content: function () {
 							return $("#contentPref").html();
 						}
 					});
-					$("#popoverInsp").popover({
+					$("#three").popover({
 						html: true,
 						content: function () {
 							return $("#contentInsp").html();
 						}
 					});
-					$("#popoverInst").popover({
+					$("#four").popover({
 						html: true,
 						content: function () {
 							return $("#contentInst").html();
@@ -273,7 +277,7 @@
 
 				ViewInfoOrder: function () {
 					$('.order').click(function (event) {
-						//event.preventDefault();
+						event.preventDefault();
 						home.SelectedOrder($(this).data("orderid"));
 						home.LoadInfoOrderPanel($(this).data("orderid"), true);
 					});

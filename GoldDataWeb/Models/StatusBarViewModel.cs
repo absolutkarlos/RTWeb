@@ -17,5 +17,6 @@ namespace GoldDataWeb.Models
 		public string EffectiveDate { get; set; } = @"NO DISPONIBLE";
 		public string Class { get; set; }
 		public string Color { get; set; } = @"none";
+		public string IsApproved { get; set; }
 	}
 }

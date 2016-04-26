@@ -15,6 +15,7 @@ namespace GoldDataWeb.Controllers
 		[AllowAnonymous]
 		public ActionResult Index()
 		{
+			CloseSession();
 			return View(ValidateRememberAuth());
 		}
 
@@ -40,10 +41,7 @@ namespace GoldDataWeb.Controllers
 		[AllowAnonymous]
 		public ActionResult LogOff()
 		{
-			Session.Abandon();
-			Session.Clear();
-			DeleteCookie(@"RefreshToken");
-			FormsAuthentication.SignOut();
+			CloseSession();
 			return RedirectToAction(@"Index");
 		}
 

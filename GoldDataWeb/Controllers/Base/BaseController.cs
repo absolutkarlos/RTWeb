@@ -97,6 +97,14 @@ namespace GoldDataWeb.Controllers.Base
 			return new Auth();
 		}
 
+		public void CloseSession()
+		{
+			Session.Abandon();
+			Session.Clear();
+			DeleteCookie(@"RefreshToken");
+			FormsAuthentication.SignOut();
+		}
+
 		public Auth GetAuthData()
 		{
 			var data = (UserIdentity)User;
@@ -124,7 +132,7 @@ namespace GoldDataWeb.Controllers.Base
 			HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
 			Response.Cookies.Add(cookie);
 
-			Response.Cookies.Add(new HttpCookie(@"RefreshToken", (new { auth.ExpiresIn, RefreshToken = auth.refresh_token }).ToJson()));
+			Response.Cookies.Add(new HttpCookie(@"RefreshToken", (new { auth.ExpiresIn, RefreshToken = auth.refresh_token }).ToJson()) { Expires = DateTime.Now.AddHours(1) });
 		}
 
 		public void CreateLoginCookie(Auth auth)

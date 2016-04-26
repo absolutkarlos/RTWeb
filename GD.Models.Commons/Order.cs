@@ -116,6 +116,7 @@ namespace GD.Models.Commons
 					SiteNumber = AdditionalData.ContainsKey(@"site.sitenumber") ? (int)AdditionalData[@"site.sitenumber"] : 0,
 					Latitude = AdditionalData.ContainsKey(@"site.latitude") ? AdditionalData[@"site.latitude"].ToString() : string.Empty,
 					Longitude = AdditionalData.ContainsKey(@"site.longitude") ? AdditionalData[@"site.longitude"].ToString() : string.Empty,
+					LinkType = AdditionalData.ContainsKey(@"site.linktype") ? AdditionalData[@"site.linktype"].ToString() : string.Empty,
 					BuildingHight = AdditionalData.ContainsKey(@"site.buildinghight") ? (float)AdditionalData[@"site.buildinghight"] : 0
 				};
 

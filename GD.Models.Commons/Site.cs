@@ -14,7 +14,7 @@ namespace GD.Models.Commons
 		public int Id { get; set; }
 
 		[JsonProperty(@"linktype")]
-		public string LinktType { get; set; }
+		public string LinkType { get; set; }
 
 		[JsonProperty(@"client")]
 		public Client Client { get; set; }
