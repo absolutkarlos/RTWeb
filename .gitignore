@@ -2,6 +2,7 @@
 *.suo
 **/packages/*
 *.obj/*
+GoldDataWeb/bin/
 GoldDataWeb/obj/
 GD.Models.Commons/obj/
 GoldDataWeb/App_Data/
