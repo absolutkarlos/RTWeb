@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.UI;
 using GD.Models.Commons;
 using GD.Models.Commons.Utilities;
 using GoldDataWeb.Controllers.Base;
@@ -13,6 +14,7 @@ namespace GoldDataWeb.Controllers
 		//
 		// GET: /Account/Login
 		[AllowAnonymous]
+		[SignOutFilter]
 		public ActionResult Index()
 		{
 			CloseSession();

@@ -9,10 +9,11 @@
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<input id="input-700NOC" name="input_noc" type="file" multiple class="file-loading">
 		</div>
-		<div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center; @(Model.Order.ListOrderFlow.Any(a => a.IdOrderStatus == (int)OrderStatus.Type.Prefactibilidad && a.IdStatus == (int)Status.Type.Activo) ? @"display: none;" : @"display: block;")">
+		<div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
 			<input type="button" id="rechazarPreFactibility" name="" class="btn btn-default btn-danger" value="Rechazar" data-toggle="confirmation" data-status="2" style="opacity: 2;margin-top: 40px;text-align: center;margin-right: 60px;width: 110px;
-				@(Model.Order.ListOrderFlow.Any(a => a.IdOrderStatus == (int)OrderStatus.Type.Prefactibilidad && a.IdStatus == (int)Status.Type.Inactivo) ? @"display: none;" : @"display: inline-block;")">
-			<input type="button" id="aprobarPreFactibility" name="" class="btn btn-default btn-success" value="Aprobar" data-toggle="confirmation" data-status="1" style="opacity: 2;margin-top: 40px;text-align: center;width: 110px;">
+				@(Model.Order.ListOrderFlow.Any(a => a.IdOrderStatus == (int)OrderStatus.Type.Prefactibilidad && a.IdStatus == (int)Status.Type.Inactivo || a.IdOrderStatus == (int)OrderStatus.Type.Prefactibilidad && a.IdStatus == (int)Status.Type.Activo) ? @"display: none;" : @"display: inline-block;")">
+			<input type="button" id="aprobarPreFactibility" name="" class="btn btn-default btn-success" value="Aprobar" data-toggle="confirmation" data-status="1" style="opacity: 2;margin-top: 40px;text-align: center;width: 110px;
+				@(Model.Order.ListOrderFlow.Any(a => a.IdOrderStatus == (int)OrderStatus.Type.Prefactibilidad && a.IdStatus == (int)Status.Type.Activo) ? @"display: none;" : @"display: block;")">
 		</div>
 	</div>
 </div>

@@ -345,8 +345,9 @@
 											@{
 												if (Model.Order.ListOrderShot.Any(a => a.OrderShotType.Id == (int)OrderShot.Type.LineSight))
 												{
-													foreach (var orderShot in Model.Order.ListOrderShot)
+													for (int i = 0; i < Model.Order.ListOrderShot.Count(); i++)
 													{
+														var orderShot = Model.Order.ListOrderShot.ElementAt(i);
 														if (orderShot.OrderShotType.Id == (int)OrderShot.Type.LineSight)
 														{
 															var url = new Uri(orderShot.ShotPath);
@@ -361,12 +362,12 @@
 																			<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> RADIO BASE </h6>
 																			<div class="form-group" style="display: table; width: 100%; margin-bottom: 0; text-align: left;">
 																				@{
-																					if (!string.IsNullOrWhiteSpace(Model.Order.Site.ListLineSight.ElementAt(0).RadioBase.Name))
+																					if (!string.IsNullOrWhiteSpace(Model.Order.Site.ListLineSight.ElementAt(i).RadioBase.Name))
 																					{
 																						<label class="Infolabel" style="display: table-cell; vertical-align: bottom;"
-																							title="(@(Utility.ConvertToDegressMinutesSeconds(double.Parse(Model.Order.Site.ListLineSight.ElementAt(0).RadioBase.Latitude, CultureInfo.InvariantCulture), false)
-																								+ @", " + Utility.ConvertToDegressMinutesSeconds(double.Parse(Model.Order.Site.ListLineSight.ElementAt(0).RadioBase.Longitude, CultureInfo.InvariantCulture), true)))">
-																							@Model.Order.Site.ListLineSight.ElementAt(0).RadioBase.Name.ToUpper()
+																							title="(@(Utility.ConvertToDegressMinutesSeconds(double.Parse(Model.Order.Site.ListLineSight.ElementAt(i).RadioBase.Latitude, CultureInfo.InvariantCulture), false)
+																								+ @", " + Utility.ConvertToDegressMinutesSeconds(double.Parse(Model.Order.Site.ListLineSight.ElementAt(i).RadioBase.Longitude, CultureInfo.InvariantCulture), true)))">
+																							@Model.Order.Site.ListLineSight.ElementAt(i).RadioBase.Name.ToUpper()
 																						</label>
 																					}
 																					else
@@ -382,7 +383,7 @@
 																			<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> DISTANCIA </h6>
 																			<div class="form-group" style="display: table; width: 100%; margin-bottom: 0; text-align: left;">
 																				<label class="Infolabel" style="display: table-cell; vertical-align: bottom;">
-																					@(Model.Order.Site.ListLineSight.ElementAt(0).Distance > 0 ? Model.Order.Site.ListLineSight.ElementAt(0).Distance + @" KM" : @"DISTANCIA NO DISPONIBLE")
+																					@(Model.Order.Site.ListLineSight.ElementAt(i).Distance > 0 ? Model.Order.Site.ListLineSight.ElementAt(0).Distance + @" KM" : @"DISTANCIA NO DISPONIBLE")
 																				</label>
 																			</div>
 																		</div>
@@ -404,16 +405,18 @@
 																		</div>
 																	</div>
 																</div>
-															</div>							}
-																							}
-																						}
-																						else
-																						{
-																							<div style="display: table; width: 100%;">
-																								<div style="display: table-row; width: 100%">
-																									<label class="Infolabel" style="height: 50px; display: table-cell; vertical-align: bottom;">EN ESPERA DE RESPUESTA</label>
-																								</div>
-																							</div>		}
+															</div>
+														}
+													}
+												}
+												else
+												{
+														<div style="display: table; width: 100%;">
+															<div style="display: table-row; width: 100%">
+																<label class="Infolabel" style="height: 50px; display: table-cell; vertical-align: bottom;">EN ESPERA DE RESPUESTA</label>
+															</div>
+														</div>
+												}
 											}
 										</div>
 									</div>

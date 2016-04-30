@@ -183,7 +183,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MetaDataController.cs" />
     <Compile Include="Controllers\StepsController.cs" />
-    <Compile Include="Filters\InitializeServices.cs" />
+    <Compile Include="Filters\SignOutFilterAttribute.cs" />
     <Compile Include="Filters\UnhandledExceptionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -597,6 +597,7 @@
     <Content Include="Views\Home\_WizardTabInstalation.cshtml" />
     <Content Include="Views\Home\_OrderPanel.cshtml" />
     <Content Include="Views\Home\_WizardTabPrefactibilidad.cshtml" />
+    <Content Include="Views\Home\UserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

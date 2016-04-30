@@ -2,7 +2,7 @@
 	var currentSlide;
 	var rand;
 	return {
-		init: function() {
+		init: function () {
 			this.GetEvent().Select2Event();
 			this.GetEvent().WindowScrollEvent();
 			this.GetEvent().ButtomScrollDownEvent();
@@ -27,7 +27,7 @@
 			base.ValidateExpireToken();
 		},
 
-		CreateClipBoard: function(control) {
+		CreateClipBoard: function (control) {
 			var clipboard = new Clipboard(control);
 		},
 
@@ -41,8 +41,8 @@
 			base.LoadDropDownList("#celdas", data.RadioBase.Data);
 		},
 
-		SelectedOrder: function(orderId) {
-			$.each($(".order"), function(index, item) {
+		SelectedOrder: function (orderId) {
+			$.each($(".order"), function (index, item) {
 				if ($(item).data("orderid") === orderId) {
 					$(item).addClass("orderActive");
 				} else {
@@ -164,7 +164,7 @@
 						},
 						onTabShow: function (tab, navigation, index) {
 							$(tab).parent().removeClass("active");
-							$.each($(".tabStatus"), function(index, item) {
+							$.each($(".tabStatus"), function (index, item) {
 								var statusControl = $($(item).find("span .glyphicon"));
 								if (statusControl.hasClass("glyphicon-ok") || statusControl.hasClass("glyphicon-remove")) {
 									$(item).parent().parent().addClass("active");
@@ -173,7 +173,7 @@
 						}
 					});
 
-					$(".tabStatus").click(function() {
+					$(".tabStatus").click(function () {
 						$(this).parent().click();
 					});
 				},
@@ -198,24 +198,29 @@
 				InitializePopover: function () {
 					$("#one").popover({
 						html: true,
+						trigger: 'hover',
 						content: function () {
 							return $("#contentNew").html();
 						}
 					});
+
 					$("#two").popover({
 						html: true,
+						trigger: 'hover',
 						content: function () {
 							return $("#contentPref").html();
 						}
 					});
 					$("#three").popover({
 						html: true,
+						trigger: 'hover',
 						content: function () {
 							return $("#contentInsp").html();
 						}
 					});
 					$("#four").popover({
 						html: true,
+						trigger: 'hover',
 						content: function () {
 							return $("#contentInst").html();
 						}
@@ -272,7 +277,7 @@
 				},
 
 				CopyCoordenates: function () {
-					
+
 				},
 
 				ViewInfoOrder: function () {
