@@ -26,11 +26,11 @@ namespace GD.Models.Commons.Utilities
 		{
 			Coordenates ret = new Coordenates();
 
-			// Negative: North
-			// Positive: South
+			// Positive: North
+			// Negative: South
 			// if isLong = true
-			// Negative: East
-			// Positive: West
+			// Positive: East
+			// Negative: West
 			double absValue = Math.Abs(Math.Round(position * 1000000));
 			int sign = Math.Sign(position);
 
@@ -39,7 +39,7 @@ namespace GD.Models.Commons.Utilities
 			ret.Seconds = (decimal)Math.Floor(((((absValue / 1000000) - Math.Floor(absValue / 1000000)) * 60) - Math.Floor(((absValue / 1000000) - Math.Floor(absValue / 1000000)) * 60)) * 100000) * 60 / 100000;
 
 			if (isLong)
-				ret.Geo = sign > 0 ? @"W" : @"E";
+				ret.Geo = sign > 0 ? @"E" : @"W";
 			else
 				if (sign > 0)
 					ret.Geo = @"N";
