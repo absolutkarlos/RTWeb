@@ -1,7 +1,10 @@
 *.user
 *.suo
 **/packages/*
+**/.vs/*
 *.obj/*
+GoldDataWeb/bin/
 GoldDataWeb/obj/
-GD.Models.Commons/obj/
 GoldDataWeb/App_Data/
+GD.Models.Commons/obj/
+GD.Models.Commons/bin/
