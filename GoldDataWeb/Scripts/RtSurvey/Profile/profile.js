@@ -5,6 +5,7 @@
 			this.GetEvent().ValidateProfile();
 			this.GetEvent().Update();
 			base.InitializeCarousel();
+			base.ValidateExpireToken();
 		},
 
 		IsValid: function () {

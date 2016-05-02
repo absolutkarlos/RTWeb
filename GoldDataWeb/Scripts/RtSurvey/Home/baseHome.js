@@ -12,14 +12,6 @@
 			});
 		},
 
-		RefreshToken: function () {
-			return $.ajax({
-				method: "POST",
-				url: base.GetRootRefreshToken(),
-				error: base.ErrorAjax
-			});
-		},
-
 		GetExistingClient: function (clientId) {
 			return $.ajax({
 				method: "GET",

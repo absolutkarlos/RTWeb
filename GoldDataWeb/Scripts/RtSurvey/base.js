@@ -477,8 +477,16 @@ var base = (function () {
 			return formattedAddress;
 		},
 
+		RefreshToken: function () {
+			return $.ajax({
+				method: "POST",
+				url: base.GetRootRefreshToken(),
+				error: base.ErrorAjax
+			});
+		},
+
 		ValidateExpireToken: function () {
-			baseHome.RefreshToken();
+			base.RefreshToken();
 			clearInterval(intervalCountdown);
 			clearTimeout(timeOutToken);
 			var data = JSON.parse(base.readCookie("RefreshToken"));
@@ -507,7 +515,7 @@ var base = (function () {
 				clearInterval(intervalCountdown);
 				clearTimeout(timeOutToken);
 				$("#timeSession").text(30);
-				$.when(baseHome.RefreshToken()).then(function (resp) {
+				$.when(base.RefreshToken()).then(function (resp) {
 					if (resp.UpdateToken) {
 						base.ValidateExpireToken();
 					} else {
