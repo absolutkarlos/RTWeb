@@ -28,6 +28,7 @@ namespace GoldDataWeb.Controllers
 		{
 			if (ModelState.IsValid)
 			{
+				auth.Password = (new Utility()).Encrypt(auth.Password);
 				var response = AuthService.Auth(auth);
 				if (response.UserId.IsGreaterThanZero())
 				{

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GD.Models.Commons;
@@ -85,6 +84,32 @@ namespace GoldDataWeb.Controllers
 		{
 			var responseOrder = ClientService.Execute<int>(@"ValidateByRuc", Method.POST, null, client.ToJson());
 			return Json(responseOrder);
+		}
+
+		public ActionResult UserProfile()
+		{
+			var responseUser = UserService.GetById(GetAuthData().UserId.ToString());
+
+			User user = responseUser.Data;
+			user.Rol = RolService.GetById(user.IdRol.ToString()).Data;
+
+			return View(responseUser.Data);
+		}
+
+		[HttpPost]
+		public JsonResult UpdateProfile(User user)
+		{
+			var responseUser = UserService.GetById(GetAuthData().UserId.ToString());
+
+			user.Id = long.Parse(GetAuthData().UserId.ToString());
+			user.Rol = RolService.GetById(responseUser.Data.IdRol).Data;
+			
+			user.UpdateAt = DateTime.Now;
+			user.UpdateBy = short.Parse(GetAuthData().UserId.ToString());
+
+			user.Password = !string.IsNullOrWhiteSpace(user.Password) ? (new Utility()).Encrypt(user.Password) : responseUser.Data.Password;
+
+			return Json(UserService.Update(user));
 		}
 
 		[HttpPost]

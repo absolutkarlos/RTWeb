@@ -1,12 +1,17 @@
-﻿<ul class="nav navbar-nav navbar-right" style="display: inline-flex;" >
+﻿<ul class="nav navbar-nav navbar-right" style="display: inline-flex;">
 	<li>
-		<a href="#" style="margin: 0; padding: 0;padding-right: 10px;">
-			<img src="~/Content/Images/ic_action_tower_dark.png" />
+		<a href="@Url.Action(@"UserProfile", @"Home")" style="margin: 0; padding: 0;">
+			<img src="~/Content/Images/ic_user_edit_white.png" style="width: 48px;height: 48px;"/>
 		</a>
 	</li>
 	<li>
-		<a href="#" style="margin: 0; padding: 0;padding-right: 10px;">
-			<img src="~/Content/Images/ic_action_settings.png" />
+		<a href="@Url.Action(@"Index", @"Home")" style="margin: 0; padding: 0; padding-right: 10px;">
+			<img src="~/Content/Images/ic_action_tower_dark.png"/>
+		</a>
+	</li>
+	<li>
+		<a href="#" style="margin: 0; padding: 0; padding-right: 10px;">
+			<img src="~/Content/Images/ic_action_settings.png"/>
 		</a>
 	</li>
 	<li>

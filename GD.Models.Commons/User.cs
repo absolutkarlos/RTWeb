@@ -21,7 +21,7 @@ namespace GD.Models.Commons
 		[JsonProperty(@"userpassword")]
 		public string Password { get; set; }
 
-		[JsonProperty(@"name")]
+		[JsonProperty(@"fullname")]
 		public string Name { get; set; }
 
 		[JsonProperty(@"lastname")]
@@ -30,16 +30,16 @@ namespace GD.Models.Commons
 		[JsonProperty(@"identification")]
 		public string Identification { get; set; }
 
-		[JsonProperty(@"billingaddress")]
+		[JsonProperty(@"address")]
 		public string BillingAddress { get; set; }
 
-		[JsonProperty(@"zipCode")]
+		[JsonProperty(@"zipcode")]
 		public string ZipCode { get; set; }
 
 		[JsonProperty(@"phonenumber")]
 		public string PhoneNumber { get; set; }
 
-		[JsonProperty(@"email")]
+		[JsonProperty(@"mail")]
 		public string Email { get; set; }
 
 		[JsonProperty(@"datedeactivated")]

@@ -40,6 +40,7 @@ var base = (function () {
 		GetRootStepInstalationCreate: function () { return "/Steps/InstalationCreate" },
 		GetRootUpdateStatus: function () { return "/Steps/UpdateOrderStatus" },
 		GetRootExistingClientValidate: function () { return "/Home/ExistingClientValidate" },
+		GetRootUpdateProfile: function () { return "/Home/UpdateProfile" },
 
 		defaultAjaxTimeout: 5000,
 
@@ -427,10 +428,13 @@ var base = (function () {
 		},
 
 		ValidateExpireToken: function () {
+			baseHome.RefreshToken();
+			clearInterval(intervalCountdown);
+			clearTimeout(timeOutToken);
 			var data = JSON.parse(base.readCookie("RefreshToken"));
 			timeOutToken = setTimeout(function () {
 				base.ShowModalSessionExpire();
-			}, ((parseInt(data.ExpiresIn) * 1000) - 31000));
+			}, ((parseInt(data.ExpiresIn) * 1000) - 40000));
 		},
 
 		Countdown: function () {
