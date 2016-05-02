@@ -1,6 +1,4 @@
 ﻿var home = (function () {
-	var currentSlide;
-	var rand;
 	return {
 		init: function () {
 			this.GetEvent().Select2Event();
@@ -11,7 +9,7 @@
 			this.GetEvent().AddNewOrder();
 			this.GetEvent().ExistingOrder();
 			this.GetEvent().ClientsEvent();
-			this.GetEvent().InitializeCarousel();
+			base.InitializeCarousel();
 			this.GetEvent().InitializePopover();
 			this.LoadMetaData();
 			this.SelectedOrder($("#orderIdLabel").data("orderid"));
@@ -176,23 +174,6 @@
 					$(".tabStatus").click(function () {
 						$(this).parent().click();
 					});
-				},
-
-				InitializeCarousel: function () {
-					$('.carousel').carousel({
-						interval: 1200000
-					});
-					currentSlide = Math.floor((Math.random() * $('.item').length));
-					rand = currentSlide;
-					$('#myCarousel').carousel(currentSlide);
-					$('#myCarousel').fadeIn(1000);
-					setInterval(function () {
-						while (rand == currentSlide) {
-							rand = Math.floor((Math.random() * $('.item').length));
-						}
-						currentSlide = rand;
-						$('#myCarousel').carousel(rand);
-					}, 1199999);
 				},
 
 				InitializePopover: function () {

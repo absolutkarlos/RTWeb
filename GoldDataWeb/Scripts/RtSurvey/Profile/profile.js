@@ -4,6 +4,7 @@
 		init: function () {
 			this.GetEvent().ValidateProfile();
 			this.GetEvent().Update();
+			base.InitializeCarousel();
 		},
 
 		IsValid: function () {
