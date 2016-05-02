@@ -18,6 +18,8 @@ var base = (function () {
 	var titles = [];
 	var intervalCountdown;
 	var timeOutToken;
+	var currentSlide;
+	var rand;
 	return {
 		GetRootLogOff: function () { return "/Login/LogOff" },
 		GetRootRefreshToken: function () { return "/Login/RefreshToken" },
@@ -71,6 +73,23 @@ var base = (function () {
 			this.ChangeCountryUserSelected();
 			this.LoadCountryUserSelected();
 			$("body").animatescroll();
+		},
+
+		InitializeCarousel: function () {
+			$('.carousel').carousel({
+				interval: 1200000
+			});
+			currentSlide = Math.floor((Math.random() * $('.item').length));
+			rand = currentSlide;
+			$('#myCarousel').carousel(currentSlide);
+			$('#myCarousel').fadeIn(1000);
+			setInterval(function () {
+				while (rand == currentSlide) {
+					rand = Math.floor((Math.random() * $('.item').length));
+				}
+				currentSlide = rand;
+				$('#myCarousel').carousel(rand);
+			}, 1199999);
 		},
 
 		ApplyNiceScroll: function (contentId) {
