@@ -183,7 +183,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MetaDataController.cs" />
     <Compile Include="Controllers\StepsController.cs" />
-    <Compile Include="Filters\InitializeServices.cs" />
+    <Compile Include="Filters\SignOutFilterAttribute.cs" />
     <Compile Include="Filters\UnhandledExceptionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -480,6 +480,7 @@
     <Content Include="Content\Images\ic_action_logout.png" />
     <Content Include="Content\Images\ic_action_settings.png" />
     <Content Include="Content\Images\ic_action_tower_dark.png" />
+    <Content Include="Content\Images\ic_user_edit_white.png" />
     <Content Include="Content\Images\loading.gif" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\LogoRtSurvey.png" />
@@ -562,6 +563,8 @@
     <Content Include="Scripts\RtSurvey\Login\login.js" />
     <Content Include="Scripts\RtSurvey\Inspection\baseInspection.js" />
     <Content Include="Scripts\RtSurvey\Inspection\inspection.js" />
+    <Content Include="Scripts\RtSurvey\Profile\baseProfile.js" />
+    <Content Include="Scripts\RtSurvey\Profile\profile.js" />
     <Content Include="Scripts\RtSurvey\Site\baseSite.js" />
     <Content Include="Scripts\RtSurvey\Site\site.js" />
     <Content Include="Scripts\select2.full.js" />
@@ -597,6 +600,7 @@
     <Content Include="Views\Home\_WizardTabInstalation.cshtml" />
     <Content Include="Views\Home\_OrderPanel.cshtml" />
     <Content Include="Views\Home\_WizardTabPrefactibilidad.cshtml" />
+    <Content Include="Views\Home\UserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

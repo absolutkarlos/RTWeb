@@ -23,6 +23,9 @@ namespace GD.Models.Commons
 		[JsonProperty(@"longitude")]
 		public string Longitude { get; set; }
 
+		[JsonProperty(@"diameter")]
+		public string Diameter { get; set; }
+
 		[JsonProperty(@"status")]
 		public Status Status { get; set; }
 

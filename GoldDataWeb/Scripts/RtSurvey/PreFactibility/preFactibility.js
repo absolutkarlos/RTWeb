@@ -51,18 +51,18 @@
 			if ($("#user").data("rol") == 4 || $("#user").data("rol") == 6) {
 				if ($("#statusPreFactibility").hasClass("glyphicon-ok")) {
 					$("#tabInfo").css({ "width": "100%" });
-					$("#tabPreFactibilidad, #prefactibilidad").hide();
+					$("#tabPreFactibilidad").hide();
 					$("#wizardInfo").find('.btn-next').hide();
 				} else if ($("#statusPreFactibility").hasClass("glyphicon-remove")) {
 					$("#tabInfo").css({ "width": "50%" });
 					$("#rechazarPreFactibility").hide();
 					$("#aprobarPreFactibility").show();
-					$("#tabPreFactibilidad, #prefactibilidad").show();
+					$("#tabPreFactibilidad").show();
 					$("#wizardInfo").find('.btn-next').show();
 				} else {
 					$("#tabInfo").css({ "width": "50%" });
 					$("#aprobarPreFactibility, #rechazarPreFactibility").show();
-					$("#tabPreFactibilidad, #prefactibilidad").show();
+					$("#tabPreFactibilidad").show();
 					$("#wizardInfo").find('.btn-next').show();
 				}
 			}

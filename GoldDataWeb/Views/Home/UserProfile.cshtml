@@ -1,0 +1,167 @@
+﻿@using GD.Models.Commons
+
+@{
+	ViewBag.Title = "";
+}
+
+@model User
+
+@section css{
+	@Styles.Render("~/Content/Home.css")
+}
+
+<div class="row" style="margin-top: 110px; width: 80%; margin-right: auto; margin-left: auto;">
+	<div class="col-lg-4 col-md-5">
+		<div class="card card-user">
+			<div class="image">
+				<img src="http://demos.creative-tim.com/paper-dashboard/assets/img/background.jpg" alt="...">
+			</div>
+			<div class="content" style="min-height: 213px;">
+				<div class="author">
+					<img class="avatar border-white" src="http://demos.creative-tim.com/paper-dashboard/assets/img/faces/face-2.jpg" alt="...">
+					<h4 class="title">
+						@Model.Name<br>
+						@*<a href="#"><small>@@chetfaker</small></a>*@
+					</h4>
+				</div>
+				<p class="description text-center">
+					"I like the way you work it <br>
+					No diggity <br>
+					I wanna bag it up"
+				</p>
+			</div>
+			<hr>
+			<div class="text-center">
+				<div class="row">
+					<div class="col-md-12">
+						<h5>@Model.Rol.Name<br><small>(Rol)</small></h5>
+					</div>
+					@*<div class="col-md-4">
+						<h5>2GB<br><small>Used</small></h5>
+					</div>
+					<div class="col-md-3">
+						<h5>24,6$<br><small>Spent</small></h5>
+					</div>*@
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-8 col-md-7">
+		<div class="card">
+			<div class="header">
+				<h4 class="title"> EDITAR PERFIL </h4>
+			</div>
+			<div class="content">
+				<form id="profileForm">
+					<div class="row">
+						<div class="col-md-5">
+							<div class="form-group" style="margin-bottom: 30px;">
+								<label>COMPAÑIA</label>
+								<input type="text" class="form-control border-input" disabled="" placeholder="Company" value="GOLD DATA C.A.">
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group" style="margin-bottom: 30px;">
+								<label>USUARIO</label> <small> (requerido) </small>
+								<input id="user" name="user" type="text" class="form-control border-input" placeholder="Usuario..." value="@Model.UserName">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group" style="margin-bottom: 30px;">
+								<label>EMAIL</label> <small> (requerido) </small>
+								<input id="email" name="email" type="email" class="form-control border-input" placeholder="Email..." value="@Model.Email">
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group" style="margin-bottom: 30px;">
+								<label>NOMBRE</label> <small> (requerido) </small>
+								<input id="name" name="name" type="text" class="form-control border-input" placeholder="Nombre..." value="@Model.Name">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group" style="margin-bottom: 30px;">
+								<label>TELÉFONO</label> <small> (requerido) </small>
+								<input id="phone" name="phone" type="text" class="form-control border-input" placeholder="Teléfono..." value="@Model.PhoneNumber">
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-8">
+							<div class="form-group" style="margin-bottom: 30px;">
+								<label>DIRECCIÓN</label> <small> (requerido) </small>
+								<input id="address" name="address" type="text" class="form-control border-input" placeholder="Dirección..." value="@Model.BillingAddress">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group" style="margin-bottom: 30px;">
+								<label>CODIGO POSTAL</label> <small> (requerido) </small>
+								<input id="zipcode" name="zipcode" type="text" class="form-control border-input" placeholder="Codigo postal..." value="@Model.ZipCode">
+							</div>
+						</div>
+					</div>
+
+					@*<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label>CIUDAD</label>
+								<input type="text" class="form-control border-input" placeholder="Ciudad..." value="@Model.">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label>PAÍS</label>
+								<input type="text" class="form-control border-input" placeholder="Country" value="Australia">
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label>SOBRE MI</label>
+								<textarea rows="5" class="form-control border-input" placeholder="Here can be your description" value="Mike">Oh so, your weak rhyme </textarea>
+							</div>
+						</div>
+					</div>*@
+
+					<div class="row">
+						@*<div class="col-md-4">
+							<div class="form-group">
+								<label>CONTRASE&Ntilde;A ACTUAL</label>
+								<input id="currentPassword" name="currentPassword" type="password" class="form-control border-input"  placeholder="Actual...">
+							</div>
+						</div>*@
+						<div class="col-md-6">
+							<div class="form-group" style="margin-bottom: 30px;">
+								<label>NUEVA CONTRASE&Ntilde;A</label> <small> (opcional) </small>
+								<input id="newPassword" name="newPassword" type="password" class="form-control border-input" placeholder="Nueva...">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group" style="margin-bottom: 30px;">
+								<label>CONFIRMAR CONTRASE&Ntilde;A</label>
+								<input id="confirmPassword" name="confirmPassword" type="password" class="form-control border-input" placeholder="Confirmar...">
+							</div>
+						</div>
+					</div>
+
+					<div class="text-center">
+						<button id="updateProfile" class="btn btn-info btn-fill btn-wd">ACTUALIZAR</button>
+					</div>
+					<div class="clearfix"></div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+	@Scripts.Render("~/Scripts/additional-methods.js")
+	@Scripts.Render("~/Scripts/RtSurvey/Profile/baseProfile.js")
+	@Scripts.Render("~/Scripts/RtSurvey/Profile/profile.js")
+}

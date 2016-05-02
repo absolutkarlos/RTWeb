@@ -32,11 +32,8 @@ namespace GoldDataWeb.Models
 								{
 									IdOrderFlow = orderFlow.Id.ToString(),
 									EstimatedDateNextStep = orderFlow.StimatedDateNextStep?.ToLongDateString(),
-									EffectiveDate = orderFlow.UpdateAt?.ToLongDateString() ?? orderFlow.CreateAt?.ToLongDateString(),
-									Class = (orderFlow.Status.Id == (int) Status.Type.Activo)
-											? @"glyphicon-ok"
-											: (orderFlow.Status.Id == (int) Status.Type.Inactivo) ? @"glyphicon-remove" : string.Empty,
-									Color = (orderFlow.Status.Id == (int) Status.Type.Activo) ? @"limegreen" : @"crimson"
+									EffectiveDate = orderFlow.CreateAt?.ToLongDateString(),
+									IsApproved = (orderFlow.Status.Id == (int)Status.Type.Activo).ToString()
 								};
 								break;
 							case (int) OrderStatus.Type.Prefactibilidad:
@@ -50,7 +47,8 @@ namespace GoldDataWeb.Models
 									Class = (orderFlow.Status.Id == (int) Status.Type.Activo)
 											? @"glyphicon-ok"
 											: (orderFlow.Status.Id == (int) Status.Type.Inactivo) ? @"glyphicon-remove" : string.Empty,
-									Color = (orderFlow.Status.Id == (int) Status.Type.Activo) ? @"limegreen" : @"crimson"
+									Color = (orderFlow.Status.Id == (int) Status.Type.Activo) ? @"#7b3" : @"#e74c3c",
+									IsApproved = (orderFlow.Status.Id == (int)Status.Type.Activo).ToString()
 								};
 								break;
 							case (int) OrderStatus.Type.Inspeccion:
@@ -64,7 +62,8 @@ namespace GoldDataWeb.Models
 									Class = (orderFlow.Status.Id == (int) Status.Type.Activo)
 											? @"glyphicon-ok"
 											: (orderFlow.Status.Id == (int) Status.Type.Inactivo) ? @"glyphicon-remove" : string.Empty,
-									Color = (orderFlow.Status.Id == (int) Status.Type.Activo) ? @"limegreen" : @"crimson"
+									Color = (orderFlow.Status.Id == (int) Status.Type.Activo) ? @"#7b3" : @"#e74c3c",
+									IsApproved = (orderFlow.Status.Id == (int)Status.Type.Activo).ToString()
 								};
 								break;
 							case (int) OrderStatus.Type.Instalacion:
@@ -78,7 +77,8 @@ namespace GoldDataWeb.Models
 									Class = (orderFlow.Status.Id == (int) Status.Type.Activo)
 											? @"glyphicon-ok"
 											: (orderFlow.Status.Id == (int) Status.Type.Inactivo) ? @"glyphicon-remove" : string.Empty,
-									Color = (orderFlow.Status.Id == (int) Status.Type.Activo) ? @"limegreen" : @"crimson"
+									Color = (orderFlow.Status.Id == (int) Status.Type.Activo) ? @"#7b3" : @"#e74c3c",
+									IsApproved = (orderFlow.Status.Id == (int)Status.Type.Activo).ToString()
 								};
 								break;
 						}

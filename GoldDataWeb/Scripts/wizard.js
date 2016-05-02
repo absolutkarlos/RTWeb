@@ -370,10 +370,10 @@ function validateThirdStep() {
 	};
 
 	if (!hasError) {
-		site.ResetForm();
-		contact.ClearContacts();
-		$validator.resetForm();
 		client.ResetForm();
+		contact.ClearContacts();
+		site.ResetForm();
+		$validator.resetForm();
 		$('#wizardClient').bootstrapWizard('show', 0);
 	}
 

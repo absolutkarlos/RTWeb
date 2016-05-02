@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.UI;
 using GD.Models.Commons;
 using GD.Models.Commons.Utilities;
 using GoldDataWeb.Controllers.Base;
@@ -13,8 +14,10 @@ namespace GoldDataWeb.Controllers
 		//
 		// GET: /Account/Login
 		[AllowAnonymous]
+		[SignOutFilter]
 		public ActionResult Index()
 		{
+			CloseSession();
 			return View(ValidateRememberAuth());
 		}
 
@@ -25,6 +28,7 @@ namespace GoldDataWeb.Controllers
 		{
 			if (ModelState.IsValid)
 			{
+				auth.Password = (new Utility()).Encrypt(auth.Password);
 				var response = AuthService.Auth(auth);
 				if (response.UserId.IsGreaterThanZero())
 				{
@@ -40,10 +44,7 @@ namespace GoldDataWeb.Controllers
 		[AllowAnonymous]
 		public ActionResult LogOff()
 		{
-			Session.Abandon();
-			Session.Clear();
-			DeleteCookie(@"RefreshToken");
-			FormsAuthentication.SignOut();
+			CloseSession();
 			return RedirectToAction(@"Index");
 		}
 

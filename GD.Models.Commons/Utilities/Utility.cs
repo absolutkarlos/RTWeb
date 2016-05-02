@@ -36,7 +36,7 @@ namespace GD.Models.Commons.Utilities
 
 			ret.Degress = (int)Math.Floor(absValue / 1000000);
 			ret.Minutes = (int)Math.Floor(((absValue / 1000000) - Math.Floor(absValue / 1000000)) * 60);
-			ret.Seconds = (Decimal)Math.Floor(((((absValue / 1000000) - Math.Floor(absValue / 1000000)) * 60) - Math.Floor(((absValue / 1000000) - Math.Floor(absValue / 1000000)) * 60)) * 100000) * 60 / 100000;
+			ret.Seconds = (decimal)Math.Floor(((((absValue / 1000000) - Math.Floor(absValue / 1000000)) * 60) - Math.Floor(((absValue / 1000000) - Math.Floor(absValue / 1000000)) * 60)) * 100000) * 60 / 100000;
 
 			if (isLong)
 				ret.Geo = sign > 0 ? @"W" : @"E";

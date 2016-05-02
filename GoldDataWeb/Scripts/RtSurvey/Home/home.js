@@ -1,9 +1,6 @@
 ﻿var home = (function () {
-	var currentSlide;
-	var rand;
 	return {
-		init: function() {
-			this.GetEvent().InitializeOrderStatusBar();
+		init: function () {
 			this.GetEvent().Select2Event();
 			this.GetEvent().WindowScrollEvent();
 			this.GetEvent().ButtomScrollDownEvent();
@@ -12,7 +9,7 @@
 			this.GetEvent().AddNewOrder();
 			this.GetEvent().ExistingOrder();
 			this.GetEvent().ClientsEvent();
-			this.GetEvent().InitializeCarousel();
+			base.InitializeCarousel();
 			this.GetEvent().InitializePopover();
 			this.LoadMetaData();
 			this.SelectedOrder($("#orderIdLabel").data("orderid"));
@@ -28,7 +25,7 @@
 			base.ValidateExpireToken();
 		},
 
-		CreateClipBoard: function(control) {
+		CreateClipBoard: function (control) {
 			var clipboard = new Clipboard(control);
 		},
 
@@ -42,8 +39,8 @@
 			base.LoadDropDownList("#celdas", data.RadioBase.Data);
 		},
 
-		SelectedOrder: function(orderId) {
-			$.each($(".order"), function(index, item) {
+		SelectedOrder: function (orderId) {
+			$.each($(".order"), function (index, item) {
 				if ($(item).data("orderid") === orderId) {
 					$(item).addClass("orderActive");
 				} else {
@@ -55,7 +52,7 @@
 		LoadInfoOrderPanel: function (id, clearFileInput) {
 			$("#panelInfo").show();
 			$("#panelClient").hide();
-			$("#refreshInfoOrderPanel").show();
+			$("#refreshInfoOrderPanel").css({ "display": "table" });
 			$("#info").hide();
 			$("#wizardInfo").find('.btn-next').hide();
 			$('.wizard-card').bootstrapWizard('show', 0);
@@ -68,7 +65,6 @@
 				$("#info").remove();
 				$("#refreshInfoOrderPanel").hide();
 				$("#contentPanelInfo").prepend(panel);
-				home.GetEvent().InitializeOrderStatusBar();
 				site.GetEvent().CreteOrderButtomEvent();
 				home.GetEvent().AddNewOrder();
 				home.GetEvent().InitializePopover();
@@ -166,7 +162,7 @@
 						},
 						onTabShow: function (tab, navigation, index) {
 							$(tab).parent().removeClass("active");
-							$.each($(".tabStatus"), function(index, item) {
+							$.each($(".tabStatus"), function (index, item) {
 								var statusControl = $($(item).find("span .glyphicon"));
 								if (statusControl.hasClass("glyphicon-ok") || statusControl.hasClass("glyphicon-remove")) {
 									$(item).parent().parent().addClass("active");
@@ -175,43 +171,37 @@
 						}
 					});
 
-					$(".tabStatus").click(function() {
+					$(".tabStatus").click(function () {
 						$(this).parent().click();
 					});
 				},
 
-				InitializeCarousel: function () {
-					$('.carousel').carousel({
-						interval: 1200000
-					});
-					currentSlide = Math.floor((Math.random() * $('.item').length));
-					rand = currentSlide;
-					$('#myCarousel').carousel(currentSlide);
-					$('#myCarousel').fadeIn(1000);
-					setInterval(function () {
-						while (rand == currentSlide) {
-							rand = Math.floor((Math.random() * $('.item').length));
-						}
-						currentSlide = rand;
-						$('#myCarousel').carousel(rand);
-					}, 1199999);
-				},
-
 				InitializePopover: function () {
-					$("#popoverPref").popover({
+					$("#one").popover({
 						html: true,
+						trigger: 'hover',
+						content: function () {
+							return $("#contentNew").html();
+						}
+					});
+
+					$("#two").popover({
+						html: true,
+						trigger: 'hover',
 						content: function () {
 							return $("#contentPref").html();
 						}
 					});
-					$("#popoverInsp").popover({
+					$("#three").popover({
 						html: true,
+						trigger: 'hover',
 						content: function () {
 							return $("#contentInsp").html();
 						}
 					});
-					$("#popoverInst").popover({
+					$("#four").popover({
 						html: true,
+						trigger: 'hover',
 						content: function () {
 							return $("#contentInst").html();
 						}
@@ -268,12 +258,12 @@
 				},
 
 				CopyCoordenates: function () {
-					
+
 				},
 
 				ViewInfoOrder: function () {
 					$('.order').click(function (event) {
-						//event.preventDefault();
+						event.preventDefault();
 						home.SelectedOrder($(this).data("orderid"));
 						home.LoadInfoOrderPanel($(this).data("orderid"), true);
 					});

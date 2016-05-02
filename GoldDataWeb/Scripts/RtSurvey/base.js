@@ -20,26 +20,34 @@ var base = (function () {
 	var markerCluster;
 	var formattedAddress;
     var infoWindowRB;
+	var intervalCountdown;
+	var timeOutToken;
+	var currentSlide;
+	var rand;
 
 	return {
-		GetRootMetaData: function() { return "/MetaData/Index" },
-		GetRootState: function() { return "/MetaData/State" },
-		GetRootCity: function() { return "/MetaData/city" },
-		GetRootZone: function() { return "/MetaData/Zone" },
-		GetRootStepClientCreate: function() { return "/Steps/ClientCreate" },
-		GetRootStepContactsCreate: function() { return "/Steps/ContactsCreate" },
-		GetRootStepOrderCreate: function() { return "/Steps/OrderCreate" },
-		GetRootUpdateOrderPanel: function() { return "/Home/OrderPanel" },
+		GetRootLogOff: function () { return "/Login/LogOff" },
+		GetRootRefreshToken: function () { return "/Login/RefreshToken" },
+		GetRootMetaData: function () { return "/MetaData/Index" },
+		GetRootState: function () { return "/MetaData/State" },
+		GetRootCity: function () { return "/MetaData/city" },
+		GetRootZone: function () { return "/MetaData/Zone" },
+		GetRootStepClientCreate: function () { return "/Steps/ClientCreate" },
+		GetRootStepContactsCreate: function () { return "/Steps/ContactsCreate" },
+		GetRootStepOrderCreate: function () { return "/Steps/OrderCreate" },
+		GetRootUpdateOrderPanel: function () { return "/Home/OrderPanel" },
 		GetRootInfoOrderPanel: function () { return "/Home/InfoOrderPanel" },
 		GetRootInspectionPanel: function () { return "/Home/InspectionPanel" },
 		GetRootInstalationPanel: function () { return "/Home/InstalationPanel" },
-		GetRootUploadFile: function() { return "/Home/UploadFiles" },
-		GetRootClients: function() { return "/MetaData/Clients" },
-		GetRootGetClient: function() { return "/MetaData/GetClient" },
-		GetRootStepPreFactibilityCreate: function() { return "/Steps/PreFactibilityCreate" },
-		GetRootStepInspectionCreate: function() { return "/Steps/InspectionCreate" },
-		GetRootStepInstalationCreate: function() { return "/Steps/InstalationCreate" },
-		GetRootUpdateStatus: function() { return "/Steps/UpdateOrderStatus" },
+		GetRootUploadFile: function () { return "/Home/UploadFiles" },
+		GetRootClients: function () { return "/MetaData/Clients" },
+		GetRootGetClient: function () { return "/MetaData/GetClient" },
+		GetRootStepPreFactibilityCreate: function () { return "/Steps/PreFactibilityCreate" },
+		GetRootStepInspectionCreate: function () { return "/Steps/InspectionCreate" },
+		GetRootStepInstalationCreate: function () { return "/Steps/InstalationCreate" },
+		GetRootUpdateStatus: function () { return "/Steps/UpdateOrderStatus" },
+		GetRootExistingClientValidate: function () { return "/Home/ExistingClientValidate" },
+		GetRootUpdateProfile: function () { return "/Home/UpdateProfile" },
 
 		defaultAjaxTimeout: 5000,
 
@@ -72,7 +80,24 @@ var base = (function () {
 			$("body").animatescroll();
 		},
 
-		ApplyNiceScroll: function(contentId) {
+		InitializeCarousel: function () {
+			$('.carousel').carousel({
+				interval: 1200000
+			});
+			currentSlide = Math.floor((Math.random() * $('.item').length));
+			rand = currentSlide;
+			$('#myCarousel').carousel(currentSlide);
+			$('#myCarousel').fadeIn(1000);
+			setInterval(function () {
+				while (rand == currentSlide) {
+					rand = Math.floor((Math.random() * $('.item').length));
+				}
+				currentSlide = rand;
+				$('#myCarousel').carousel(rand);
+			}, 1199999);
+		},
+
+		ApplyNiceScroll: function (contentId) {
 			$(contentId).niceScroll();
 		},
 
@@ -452,12 +477,63 @@ var base = (function () {
 			return formattedAddress;
 		},
 
+		ValidateExpireToken: function () {
+			baseHome.RefreshToken();
+			clearInterval(intervalCountdown);
+			clearTimeout(timeOutToken);
+			var data = JSON.parse(base.readCookie("RefreshToken"));
+			timeOutToken = setTimeout(function () {
+				base.ShowModalSessionExpire();
+			}, ((parseInt(data.ExpiresIn) * 1000) - 40000));
+		},
+
+		Countdown: function () {
+			var seg = parseInt($("#timeSession").text());
+			if (seg > 0) {
+				$("#timeSession").text(seg - 1);
+			} else {
+				clearInterval(intervalCountdown);
+				clearTimeout(timeOutToken);
+				$('#confirm').modal('hide');
+				$.when(baseHome.LogOff()).then(function () {
+					$("#timeSession").text(30);
+					location.reload();
+				});
+			}
+		},
+
+		ShowModalSessionExpire: function () {
+			$('#confirm').modal({ backdrop: 'static', keyboard: false }).one('click', '#buttomModalConfirm', function () {
+				clearInterval(intervalCountdown);
+				clearTimeout(timeOutToken);
+				$("#timeSession").text(30);
+				$.when(baseHome.RefreshToken()).then(function (resp) {
+					if (resp.UpdateToken) {
+						base.ValidateExpireToken();
+					} else {
+						baseHome.LogOff();
+						location.reload();
+					}
+				});
+			});
+			$('#buttomModalCancel').on('click', function (e) {
+				$("#timeSession").text(30);
+				clearInterval(intervalCountdown);
+				clearTimeout(timeOutToken);
+				$.when(baseHome.LogOff()).then(function () {
+					location.reload();
+				});
+			});
+			intervalCountdown = setInterval(function () {
+				base.Countdown();
+			}, 1000);
+		},
 
 		ValidateHasError: function(data, callback) {
 			var valid = (data.ErrorMessage !== null);
 			if (valid) {
 				if (data.Status === 401) {
-					alert("Su sesion a expirado");
+					base.ShowModalSessionExpire();
 				} else {
 					callback();
 				}
