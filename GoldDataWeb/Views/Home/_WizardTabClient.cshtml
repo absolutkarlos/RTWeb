@@ -1,14 +1,5 @@
 ﻿<div class="tab-pane active" id="client">
 	<div class="row">
-		@*<div class="col-sm-4">
-				<div class="picture-container">
-					<div class="picture">
-						<img src="/wizard/assets/img/default-avatar.png" class="picture-src" id="wizardPicturePreview" title="" style="height: 100%">
-						<input type="file" id="wizard-picture">
-					</div>
-					<h6>ELEGIR UNA FOTO <small style="color: #999999;">(opcional)</small></h6>
-				</div>
-			</div>*@
 		<div class="col-sm-6 existingClient" style="display: none; margin-bottom: 20px;">
 			<div class="form-group">
 				<label style="font-weight: bold;"> CLIENTES <small>(requerido)</small></label>
@@ -17,11 +8,11 @@
 			<hr />
 		</div>
 		<div class="col-sm-12 edit">
-			<h4 class="info-text"> Información del Cliente </h4>
+			<h4 class="info-text"> Informaci&oacute;n del Cliente </h4>
 		</div>
 		<div class="col-sm-6 edit">
 			<div class="form-group">
-				<label> PAÍS <small>(requerido)</small></label>
+				<label> PA&Iacute;S <small>(requerido)</small></label>
 				@Html.DropDownList(@"country", new List<SelectListItem>(), "- País -", new { id = @"country", @class = @"form-control valid select2", style = @"width: 100%;" })
 			</div>
 			<div class="form-group">
@@ -43,19 +34,19 @@
 		</div>
 		<div class="col-sm-6 edit">
 			<div class="form-group">
-				<label> MARCA <small>(requerido)</small></label>
+				<label> NOMBRE COMERCIAL <small>(requerido)</small></label>
 				<input id="fullname" name="fullname" type="text" class="form-control" placeholder="Nombre Completo..." style="width: 100% !important; height: 38px;">
 			</div>
 			<div class="form-group">
-				<label> NOMBRE DEL NEGOCIO <small>(requerido)</small></label>
+				<label> NOMBRE JUR&Iacute;DICO <small>(requerido)</small></label>
 				<input id="businessname" name="businessname" type="text" class="form-control" placeholder="Negocio..." style="height: 38px;">
 			</div>
 			<div class="form-group">
-				<label> DOCUMENTO DE IDENTIFICACIÓN (RUC/RIF) <small>(requerido)</small></label>
+				<label> TAX ID (RUC/RIF) <small>(requerido)</small></label>
 				<input id="ruc" name="ruc" type="text" class="form-control" placeholder="Ruc/Rif..." style="height: 38px;">
 			</div>
 			<div class="form-group">
-				<label> DIRECCIÓN DETALLADA <small>(requerido)</small></label>
+				<label> DIRECCI&Oacute;N DETALLADA <small>(requerido)</small></label>
 				<textarea id="detailedadress" style="width: 100%; resize: none;" name="detailedadress" class="form-control" placeholder="Dirección..." rows="5" cols="15" aria-invalid="false"></textarea>
 			</div>
 		</div>
@@ -63,12 +54,12 @@
 			<div style="display: table-row;">
 				<div style="width: 100%; height: 300px; display: table-cell; vertical-align: middle; text-align: center;">
 					<img src="~/Content/Images/loading.gif" />
-					<span style="color: darkgray; display: block;"> Cargando información</span>
+					<span style="color: darkgray; display: block;"> Cargando informaci&oacute;n</span>
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-12 readOnly" style="display: none;">
-			<h4 class="info-text"> Información del Cliente </h4>
+			<h4 class="info-text"> Informaci&oacute;n del Cliente </h4>
 			<div class="form-group">
 				<label style="font-weight: bold;"> CLIENTE <small id="labelClientType"></small></label>
 				<label id="labelFullName" class="Infolabel" style="word-break: break-word;"></label>
@@ -76,7 +67,7 @@
 		</div>
 		<div class="col-sm-6 readOnly" style="display: none;">
 			<div class="form-group">
-				<label style="font-weight: bold;"> NOMBRE DEL NEGOCIO </label>
+				<label style="font-weight: bold;"> NOMBRE JUR&Iacute;DICO </label>
 				<label id="labelBusinessName" class="Infolabel" style="word-break: break-word;"></label>
 			</div>
 			<div class="form-group">
@@ -86,11 +77,11 @@
 		</div>
 		<div class="col-sm-6 readOnly" style="display: none;">
 			<div class="form-group">
-				<label style="font-weight: bold;"> DOCUMENTO DE IDENTIFICACIÓN (RUC/RIF) </label>
+				<label style="font-weight: bold;"> TAX ID (RUC/RIF) </label>
 				<label id="labelRuc" class="Infolabel" style="word-break: break-word;"></label>
 			</div>
 			<div class="form-group">
-				<label style="font-weight: bold;"> DIRECCIÓN DETALLADA </label>
+				<label style="font-weight: bold;"> DIRECCI&Oacute;N DETALLADA </label>
 				<label id="labelDetailedAdress" class="Infolabel" style="word-break: break-word;"></label>
 			</div>
 		</div>

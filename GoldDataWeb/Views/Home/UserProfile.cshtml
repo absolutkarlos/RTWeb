@@ -21,7 +21,6 @@
 					<img class="avatar border-white" src="http://demos.creative-tim.com/paper-dashboard/assets/img/faces/face-2.jpg" alt="...">
 					<h4 class="title">
 						@Model.Name<br>
-						@*<a href="#"><small>@@chetfaker</small></a>*@
 					</h4>
 				</div>
 				<p class="description text-center">
@@ -36,12 +35,6 @@
 					<div class="col-md-12">
 						<h5>@Model.Rol.Name<br><small>(Rol)</small></h5>
 					</div>
-					@*<div class="col-md-4">
-						<h5>2GB<br><small>Used</small></h5>
-					</div>
-					<div class="col-md-3">
-						<h5>24,6$<br><small>Spent</small></h5>
-					</div>*@
 				</div>
 			</div>
 		</div>
@@ -56,7 +49,7 @@
 					<div class="row">
 						<div class="col-md-5">
 							<div class="form-group" style="margin-bottom: 30px;">
-								<label>COMPAÑIA</label>
+								<label>COMPA&Ntilde;&Iacute;A</label>
 								<input type="text" class="form-control border-input" disabled="" placeholder="Company" value="GOLD DATA C.A.">
 							</div>
 						</div>
@@ -83,7 +76,7 @@
 						</div>
 						<div class="col-md-6">
 							<div class="form-group" style="margin-bottom: 30px;">
-								<label>TELÉFONO</label> <small> (requerido) </small>
+								<label>TEL&Eacute;FONO</label> <small> (requerido) </small>
 								<input id="phone" name="phone" type="text" class="form-control border-input" placeholder="Teléfono..." value="@Model.PhoneNumber">
 							</div>
 						</div>
@@ -92,49 +85,19 @@
 					<div class="row">
 						<div class="col-md-8">
 							<div class="form-group" style="margin-bottom: 30px;">
-								<label>DIRECCIÓN</label> <small> (requerido) </small>
+								<label>DIRECCI&Oacute;N</label> <small> (requerido) </small>
 								<input id="address" name="address" type="text" class="form-control border-input" placeholder="Dirección..." value="@Model.BillingAddress">
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group" style="margin-bottom: 30px;">
-								<label>CODIGO POSTAL</label> <small> (requerido) </small>
+								<label>C&Oacute;DIGO POSTAL</label> <small> (requerido) </small>
 								<input id="zipcode" name="zipcode" type="text" class="form-control border-input" placeholder="Codigo postal..." value="@Model.ZipCode">
 							</div>
 						</div>
 					</div>
 
-					@*<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								<label>CIUDAD</label>
-								<input type="text" class="form-control border-input" placeholder="Ciudad..." value="@Model.">
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label>PAÍS</label>
-								<input type="text" class="form-control border-input" placeholder="Country" value="Australia">
-							</div>
-						</div>
-					</div>
-
 					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label>SOBRE MI</label>
-								<textarea rows="5" class="form-control border-input" placeholder="Here can be your description" value="Mike">Oh so, your weak rhyme </textarea>
-							</div>
-						</div>
-					</div>*@
-
-					<div class="row">
-						@*<div class="col-md-4">
-							<div class="form-group">
-								<label>CONTRASE&Ntilde;A ACTUAL</label>
-								<input id="currentPassword" name="currentPassword" type="password" class="form-control border-input"  placeholder="Actual...">
-							</div>
-						</div>*@
 						<div class="col-md-6">
 							<div class="form-group" style="margin-bottom: 30px;">
 								<label>NUEVA CONTRASE&Ntilde;A</label> <small> (opcional) </small>

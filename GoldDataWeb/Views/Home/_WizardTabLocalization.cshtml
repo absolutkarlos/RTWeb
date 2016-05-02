@@ -1,6 +1,6 @@
 ﻿<div class="tab-pane" id="localization">
 	<div class="row">
-		<h4 class="info-text"> Añadir la información de la ubicación </h4>
+		<h4 class="info-text"> A&ntilde;adir la informaci&oacute;n de la ubicaci&oacute;n </h4>
 		<div class="col-sm-12">
 			<div class="row">
 				<div class="col-sm-12">
@@ -10,7 +10,6 @@
 					</div>
 				</div>
 				<div class="col-sm-12">
-					<!--<input id="pac-input" class="controls" type="text" placeholder="Busqueda">-->
 					<div id="googleMap" style="width: 100%; height: 380px;"></div>
 					<div id="elevation_chart" style="width: 100%;"></div>
 				</div>
@@ -46,44 +45,44 @@
 						<label st> ANCHO DE BANDA <small>(requerido)</small></label>
 						<div style="display: table; width: 100%;">
 							<div style="display: table-row">
-								<div style="display: table-cell; vertical-align: top; width: 70px; min-width: 70px; padding-right: 1px;">
+								<div style="display: table-cell; vertical-align: top; width: 90px; min-width: 90px; padding-right: 0px;">
 									@Html.DropDownList(@"unittype", new List<SelectListItem>
 									{
 										new SelectListItem
 										{
 											Value = @"0",
-											Text = "MB",
+											Text = "MBPS",
 											Selected = true
 										},
 										new SelectListItem
 										{
 											Value = @"1",
-											Text = "GB"
+											Text = "GBPS"
 										},
 										new SelectListItem
 										{
 											Value = @"2",
-											Text = "TB"
+											Text = "TBPS"
 										}
 										//new SelectListItem
 										//{
 										//	Value = @"3",
-										//	Text = "PB"
+										//	Text = "PBPS"
 										//},
 										//new SelectListItem
 										//{
 										//	Value = @"4",
-										//	Text = "EB"
+										//	Text = "EBPS"
 										//},
 										//new SelectListItem
 										//{
 										//	Value = @"5",
-										//	Text = "ZB"
+										//	Text = "ZBPS"
 										//},
 										//new SelectListItem
 										//{
 										//	Value = @"6",
-										//	Text = "YB"
+										//	Text = "YBPS"
 										//}
 									}, @"", new { id = @"unittype", @class = @" form-control", style = @"" })
 								</div>
@@ -96,7 +95,7 @@
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group">
-						<label> DIRECCIÓN DETALLADA <small>(requerido)</small></label>
+						<label> DIRECCI&Oacute;N DETALLADA <small>(requerido)</small></label>
 						<textarea style="width: 100%; resize: none;" id="sitedetailedadress" name="sitedetailedadress" class="form-control" placeholder="Dirección..." rows="5" cols="15" aria-invalid="false"></textarea>
 					</div>
 				</div>
@@ -105,7 +104,7 @@
 		<div class="col-sm-12">
 			<div class="row">
 				<div class="col-sm-6">
-					<h5 class="info-text" style="margin-bottom: 0; font-weight: bold;"> HORARIOS DE ATENCIÓN </h5>
+					<h5 class="info-text" style="margin-bottom: 0; font-weight: bold;"> HORARIOS DE ATENCI&Oacute;N </h5>
 					<div class="row">
 						<div class="col-sm-12" id="listSchedule">
 							<div class="form-group" id="siteScheduleListEmpty" style="display: table; width: 100%;">
@@ -115,7 +114,7 @@
 					</div>
 				</div>
 			</div>
-			<h6 class="info-text"> Añadir horarios de acceso al edificio </h6>
+			<h6 class="info-text"> A&ntilde;adir horarios de acceso al edificio </h6>
 			<hr>
 			<div class="row">
 				<div class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
