@@ -100,7 +100,7 @@
 						var formValid = $("#wizardInfoForm").valid();
 						var commentsValid = preFactibility.ValidateComments();
 						if (formValid && $('#input-700NOC').fileinput('getFileStack').length > 0 && commentsValid) {
-							$('#confirmPreFactibility').modal({ backdrop: 'static', keyboard: false }).one('click', '#buttomModalConfirm', function () {
+							$('#confirmPreFactibility').modal({ backdrop: 'static', keyboard: false }).one('click', '#buttomPreFactModalConfirm', function () {
 								preFactibility.LineSightCreate(preFactibility.GetPreFactibility(statusId));
 							});
 						} else {

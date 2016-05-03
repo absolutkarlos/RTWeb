@@ -40,5 +40,8 @@ namespace GD.Models.Commons
 
 		[JsonProperty(@"grant_type")]
 		public string grant_type { get; set; }
+
+		[JsonProperty(@"error_description")]
+		public string ErrorMessage { get; set; }
 	}
 }

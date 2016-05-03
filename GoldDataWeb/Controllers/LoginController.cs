@@ -36,6 +36,11 @@ namespace GoldDataWeb.Controllers
 					CreateLoginCookie(auth);
 					return RedirectToAction(@"Index", @"Home");
 				}
+
+				if (!string.IsNullOrWhiteSpace(response.ErrorMessage))
+				{
+					ModelState.AddModelError(@"ErrorAuthentication", response.ErrorMessage);
+				}
 			}
 			
 			return View(@"Index", auth);
