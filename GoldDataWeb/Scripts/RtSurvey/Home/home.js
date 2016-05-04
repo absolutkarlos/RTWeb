@@ -27,6 +27,15 @@
 
 		CreateClipBoard: function (control) {
 			var clipboard = new Clipboard(control);
+
+			clipboard.on('success', function (e) {
+				e.clearSelection();
+				e.trigger.title = 'Copiado.';
+			});
+
+			clipboard.on('error', function (e) {
+				e.trigger.title = 'Presione Ctrl + C para copiar.';
+			});
 		},
 
 		LoadDataDropDowns: function (data) {

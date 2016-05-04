@@ -130,50 +130,12 @@
 					</div>
 				</div>
 
-				@*<div class="col-sm-12">
-						<div class="row">
-							<div class="col-sm-12">
-								<div id="rootwizard" style="margin-bottom: 15px;">
-									<ul>
-										<li style="cursor: pointer; padding: 0;">
-											<div id="popoverPref" title="PRE-FACTIBILIDAD" data-placement="top" style="padding: 12px 17px 10px 30px; font-size: 13px;">
-												<a data-toggle="tab" class="tabStatus">
-													<span class="label">
-														<span id="statusPreFactibility" class="glyphicon @status.Prefactibility.Class" data-idorderflow="@status.Prefactibility.IdOrderFlow" aria-hidden="true" style="width: 11px; color: @status.Prefactibility.Color;"></span>
-													</span> PRE-FACTIBILIDAD
-												</a>
-											</div>
-										</li>
-										<li style="cursor: pointer; padding: 0;">
-											<div id="popoverInsp" title="INSPECCIÓN" data-placement="top" style="padding: 12px 17px 10px 30px; font-size: 13px;">
-												<a data-toggle="tab" class="tabStatus">
-													<span class="label">
-														<span id="statusInspection" class="glyphicon @status.Inspection.Class" data-idorderflow="@status.Inspection.IdOrderFlow" aria-hidden="true" style="width: 11px; color: @status.Inspection.Color;"></span>
-													</span> INSPECCIÓN
-												</a>
-											</div>
-										</li>
-										<li style="cursor: pointer; padding: 0;">
-											<div id="popoverInst" title="INSTALACIÓN" data-placement="top" style="padding: 12px 17px 10px 30px; font-size: 13px;">
-												<a data-toggle="tab" class="tabStatus">
-													<span class="label">
-														<span id="statusInstalation" class="glyphicon @status.Instalation.Class" data-idorderflow="@status.Instalation.IdOrderFlow" aria-hidden="true" style="width: 11px; color: @status.Instalation.Color;"></span>
-													</span> INSTALACIÓN
-												</a>
-											</div>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>*@
-
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
 							<h6 class="info-text" style="margin-bottom: 10px; font-weight: bold; display: inline;"> COORDENADAS DE LOCALIZACIÓN </h6>
-							<div style="display: inline; cursor: pointer;" id="clipBoard" data-clipboard-text="@(Model.Order.Site.Latitude + @", " + Model.Order.Site.Longitude)">
-								<img src="~/Content/Images/copy-icon.png" title="Copiar coordenadas" style="height: 20px;" />
+							<div style="display: inline; cursor: pointer;" id="clipBoard" title="Copiar coordenadas" data-clipboard-text="@(Model.Order.Site.Latitude + @", " + Model.Order.Site.Longitude)">
+								<img src="~/Content/Images/copy-icon.png" style="height: 20px;" />
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
