@@ -465,7 +465,8 @@ label small{
     margin-left: -1px;
 }
 .nav > li > a:hover, .nav > li > a:focus {
-    background-color: #F5F5F5;
+    /*background-color: #F5F5F5;*/
+	background-color: transparent;
 }
 .nav-pills.ct-blue > li.active > a, .nav-pills.ct-blue > li.active > a:hover, .nav-pills.ct-blue > li.active > a:focus, .pagination.ct-blue > .active > a, .pagination.ct-blue > .active > span, .pagination.ct-blue > .active > a:hover, .pagination.ct-blue > .active > span:hover, .pagination.ct-blue > .active > a:focus, .pagination.ct-blue > .active > span:focus{
    background-color: #3472F7;
