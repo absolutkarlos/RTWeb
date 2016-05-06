@@ -20,6 +20,7 @@ var base = (function () {
 	var markerCluster;
 	var formattedAddress;
 	var infoWindowRB;
+	var infoWindowRD;
 	var intervalCountdown;
 	var timeOutToken;
 	var currentSlide;
@@ -208,65 +209,57 @@ var base = (function () {
 		},
 
 		LoadRadioBase: function () {
-			//var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-			//var labelIndex = 0;
 			var metaData = base.GetLocalMetaData();
 			if ((metaData.RadioBase) && (metaData.RadioBase.Data) && (metaData.RadioBase.Data.length > 0)) {
 				$.each(metaData.RadioBase.Data, function (index, item) {
 					var radioBase = new window.google.maps.Circle({
-						strokeColor: '#FFFFFF',
-						strokeOpacity: 0,
+						strokeColor: '#0000FF',
+						strokeOpacity: 0.9,
 						clickable: false,
 						strokeWeight: 1,
-						fillColor: '#FFFFFF',
-						fillOpacity: 0.2,
+						fillColor: 'black',
+						fillOpacity: 0,
 						map: map,
 						center: { lat: parseFloat(item.Latitude), lng: parseFloat(item.Longitude) },
-						radius: (10 * 1000)
+						radius: (parseInt(item.Diameter) * 1000)
 					});
-					//var infowindow = new google.maps.InfoWindow({});
 
 					var infowindowpoint = new window.google.maps.InfoWindow({
 						position: { lat: parseFloat(item.Latitude), lng: parseFloat(item.Longitude) },
-						//label: labels[labelIndex++ % labels.length],
 						content: item.Name,
 						map: map
 					});
 
-					//infowindow.setContent(item.Name);
 					var point = { lat: parseFloat(item.Latitude), lng: parseFloat(item.Longitude) };
 
 					titles.push(item.Name);
 					markers.push(infowindowpoint);
 				});
-
-				//console.log(radiobasespoints);
-
 			}
 			var options_markerclusterer = {
 				maxzoom: 15,
-				zoomOnClick: false
+				zoomOnClick: false,
+				gridSize: 20
 			};
 
 			markerCluster = new MarkerClusterer(map, markers, options_markerclusterer);
 			infoWindowRD = new window.google.maps.InfoWindow({});
 
-			google.maps.event.addListener(markerCluster, 'clusterclick', function (cluster) {
-				//var info = new google.maps.MVCObject;
-				//info.set('position', cluster.center_);
+			google.maps.event.addListener(markerCluster, 'clusterclick', function (cluster, event) {
 				var clustertot = cluster.getMarkers();
 				var array = "";
 
 				for (var i = 0; i < clustertot.length; i++) {
-					//console.log(clustertot[i].content);
 					array += clustertot[i].content + '<br>';
 				}
 
-				console.log(clustertot);
 				infoWindowRD.setContent(array);
 				infoWindowRD.setPosition(cluster.getCenter());
 				infoWindowRD.open(map);
 			});
+			$("#googleMap").show();
+			$("#loadingMap").hide();
+			base.RefreshMap();
 		},
 
 		GeoCodeLatLng: function (latlng) {
@@ -274,7 +267,10 @@ var base = (function () {
 			geocoder.geocode({ 'location': latlng }, function (results, status) {
 				if (status === window.google.maps.GeocoderStatus.OK) {
 					if (results[0]) {
-						map.setZoom(12);
+						var latitude = results[0].geometry.location.lat();
+						var longitude = results[0].geometry.location.lng();
+
+						map.setZoom(6);
 						infowindow = new window.google.maps.InfoWindow({});
 						if (!!marker) {
 							marker.setpos(null);
@@ -284,13 +280,13 @@ var base = (function () {
 							map: map
 						});
 						map.panTo(marker.position);
-						//$("#coords").val(marker.position);
 						var formattedAddress = base.FormaterAddressMaps(results[0]);
-						//infowindow.setContent(formattedAddress);
-						//infowindow.open(map, marker);
+						infowindow.setContent(formattedAddress);
+						infowindow.open(map, marker);
 						$("#sitedetailedadress").val(formattedAddress);
+						map.setCenter(new window.google.maps.LatLng(latitude, longitude));
 					} else {
-						window.alert('No results found');
+						window.alert('Resultado no encontrado');
 					}
 				} else {
 					window.alert('Geocoder failed due to: ' + status);
@@ -359,15 +355,17 @@ var base = (function () {
 					geocoder.geocode({ 'location': marker.position }, function (results, status) {
 						if (status === window.google.maps.GeocoderStatus.OK) {
 							if (results[0]) {
-								//$("#coords").val(marker.position);
+								var latitude = results[0].geometry.location.lat();
+								var longitude = results[0].geometry.location.lng();
+								
 								$("#latitude").val(marker.position.lat);
 								$("#longitude").val(marker.position.lng);
-								//infowindow = new window.google.maps.InfoWindow({});
+								infowindow = new window.google.maps.InfoWindow({});
 								formattedAddress = base.FormaterAddressMaps(results[0]);
-								//infowindow.setContent(formattedAddress);
-								//infowindow.open(map, marker);
+								infowindow.setContent(formattedAddress);
+								infowindow.open(map, marker);
 								$("#sitedetailedadress").val(formattedAddress);
-								//$("coords").val(marker.position)
+								map.setCenter(new window.google.maps.LatLng(latitude, longitude));
 							} else {
 								window.alert('No results found');
 							}
@@ -401,9 +399,9 @@ var base = (function () {
 				base.PlotPoints(event.latLng, map);
 			});
 
-			window.google.maps.event.addListener(map, 'rightclick', function (event) {
-				base.PlottingComplete(event.latLng);
-			});
+			//window.google.maps.event.addListener(map, 'rightclick', function (event) {
+			//	base.PlottingComplete(event.latLng);
+			//});
 
 			mouseOverInfowindow = new window.google.maps.InfoWindow({});
 
@@ -431,6 +429,11 @@ var base = (function () {
 				}
 			});
 
+			window.google.maps.event.addListener(map, 'zoom_changed', function () {
+				if(infoWindowRD !== undefined)
+					infoWindowRD.close();
+			});
+
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(function (position) {
 					var pos = {
@@ -442,18 +445,15 @@ var base = (function () {
 					$("#latitude").val(pos.lat);
 
 					base.GeoCodeLatLng(pos);
-
-					//infoWindow.setPosition(pos);
-					//infoWindow.setContent('Esta es tu ubicación actual.');
-					map.setCenter(new window.google.maps.LatLng(pos.lat, pos.lng));
+					base.RefreshMap();
 				}, function () {
 					infoWindow = new window.google.maps.InfoWindow({ map: map });
-					HandleGoogelMapError(true, infoWindow, map.getCenter());
+					base.HandleGoogelMapError(true, infoWindow, map.getCenter());
 				});
 			} else {
 				// Browser doesn't support Geolocation
 				infoWindow = new window.google.maps.InfoWindow({ map: map });
-				HandleGoogelMapError(false, infoWindow, map.getCenter());
+				base.HandleGoogelMapError(false, infoWindow, map.getCenter());
 			}
 		},
 

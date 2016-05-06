@@ -2,7 +2,6 @@
 	return {
 		init: function() {
 			this.GetEvent().AddScheduleEvent();
-			this.GetEvent().UpdatePositionMap();
 			$(".js-example-basic-multiple").select2();
 		},
 
@@ -135,16 +134,6 @@
 							$("#modal").find(".modal-body").empty();
 							$("#modal").find(".modal-body").append("<h5>La orden se ha <b>generado</b> satisfactoriamente</h5>");
 							$('#modal').modal('show');
-						}
-					});
-				},
-
-				UpdatePositionMap: function () {
-					$("#latitude, #longitude").blur(function () {
-						if (($("#latitude").val() != "") && ($("#longitude").val() != "")) {
-							var latLng = new google.maps.LatLng($("#latitude").val(), $("#longitude").val());
-							base.GeoCodeLatLng({ lat: parseFloat($("#latitude").val()), lng: parseFloat($("#longitude").val()) });
-							map.setCenter(latLng);
 						}
 					});
 				},
