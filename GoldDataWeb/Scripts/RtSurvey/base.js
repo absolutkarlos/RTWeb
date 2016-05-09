@@ -1,6 +1,4 @@
-﻿google.load("visualization", "1", { packages: ["columnchart"] });
-
-var map;
+﻿var map;
 
 var base = (function () {
 	var elSvc;
@@ -149,65 +147,6 @@ var base = (function () {
 			markers = [];
 		},
 
-		PlottingComplete: function (theLatLng) {
-
-			path.push(theLatLng);
-
-			//display the final marker
-			var marker = new window.google.maps.Marker({
-				position: theLatLng,
-				map: map
-			});
-			map.panTo(marker.position);
-			markers.push(marker);
-			//$("#coords").val(marker.position);
-			// Display a polyline of the elevation path.
-			var pathOptions = {
-				path: path,
-				strokeColor: '#0000CC',
-				opacity: 0.4,
-				map: map
-			}
-			polyline = new window.google.maps.Polyline(pathOptions);
-
-			//the elevation service request
-			var pathRequest = {
-				'path': path,
-				'samples': 256
-			}
-
-			// Initiate the path request.
-			elSvc.getElevationAlongPath(pathRequest, base.PlotElevation);
-		},
-
-		// Takes an array of ElevationResult objects, draws the path on the map
-		// and plots the elevation profile on a Visualization API ColumnChart.
-		PlotElevation: function (results, status) {
-			if (status === window.google.maps.ElevationStatus.OK) {
-				elevations = results;
-
-				// Extract the data from which to populate the chart.
-				// Because the samples are equidistant, the 'Sample'
-				// column here does double duty as distance along the
-				// X axis.
-				var data = new window.google.visualization.DataTable();
-				data.addColumn('string', 'Sample');
-				data.addColumn('number', 'Elevation');
-				for (var i = 0; i < results.length; i++) {
-					data.addRow(['', elevations[i].elevation]);
-				}
-
-				// Draw the chart using the data within its DIV. 
-				document.getElementById('elevation_chart').style.display = 'block';
-				chart.draw(data, {
-					width: 640,
-					height: 200,
-					legend: 'none',
-					titleY: 'Elevation (m)'
-				});
-			}
-		},
-
 		LoadRadioBase: function () {
 			var metaData = base.GetLocalMetaData();
 			if ((metaData.RadioBase) && (metaData.RadioBase.Data) && (metaData.RadioBase.Data.length > 0)) {
@@ -284,12 +223,15 @@ var base = (function () {
 						infowindow.setContent(formattedAddress);
 						infowindow.open(map, marker);
 						$("#sitedetailedadress").val(formattedAddress);
+						$("#longitude").val(longitude);
+						$("#latitude").val(latitude);
 						map.setCenter(new window.google.maps.LatLng(latitude, longitude));
 					} else {
 						window.alert('Resultado no encontrado');
 					}
 				} else {
-					window.alert('Geocoder failed due to: ' + status);
+					//window.alert('Geocoder failed due to: ' + status);
+					window.alert('La busqueda ha fallado.');
 				}
 			});
 		},
@@ -306,12 +248,6 @@ var base = (function () {
 				zoom: 12,
 				mapTypeId: window.google.maps.MapTypeId.HYBRID
 			});
-
-			// Create a new chart in the elevation_chart DIV.
-			chart = new window.google.visualization.ColumnChart(document.getElementById('elevation_chart'));
-
-			// Create an ElevationService.
-			elSvc = new window.google.maps.ElevationService();
 
 			var input = document.getElementById('coords');
 			var searchBox = new google.maps.places.SearchBox(input);
@@ -351,28 +287,8 @@ var base = (function () {
 						title: place.name
 					});
 
-					var geocoder = new window.google.maps.Geocoder;
-					geocoder.geocode({ 'location': marker.position }, function (results, status) {
-						if (status === window.google.maps.GeocoderStatus.OK) {
-							if (results[0]) {
-								var latitude = results[0].geometry.location.lat();
-								var longitude = results[0].geometry.location.lng();
-								
-								$("#latitude").val(marker.position.lat);
-								$("#longitude").val(marker.position.lng);
-								infowindow = new window.google.maps.InfoWindow({});
-								formattedAddress = base.FormaterAddressMaps(results[0]);
-								infowindow.setContent(formattedAddress);
-								infowindow.open(map, marker);
-								$("#sitedetailedadress").val(formattedAddress);
-								map.setCenter(new window.google.maps.LatLng(latitude, longitude));
-							} else {
-								window.alert('No results found');
-							}
-						} else {
-							window.alert('Geocoder failed due to: ' + status);
-						}
-					});
+					base.GeoCodeLatLng(marker.position);
+
 					if (place.geometry.viewport) {
 						// Only geocodes have viewport.
 						bounds.union(place.geometry.viewport);
@@ -383,50 +299,10 @@ var base = (function () {
 				map.fitBounds(bounds);
 			});
 
-
-
 			map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(FullScreenControl(map, ["Modo pantalla completa"], ["Salir del modo pantalla completa"]));
-
-			// Create a new chart in the elevation_chart DIV.
-			chart = new window.google.visualization.ColumnChart(document.getElementById('elevation_chart'));
-
-			// Create an ElevationService.
-			elSvc = new window.google.maps.ElevationService();
-
-			//map.controls[google.maps.ControlPosition.TOP_CENTER].push('<input onclick="deleteMarkers();" type=button value="Borrar Marcadores">');
 
 			window.google.maps.event.addListener(map, 'click', function (event) {
 				base.PlotPoints(event.latLng, map);
-			});
-
-			//window.google.maps.event.addListener(map, 'rightclick', function (event) {
-			//	base.PlottingComplete(event.latLng);
-			//});
-
-			mouseOverInfowindow = new window.google.maps.InfoWindow({});
-
-			window.google.visualization.events.addListener(chart, 'onmouseover', function (e) {
-				var contentStr;
-				if (mousemarker == null) {
-					mousemarker = new window.google.maps.Marker({
-						position: elevations[e.row].location,
-						map: map,
-						icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
-					});
-					contentStr = "elevation=" + elevations[e.row].elevation + "<br>location=" + elevations[e.row].location.toUrlValue(6);
-					mousemarker.contentStr = contentStr;
-					window.google.maps.event.addListener(mousemarker, 'click', function () {
-						mmInfowindowOpen = true;
-						mouseOverInfowindow.setContent(this.contentStr);
-						mouseOverInfowindow.open(map, mousemarker);
-					});
-				} else {
-					contentStr = "elevation=" + elevations[e.row].elevation + "<br>location=" + elevations[e.row].location.toUrlValue(6);
-					mousemarker.contentStr = contentStr;
-					mouseOverInfowindow.setContent(contentStr);
-					mousemarker.setPosition(elevations[e.row].location);
-					// if (mm_infowindow_open) infowindow.open(map,mousemarker);
-				}
 			});
 
 			window.google.maps.event.addListener(map, 'zoom_changed', function () {
@@ -434,27 +310,44 @@ var base = (function () {
 					infoWindowRD.close();
 			});
 
-			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(function (position) {
-					var pos = {
-						lat: position.coords.latitude,
-						lng: position.coords.longitude
-					};
+			var geocoder = new window.google.maps.Geocoder;
+			geocoder.geocode({ 'location': { lat: parseFloat("8.4266475"), lng: parseFloat("-81.2265862") } }, function (results, status) {
+				if (status === window.google.maps.GeocoderStatus.OK) {
+					if (results[0]) {
+						var latitude = results[0].geometry.location.lat();
+						var longitude = results[0].geometry.location.lng();
 
-					$("#longitude").val(pos.lng);
-					$("#latitude").val(pos.lat);
+						map.setZoom(4);
+						var formattedAddress = base.FormaterAddressMaps(results[0]);
+						$("#sitedetailedadress").val(formattedAddress);
+						$("#longitude").val(longitude);
+						$("#latitude").val(latitude);
+						map.setCenter(new window.google.maps.LatLng(latitude, longitude));
+					}
+				}
+			});
 
-					base.GeoCodeLatLng(pos);
-					base.RefreshMap();
-				}, function () {
-					infoWindow = new window.google.maps.InfoWindow({ map: map });
-					base.HandleGoogelMapError(true, infoWindow, map.getCenter());
-				});
-			} else {
-				// Browser doesn't support Geolocation
-				infoWindow = new window.google.maps.InfoWindow({ map: map });
-				base.HandleGoogelMapError(false, infoWindow, map.getCenter());
-			}
+			//if (navigator.geolocation) {
+			//	navigator.geolocation.getCurrentPosition(function (position) {
+			//		var pos = {
+			//			lat: position.coords.latitude,
+			//			lng: position.coords.longitude
+			//		};
+
+			//		$("#longitude").val(pos.lng);
+			//		$("#latitude").val(pos.lat);
+
+			//		base.GeoCodeLatLng(pos);
+			//	}, function () {
+			//		base.GeoCodeLatLng({ lat: parseFloat("6.8678296"), lng: parseFloat("-83.0290863") });
+			//	});
+			//} else {
+			//	// Browser doesn't support Geolocation
+			//	infoWindow = new window.google.maps.InfoWindow({ map: map });
+			//	base.HandleGoogelMapError(false, infoWindow, map.getCenter());
+			//}
+
+			base.LoadRadioBase();
 		},
 
 		FormaterAddressMaps: function (address) {

@@ -1,7 +1,6 @@
 ﻿var client = (function () {
 	return {
 		init: function () {
-			base.InitializeGoogleMap();
 		},
 
 		ResetForm: function () {

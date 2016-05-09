@@ -236,6 +236,7 @@ $(document).ready(function () {
 					return validateFirstStep();
 				}
 			} else if (index === 2) {
+				base.InitializeGoogleMap();
 				if (navigation.context.id === "wizardInfo") {
 					return true;
 				} else {

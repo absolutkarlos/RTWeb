@@ -84,7 +84,7 @@
 									</h3>
 								</div>
 								<ul class="nav nav-pills">
-									<li class="active" style="width: 50%;" id="tabInfo"><a href="#info" data-toggle="tab" aria-expanded="true">Información</a></li>
+									<li class="active" style="@((Model.Order != null) ? @"width: 50%;" : @"width: 100% !important;")" id="tabInfo"><a href="#info" data-toggle="tab" aria-expanded="true">Información</a></li>
 									@if (Model.Order != null)
 									{
 										if (user.IsRole(Rol.Type.Noc) || user.IsRole(Rol.Type.Manager))

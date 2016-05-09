@@ -127,7 +127,7 @@ namespace GD.Models.Commons
 						Id = (long)AdditionalData[@"client.idclient"],
 						Ruc = AdditionalData.ContainsKey(@"client.ruc") ? AdditionalData[@"client.ruc"].ToString() : string.Empty,
 						LegalName = AdditionalData.ContainsKey(@"client.legalname") ? AdditionalData[@"client.legalname"].ToString() : string.Empty,
-						BusinessName = AdditionalData.ContainsKey(@"client.bussinessname") ? AdditionalData[@"client.bussinessname"].ToString() : string.Empty,
+						BusinessName = AdditionalData.ContainsKey(@"client.businessname") ? AdditionalData[@"client.businessname"].ToString() : string.Empty,
 						AddressRef = AdditionalData.ContainsKey(@"client.addressref") ? AdditionalData[@"client.addressref"].ToString() : string.Empty,
 						IdClientType = AdditionalData.ContainsKey(@"client.idclienttype") ? (int)AdditionalData[@"client.idclienttype"] : 0,
 						SiteNumber = AdditionalData.ContainsKey(@"client.sitenumber") ? AdditionalData[@"client.sitenumber"].ToString() : string.Empty

@@ -60,10 +60,12 @@
 					$("#tabPreFactibilidad").show();
 					$("#wizardInfo").find('.btn-next').show();
 				} else {
-					$("#tabInfo").css({ "width": "50%" });
-					$("#aprobarPreFactibility, #rechazarPreFactibility").show();
-					$("#tabPreFactibilidad").show();
-					$("#wizardInfo").find('.btn-next').show();
+					if ($("#tabPreFactibilidad").is(":visible")) {
+						$("#tabInfo").css({ "width": "50%" });
+						$("#aprobarPreFactibility, #rechazarPreFactibility").show();
+						$("#tabPreFactibilidad").show();
+						$("#wizardInfo").find('.btn-next').show();
+					}
 				}
 			}
 		},

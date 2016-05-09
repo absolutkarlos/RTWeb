@@ -108,7 +108,6 @@
 					home.LoadDataDropDowns(result);
 					home.GetEvent().DropDownCountryChange();
 					home.GetEvent().DropDownClientTypeChange();
-					base.LoadRadioBase();
 					$("#clienttype").val("1").trigger("change");
 				} else {
 					base.ValidateHasError(result, function () {
