@@ -150,6 +150,7 @@ var base = (function () {
 		LoadRadioBase: function () {
 			var metaData = base.GetLocalMetaData();
 			if ((metaData.RadioBase) && (metaData.RadioBase.Data) && (metaData.RadioBase.Data.length > 0)) {
+				markers = [];
 				$.each(metaData.RadioBase.Data, function (index, item) {
 					var radioBase = new window.google.maps.Circle({
 						strokeColor: '#0000FF',
@@ -212,7 +213,7 @@ var base = (function () {
 						map.setZoom(6);
 						infowindow = new window.google.maps.InfoWindow({});
 						if (!!marker) {
-							marker.setpos(null);
+							marker.setPosition(null);
 						}
 						marker = new window.google.maps.Marker({
 							position: latlng,
@@ -317,11 +318,11 @@ var base = (function () {
 						var latitude = results[0].geometry.location.lat();
 						var longitude = results[0].geometry.location.lng();
 
+						$("#coords").val("");
+						$("#sitedetailedadress").val("");
+						$("#longitude").val("");
+						$("#latitude").val("");
 						map.setZoom(4);
-						var formattedAddress = base.FormaterAddressMaps(results[0]);
-						$("#sitedetailedadress").val(formattedAddress);
-						$("#longitude").val(longitude);
-						$("#latitude").val(latitude);
 						map.setCenter(new window.google.maps.LatLng(latitude, longitude));
 					}
 				}
