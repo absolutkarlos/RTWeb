@@ -96,6 +96,11 @@ var base = (function () {
 			}, 1199999);
 		},
 
+		VaidateDecimalNumber: function(number) {
+			var reg = /^-?\d+\.?\d*$/;
+			return reg.test(number.trim());
+		},
+
 		ApplyNiceScroll: function (contentId) {
 			$(contentId).niceScroll();
 		},
@@ -123,13 +128,10 @@ var base = (function () {
 			geocoder.geocode({ 'location': marker.position }, function (results, status) {
 				if (status === window.google.maps.GeocoderStatus.OK) {
 					if (results[0]) {
-						//$("#coords").val(marker.position);
 						$("#latitude").val(marker.position.lat);
 						$("#longitude").val(marker.position.lng);
 						formattedAddress = base.FormaterAddressMaps(results[0]);
-
 						$("#sitedetailedadress").val(formattedAddress);
-						//$("coords").val(marker.position)
 					} else {
 						window.alert('No results found');
 					}
@@ -210,7 +212,7 @@ var base = (function () {
 						var latitude = results[0].geometry.location.lat();
 						var longitude = results[0].geometry.location.lng();
 
-						map.setZoom(6);
+						map.setZoom(15);
 						infowindow = new window.google.maps.InfoWindow({});
 						if (!!marker) {
 							marker.setPosition(null);
@@ -244,6 +246,23 @@ var base = (function () {
 				'Error: Su navegador no soporta geolocalización.');
 		},
 
+		SearchCoordinate: function () {
+			var coords = $("#coords").val().split(',');
+			if(coords.length <= 1)
+				coords = $("#coords").val().split(' ');
+
+			if (coords.length > 1) {
+				if (base.VaidateDecimalNumber(coords[0]) && base.VaidateDecimalNumber(coords[1])) {
+					var lat = parseFloat(coords[0]);
+					var lng = parseFloat(coords[1]);
+					base.GeoCodeLatLng({ lat: lat, lng: lng });
+					return true;
+				}
+				return false;
+			}
+			return false;
+		},
+
 		InitializeGoogleMap: function () {
 			map = new window.google.maps.Map(document.getElementById('googleMap'), {
 				zoom: 12,
@@ -260,44 +279,50 @@ var base = (function () {
 			var markersplaces = [];
 
 			searchBox.addListener('places_changed', function () {
-				var places = searchBox.getPlaces();
-				if (places.length == 0) {
-					return;
-				}
-				markersplaces.forEach(function (marker) {
-					marker.setMap(null);
-				});
-				markersplaces = [];
+				if (!base.SearchCoordinate()) {
+					var places = searchBox.getPlaces();
 
-				var bounds = new google.maps.LatLngBounds();
-				places.forEach(function (place) {
-					var icon = {
-						url: place.icon,
-						size: new google.maps.Size(71, 71),
-						origin: new google.maps.Point(0, 0),
-						anchor: new google.maps.Point(17, 34),
-						scaledSize: new google.maps.Size(25, 25)
-					};
-					if (!!marker) {
+					if (places.length == 0) {
+						return;
+					}
+
+					markersplaces.forEach(function(marker) {
 						marker.setMap(null);
-					}
-
-					marker = new window.google.maps.Marker({
-						position: place.geometry.location,
-						map: map,
-						title: place.name
 					});
+					markersplaces = [];
 
-					base.GeoCodeLatLng(marker.position);
+					var bounds = new google.maps.LatLngBounds();
+					places.forEach(function(place) {
+						var icon = {
+							url: place.icon,
+							size: new google.maps.Size(71, 71),
+							origin: new google.maps.Point(0, 0),
+							anchor: new google.maps.Point(17, 34),
+							scaledSize: new google.maps.Size(25, 25)
+						};
+						if (!!marker) {
+							marker.setMap(null);
+						}
 
-					if (place.geometry.viewport) {
-						// Only geocodes have viewport.
-						bounds.union(place.geometry.viewport);
-					} else {
-						bounds.extend(place.geometry.location);
-					}
-				});
-				map.fitBounds(bounds);
+						marker = new window.google.maps.Marker({
+							position: place.geometry.location,
+							map: map,
+							title: place.name
+						});
+
+						base.GeoCodeLatLng(marker.position);
+
+						if (place.geometry.viewport) {
+							// Only geocodes have viewport.
+							bounds.union(place.geometry.viewport);
+						} else {
+							bounds.extend(place.geometry.location);
+						}
+					});
+					map.fitBounds(bounds);
+				} else {
+					marker.setMap(null);
+				}
 			});
 
 			map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(FullScreenControl(map, ["Modo pantalla completa"], ["Salir del modo pantalla completa"]));
