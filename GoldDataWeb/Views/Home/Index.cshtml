@@ -24,27 +24,27 @@
 	<div id="page" class="container" style="height: 100vh; width: 100%;">
 		<div class="row" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 100px;">
 			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-				<div class="well well-sm" style="height: 125px;">
+				<div class="well well-sm">
 					<div class="row">
-						<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-							<a href="#" class="thumbnail">
+						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+							<a href="#" class="thumbnail" style="margin-bottom: 0">
 								<img src="~/Content/Images/Logotipo_GD150x150.png" style="height: 95px;" />
 							</a>
 						</div>
-						<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-							<h4 style="margin-top: 0;" id="user" data-rol="@user.Rol.Id">
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+							<h4 style="margin-top: 5px; margin-bottom: 5px" id="user" data-rol="@user.Rol.Id">
 								@Model.User.Name
 							</h4>
 							<small>
-								<cite title="San Francisco, USA">
-									San Francisco, USA <i class="glyphicon glyphicon-map-marker">
+								<cite title="@Model.User.BillingAddress">
+									@Model.User.BillingAddress <i class="glyphicon glyphicon-map-marker">
 									</i>
 								</cite>
 							</small>
 							<br />
-							<i class="glyphicon glyphicon-calendar"></i> 28 Ene 2016
+							<i class="glyphicon glyphicon-calendar"></i> @DateTime.Now.ToString(@"d MMM yyy")
 							<br />
-							<i class="glyphicon glyphicon-envelope"></i> email@example.com
+							<i class="glyphicon glyphicon-envelope"></i> @Model.User.Email
 						</div>
 					</div>
 				</div>

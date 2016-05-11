@@ -480,6 +480,7 @@
     <Content Include="Content\Images\ic_action_logout.png" />
     <Content Include="Content\Images\ic_action_settings.png" />
     <Content Include="Content\Images\ic_action_tower_dark.png" />
+    <Content Include="Content\Images\ic_back_white.png" />
     <Content Include="Content\Images\ic_user_edit_white.png" />
     <Content Include="Content\Images\loading.gif" />
     <Content Include="Content\Images\logo.png" />
