@@ -9,7 +9,7 @@
 			this.GetEvent().AddNewOrder();
 			this.GetEvent().ExistingOrder();
 			this.GetEvent().ClientsEvent();
-			base.InitializeCarousel();
+			this.GetEvent().ButtomScrollUpEvent();
 			this.GetEvent().InitializePopover();
 			this.LoadMetaData();
 			this.SelectedOrder($("#orderIdLabel").data("orderid"));
@@ -23,6 +23,7 @@
 			$('[rel="tooltip"]').tooltip();
 			$(".js-example-basic-multiple").select2();
 			base.ValidateExpireToken();
+			base.InitializeCarousel();
 		},
 
 		CreateClipBoard: function (control) {
@@ -422,6 +423,12 @@
 				ButtomScrollDownEvent: function () {
 					$(".btn-scroll-down").click(function () {
 						home.GetEvent().AnimateScrollContentPage("page");
+					});
+				},
+
+				ButtomScrollUpEvent: function () {
+					$("#previous, #next").click(function () {
+						$(window).scrollTop(0);
 					});
 				}
 			}

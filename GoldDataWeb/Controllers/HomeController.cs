@@ -93,7 +93,7 @@ namespace GoldDataWeb.Controllers
 			User user = responseUser.Data;
 			user.Rol = RolService.GetById(user.IdRol.ToString()).Data;
 
-			return View(responseUser.Data);
+			return View(user);
 		}
 
 		[HttpPost]
