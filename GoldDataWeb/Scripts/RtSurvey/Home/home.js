@@ -124,7 +124,7 @@
 					if (metaData && (metaData.Data)) {
 						$("#labelClientType").text("(" + metaData.Data.ClientType.Name + ")");
 						$("#labelUbicacion").text(metaData.Data.City.Name + ", " + metaData.Data.State.Name + ", " + metaData.Data.Country.Name);
-						$("#labelFullName").text(metaData.Data.LegalName);
+						$("#labelLegalName").text(metaData.Data.LegalName);
 						$("#labelBusinessName").text(metaData.Data.BusinessName);
 						$("#labelRuc").text(metaData.Data.Ruc);
 						$("#labelDetailedAdress").text(metaData.Data.AddressRef);

@@ -16,10 +16,6 @@
 	@Styles.Render("~/Content/fileinput.css")
 }
 
-@{
-	var user = (UserIdentity)User;
-}
-
 <div id="homeContainer">
 	<div id="page" class="container" style="height: 100vh; width: 100%;">
 		<div class="row" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 100px;">
@@ -32,7 +28,7 @@
 							</a>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 user-panel">
-							<h4 style="margin-top: 5px; margin-bottom: 5px" id="user" data-rol="@user.Rol.Id">
+							<h4 style="margin-top: 5px; margin-bottom: 5px" id="user" data-rol="@Model.User.IdRol">
 								@Model.User.Name
 							</h4>
 							<small>
@@ -65,7 +61,7 @@
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-				@if (user.IsRole(Rol.Type.Ventas) || user.IsRole(Rol.Type.Manager))
+				@if (Model.User.IsRole(Rol.Type.Ventas) || Model.User.IsRole(Rol.Type.Manager))
 				{
 					<div style="width: 100%;">
 						<img rel="tooltip" id="newOrder" src="~/Content/Images/Icons/playlist_add_black.png" style="cursor: pointer;" data-original-title="Generar una nueva orden" />
@@ -73,7 +69,7 @@
 					</div>
 					<hr style="margin-top: 0;" />
 				}
-				<div id="panelInfo" style="@(user.IsRole(Rol.Type.Ventas) ? @"display:none;" : @"display:block;")">
+				<div id="panelInfo" style="@(Model.User.IsRole(Rol.Type.Ventas) ? @"display:none;" : @"display:block;")">
 					<div class="wizard-container" style="padding-top: 0;">
 						<div class="card wizard-card ct-wizard-green" id="wizardInfo">
 							<form action="" method="" id="wizardInfoForm">
@@ -87,19 +83,19 @@
 									<li class="active" style="@((Model.Order != null) ? @"width: 50%;" : @"width: 100% !important;")" id="tabInfo"><a href="#info" data-toggle="tab" aria-expanded="true">Información</a></li>
 									@if (Model.Order != null)
 									{
-										if (user.IsRole(Rol.Type.Noc) || user.IsRole(Rol.Type.Manager))
+										if (Model.User.IsRole(Rol.Type.Noc) || Model.User.IsRole(Rol.Type.Manager))
 										{
 											<li style="width: 50%;" id="tabPreFactibilidad"><a href="#prefactibilidad" data-toggle="tab" aria-expanded="false">Pre-Factibilidad</a></li>
 										}
 
-										if (user.IsRole(Rol.Type.Field))
+										if (Model.User.IsRole(Rol.Type.Field))
 										{
 											<li><a href="#inspection" data-toggle="tab" aria-expanded="false">Inspección</a></li>
 											<li><a href="#instalation" data-toggle="tab" aria-expanded="false">Instalación</a></li>
 										}
 									}
 								</ul>
-								<div id="contentPanelInfo" class="tab-content" style="padding: 20px 20px; min-height: @(user.IsRole(Rol.Type.Ventas) || user.IsRole(Rol.Type.Manager) ? @"589px;" : @"622px;")">
+								<div id="contentPanelInfo" class="tab-content" style="padding: 20px 20px; min-height: @(Model.User.IsRole(Rol.Type.Ventas) || Model.User.IsRole(Rol.Type.Manager) ? @"589px;" : @"622px;")">
 									<div id="refreshInfoOrderPanel" style="display: none; width: 100%;">
 										<div style="display: table-row;">
 											<div style="width: 100%; height: 549px; display: table-cell; vertical-align: middle; text-align: center;">
@@ -109,19 +105,19 @@
 										</div>
 									</div>
 									@{
-										if (!user.IsRole(Rol.Type.Ventas))
+										if (!Model.User.IsRole(Rol.Type.Ventas))
 										{
 											Html.RenderPartial(@"_WizardTabInfo", Model);
 										}
 
 										if (Model.Order != null)
 										{
-											if (user.IsRole(Rol.Type.Noc) || user.IsRole(Rol.Type.Manager))
+											if (Model.User.IsRole(Rol.Type.Noc) || Model.User.IsRole(Rol.Type.Manager))
 											{
 												Html.RenderPartial(@"_WizardTabPrefactibilidad", Model);
 											}
 
-											if (user.IsRole(Rol.Type.Field))
+											if (Model.User.IsRole(Rol.Type.Field))
 											{
 												<div class="tab-pane" id="inspection" style="margin-top: 40px; ">
 													<div id="refreshInspectionPanel" style="display: none; width: 100%;display: none;">
@@ -168,9 +164,9 @@
 					</div>
 				</div>
 
-				@if (user.IsRole(Rol.Type.Ventas) || user.IsRole(Rol.Type.Manager))
+				@if (Model.User.IsRole(Rol.Type.Ventas) || Model.User.IsRole(Rol.Type.Manager))
 				{
-					<div id="panelClient" style="@(user.IsRole(Rol.Type.Ventas) ? @"display:block;" : @"display:none;")">
+					<div id="panelClient" style="@(Model.User.IsRole(Rol.Type.Ventas) ? @"display:block;" : @"display:none;")">
 						<div class="wizard-container" style="padding-top: 0;">
 							<div class="card wizard-card ct-wizard-green" id="wizardClient">
 								<form action="" method="" id="wizardClientForm">

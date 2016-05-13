@@ -33,6 +33,7 @@ namespace GoldDataWeb.Controllers
 				{
 					CreateAuthCookie(response);
 					CreateLoginCookie(auth);
+					LoadUserData(response.UserId);
 					return RedirectToAction(@"Index", @"Home");
 				}
 

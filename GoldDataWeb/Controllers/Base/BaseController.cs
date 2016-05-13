@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -72,6 +73,38 @@ namespace GoldDataWeb.Controllers.Base
 		public Service<OrderMaterial> OrderMaterialService => _orderMaterialService ?? (_orderMaterialService = new Service<OrderMaterial>(RestfulServiceProvider.OrderMaterialUrlApi, GetTokenAuth()));
 		public Service<OrderFlow> OrderFlowService => _orderFlowService ?? (_orderFlowService = new Service<OrderFlow>(RestfulServiceProvider.OrderFlowServiceUrlApi, GetTokenAuth()));
 
+		public UserIdentity UserData => Session[@"UserData"] as UserIdentity;
+
+		public void LoadUserData(long userId)
+		{
+			HttpCookie authCookie = System.Web.HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+			if (authCookie != null)
+			{
+				//Extract the forms authentication cookie
+				FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+
+				// If caching roles in userData field then extract
+				if (authTicket != null)
+				{
+					// Create the IIdentity instance
+					IIdentity id = new FormsIdentity(authTicket);
+
+					var auth = JsonHelper.Deserialize<Auth>(authTicket.UserData);
+
+					var userService = new Service<User>(RestfulServiceProvider.UserUrlApi, auth.AccessToken);
+					var rolService = new Service<Rol>(RestfulServiceProvider.RolUrlApi, auth.AccessToken);
+
+					var responseUser = userService.GetById(userId);
+
+					// Set the context user
+					Session[@"UserData"] = new UserIdentity(id)
+					{
+						Auth = auth,
+						Rol = rolService.GetById(responseUser.Data.IdRol).Data
+					};
+				}
+			}
+		}
 
 		public Auth ValidateRememberAuth()
 		{
@@ -107,14 +140,12 @@ namespace GoldDataWeb.Controllers.Base
 
 		public Auth GetAuthData()
 		{
-			var data = (UserIdentity)User;
-			return data.Auth;
+			return UserData.Auth;
 		}
 
 		public string GetTokenAuth()
 		{
-			var data = (UserIdentity)User;
-			return data.Auth.AccessToken;
+			return UserData.Auth.AccessToken;
 		}
 
 		public void CreateAuthCookie(Auth auth)

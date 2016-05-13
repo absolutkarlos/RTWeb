@@ -76,6 +76,10 @@ namespace GD.Models.Commons
 		[JsonProperty(@"idstatus")]
 		public int IdStatus { get; set; }
 
+		public bool IsRole(Rol.Type type)
+		{
+			return IdRol == (int)type;
+		}
 
 		[JsonExtensionData]
 		public readonly IDictionary<string, JToken> AdditionalData;

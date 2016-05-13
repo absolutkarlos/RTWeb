@@ -21,14 +21,12 @@ namespace GoldDataWeb.Controllers
 		{
 			ResponseService<Order> order = null;
 			var responseUser = UserService.GetById(GetAuthData().UserId);
-			((UserIdentity)User).Rol = RolService.GetById(responseUser.Data.IdRol).Data;
 			var responseOrders = OrderService.Execute<IEnumerable<Order>>(@"getbyuser", Method.GET, responseUser.Data.Id.ToString());
 			var firstOrDefault = responseOrders.Data.FirstOrDefault();
+
 			if (firstOrDefault != null)
 			{
-				order = (!((UserIdentity)User).IsRole(Rol.Type.Ventas))
-					? OrderService.Execute(@"getinfo", Method.GET, firstOrDefault.Id.ToString())
-					: null;
+				order = (!UserData.IsRole(Rol.Type.Ventas)) ? OrderService.Execute(@"getinfo", Method.GET, firstOrDefault.Id.ToString()) : null;
 			}
 
 			var viewModel = new HomeViewModel

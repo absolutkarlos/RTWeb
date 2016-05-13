@@ -135,7 +135,7 @@ $(document).ready(function () {
 		},
 
 		rules: {
-			fullname: "required",
+			legalname: "required",
 			businessname: "required",
 			ruc: "required",
 			detailedadress: "required",
@@ -236,10 +236,10 @@ $(document).ready(function () {
 					return validateFirstStep();
 				}
 			} else if (index === 2) {
-				base.InitializeGoogleMap();
 				if (navigation.context.id === "wizardInfo") {
 					return true;
 				} else {
+					base.InitializeGoogleMap();
 					return validateSecondStep();
 				}
 			} else if (index === 3) {

@@ -10,7 +10,7 @@
 			base.ClearDropDownList("#state");
 			base.ClearDropDownList("#city");
 			base.ClearDropDownList("#zone");
-			$("#fullname").val("");
+			$("#legalname").val("");
 			$("#ruc").val("");
 			$("#detailedadress").val("");
 			$("#businessname").val("");
@@ -22,7 +22,7 @@
 		ShowContentReadOnly: function() {
 			$("#labelClientType").text("(" + $("#clienttype").select2('data')[0].text + ")");
 			$("#labelUbicacion").text($("#zone").select2('data')[0].text + ", " + $("#state").select2('data')[0].text + ", " + $("#country").select2('data')[0].text);
-			$("#labelFullName").text($("#fullname").val());
+			$("#labelLegalName").text($("#legalname").val());
 			$("#labelBusinessName").text($("#businessname").val());
 			$("#labelRuc").text($("#ruc").val());
 			$("#labelDetailedAdress").text($("#detailedadress").val());
@@ -33,7 +33,7 @@
 		GetClient: function () {
 			var client = {
 				"Client.BusinessName": $("#businessname").val(),
-				"Client.LegalName": $("#fullname").val(),
+				"Client.LegalName": $("#legalname").val(),
 				"Client.Ruc": $("#ruc").val(),
 				"Client.ClientType.Id": $("#clienttype").val(),
 				"Client.AddressRef": $("#detailedadress").val(),
