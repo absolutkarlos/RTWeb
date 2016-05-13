@@ -30,6 +30,12 @@ body {
 		box-shadow: 0 5px 15px #616161;
 	}
 
+@media (max-width: 991px) {
+	.user-panel{
+		text-align: center;
+	}
+}
+
 .footer > .container > a {
 	color: black;
 }
@@ -444,14 +450,6 @@ select.myErrorClass:-ms-input-placeholder {
 	width: 15px;
 }
 
-
-
-
-
-
-
-
-
 *, *:before, *:after {
 	margin: 0;
 	padding: 0;
@@ -498,35 +496,35 @@ p {
 }
 
 /*           dropdown              */
-.dropdown-order{
-	top: 153px
+.dropdown-order {
+	top: 145px
 }
 
-@media (min-width: 1121px){
-	.dropdown-order{
-		top: 145px;
-	}
-}
-
-@media (max-width: 1120px){
+@media (max-width: 1120px) {
 	.dropdown-order{
 		top: 154px;
 	}
 }
 
-@media (max-width: 1102px){
+@media (max-width: 1102px) {
 	.dropdown-order{
 		top: 174px;
 	}
 }
 
-@media (max-width: 991px){
+@media (max-width: 995px) {
+	.dropdown-order{
+		top: 198px;
+	}
+}
+
+@media (max-width: 991px) {
 	.dropdown-order{
 		top: 239px;
 	}
 }
 
-@media (max-width: 278px){
+@media (max-width: 278px) {
 	.dropdown-order{
 		top: 259px;
 	}
@@ -867,9 +865,6 @@ div.mask {
 		div.mask article p {
 			line-height: 130%;
 		}
-
-
-
 
 #googleMap {
 	animation: fadein 2s;
