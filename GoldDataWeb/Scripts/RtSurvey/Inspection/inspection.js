@@ -209,7 +209,6 @@
 						if (inspection.ValidateAddMaterial()) {
 							$("#materialInspectionListEmpty").hide();
 							$("#materialInspectionListEmpty").empty();
-							$("#materialInspectionListEmpty").html('<span class="text-center" style="height: 100%;">No hay materiales agregados</span>');
 							var index = $(".materials").length + 1;
 
 							$("#listMetarialInspection").append("<a href='#" + index + "' data-ordermaterial='" + inspection.CreateOrderMaterial() + "' class='list-group-item materials' style='padding: 0; height: 42px;' data-toggle='collapse' aria-expanded='false'>" +

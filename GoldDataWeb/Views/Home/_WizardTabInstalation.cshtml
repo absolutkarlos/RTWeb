@@ -42,7 +42,7 @@
 					}
 					else
 					{
-						<a class="list-group-item" id="materialInspectionListEmpty" style="text-align: center;height: 53px;" data-toggle="collapse" aria-expanded="false">
+						<a class="list-group-item" id="materialInstalationListEmpty" style="text-align: center;height: 53px;" data-toggle="collapse" aria-expanded="false">
 							<span class="text-center" style="height: 100%;">No hay materiales agregados</span>
 						</a>
 					}
@@ -83,24 +83,6 @@
 		<div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
 			<input type="button" id="modificarInstalation" name="" class="btn btn-default btn-warning" value="Modificar" data-toggle="confirmation" data-status="3" style="opacity: 2; margin-top: 40px; text-align: center; width: 110px;
 				@(Model.Order.ListOrderFlow.Any(a => a.IdOrderStatus == (int)OrderStatus.Type.Instalacion && a.IdStatus == (int)Status.Type.Activo) ? @"display: inline-block;" : @"display: none;")">
-		</div>
-	</div>
-</div>
-
-<div id="confirmInstalation" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-	<div class="modal-dialog modal-md">
-		<div class="modal-content">
-			<div class="modal-header" style="border-bottom: 1px solid #e5e5e5;">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="exampleModalLabel">Información</h4>
-			</div>
-			<div class="modal-body">
-				Esta seguro quede desea <span id="titleModalActionInst" style="font-weight: bold;"></span> la Instalación.
-			</div>
-			<div class="modal-footer">
-				<button type="button" data-dismiss="modal" class="btn btn-primary" id="buttomModalConfirmInst">Aceptar</button>
-				<button type="button" data-dismiss="modal" class="btn btn-default" style="color: #333;background-color: #fff;border: 1px solid #ccc;">Cancelar</button>
-			</div>
 		</div>
 	</div>
 </div>

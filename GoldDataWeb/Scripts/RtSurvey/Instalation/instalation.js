@@ -198,7 +198,6 @@
 						if (instalation.ValidateAddMaterial()) {
 							$("#materialInstalationListEmpty").hide();
 							$("#materialInstalationListEmpty").empty();
-							$("#materialInstalationListEmpty").html('<span class="text-center" style="height: 100%;">No hay materiales agregados</span>');
 							var index = $(".materialsInst").length + 1;
 
 							$("#listMetarialInstalation").append("<a href='#" + index + "' data-ordermaterial='" + instalation.CreateOrderMaterial() + "' class='list-group-item materialsInst' style='padding: 0; height: 42px;' data-toggle='collapse' aria-expanded='false'>" +

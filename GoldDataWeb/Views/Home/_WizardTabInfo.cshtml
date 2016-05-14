@@ -316,7 +316,7 @@
 															var caption = url.Segments.LastOrDefault();
 															var path = orderShot.ShotPath;
 															<div class="file-preview-frame" data-fileindex="0">
-																<img src="@path" class="file-preview-image" title="@caption.ToUpper()" alt="@caption.ToUpper()" style="width: 100%; height: 300px;" />
+																<img src="@path" class="file-preview-image" title="@caption.ToUpper()" alt="@caption.ToUpper()" style="width: 100%; height: 300px;"/>
 																<div class="file-thumbnail-footer">
 																	<div class="file-caption-name" style="width: auto">@caption.ToUpper()</div>
 																	<div class="row" style="margin-bottom: 10px;">
@@ -327,8 +327,8 @@
 																					if (!string.IsNullOrWhiteSpace(Model.Order.Site.ListLineSight.ElementAt(i).RadioBase.Name))
 																					{
 																						<label class="Infolabel" style="display: table-cell; vertical-align: bottom;"
-																							title="(@(Utility.ConvertToDegressMinutesSeconds(double.Parse(Model.Order.Site.ListLineSight.ElementAt(i).RadioBase.Latitude, CultureInfo.InvariantCulture), false)
-																								+ @", " + Utility.ConvertToDegressMinutesSeconds(double.Parse(Model.Order.Site.ListLineSight.ElementAt(i).RadioBase.Longitude, CultureInfo.InvariantCulture), true)))">
+																						       title="(@(Utility.ConvertToDegressMinutesSeconds(double.Parse(Model.Order.Site.ListLineSight.ElementAt(i).RadioBase.Latitude, CultureInfo.InvariantCulture), false)
+																						                 + @", " + Utility.ConvertToDegressMinutesSeconds(double.Parse(Model.Order.Site.ListLineSight.ElementAt(i).RadioBase.Longitude, CultureInfo.InvariantCulture), true)))">
 																							@Model.Order.Site.ListLineSight.ElementAt(i).RadioBase.Name.ToUpper()
 																						</label>
 																					}
@@ -359,7 +359,7 @@
 																		</div>
 																		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 																			<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> OBSERVACIONES </h6>
-																			<div class="form-group" style="display: table; width: 100%; margin-bottom: 0;text-align: left;">
+																			<div class="form-group" style="display: table; width: 100%; margin-bottom: 0; text-align: left;">
 																				<label class="Infolabel" style="display: table-cell; vertical-align: bottom;">
 																					@(!string.IsNullOrWhiteSpace(orderShot.Comment) ? orderShot.Comment.ToUpper() : @"NO POSEE OBSERVACIONES")
 																				</label>
@@ -373,11 +373,11 @@
 												}
 												else
 												{
-														<div style="display: table; width: 100%;">
-															<div style="display: table-row; width: 100%">
-																<label class="Infolabel" style="height: 50px; display: table-cell; vertical-align: bottom;">EN ESPERA DE RESPUESTA</label>
-															</div>
+													<div style="display: table; width: 100%;">
+														<div style="display: table-row; width: 100%">
+															<label class="Infolabel" style="height: 50px; display: table-cell; vertical-align: bottom;">EN ESPERA DE RESPUESTA</label>
 														</div>
+													</div>
 												}
 											}
 										</div>
@@ -433,20 +433,23 @@
 										<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 											<div class="form-group">
 												<h6 class="info-text" style="margin-bottom: 0; font-weight: bold;"> TIPOS DE ACCESSO </h6>
-												@{			if (Model.Order.Site.ListSiteAccessType.Any())
+												@{
+													if (Model.Order.Site.ListSiteAccessType.Any())
 													{
 														<div class="form-group">
 															<label class="Infolabel">
 																<span>@(AccessType.GetConcatAccessTypes(Model.Order.Site.ListSiteAccessType.ToList()).ToUpper())</span>
 															</label><br>
-														</div>		}
+														</div>
+													}
 													else
 													{
 														<div style="display: table; width: 100%; margin-bottom: 20px;">
 															<div style="display: table-row; width: 100%">
 																<label class="Infolabel" style="display: table-cell; vertical-align: bottom;">TIPOS DE ACCESO NO DISPONIBLE</label>
 															</div>
-														</div>		}
+														</div>
+													}
 												}
 											</div>
 										</div>
@@ -508,7 +511,8 @@
 													MATERIALES UTILIZADOS
 												</a>
 
-												@{			if (Model.Order.ListMaterials.Any())
+												@{
+													if (Model.Order.ListMaterials.Any())
 													{
 														for (int i = 0; i < Model.Order.ListMaterials.Count(); i++)
 														{
@@ -518,13 +522,15 @@
 																<span style="display: none;" data-idremove="@i" class="materialInstalation-buttom-remove pull-right">
 																	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 																</span>
-															</a>		}
+															</a>
+														}
 													}
 													else
 													{
-														<a class="list-group-item" id="materialInspectionListEmpty" style="text-align: center; height: 53px;" data-toggle="collapse" aria-expanded="false">
+														<a class="list-group-item" id="materialInspectionInfoListEmpty" style="text-align: center; height: 53px;" data-toggle="collapse" aria-expanded="false">
 															<span class="text-center" style="height: 100%;">NO HAY MATERIALES AGREGADOS</span>
-														</a>		}
+														</a>
+													}
 												}
 											</div>
 										</div>
@@ -543,7 +549,8 @@
 
 															@for (int i = 0; i < listOrderShotsInst.Count; i++)
 															{
-																<li data-target="#carouselInst" data-slide-to="@i" class="@(i == 0 ? @"active" : string.Empty)"></li>		}
+																<li data-target="#carouselInst" data-slide-to="@i" class="@(i == 0 ? @"active" : string.Empty)"></li>
+															}
 
 														</ol>
 
@@ -558,7 +565,8 @@
 
 																<div class="item @(i == 0 ? @"active" : string.Empty)">
 																	<img src="@path" alt="@caption">
-																</div>		}
+																</div>
+															}
 														</div>
 
 														<!-- Left and right controls -->
