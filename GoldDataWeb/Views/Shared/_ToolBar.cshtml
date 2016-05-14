@@ -1,22 +1,30 @@
-﻿<ul class="nav" style="display: inline-flex; display: -webkit-inline-box; float: right !important; margin-right: 20px;">
+﻿@using GD.Models.Commons
+@using GoldDataWeb.Models
+
+@{
+	var user = Session[@"UserData"] as UserIdentity;
+}
+
+<ul class="nav" style="display: inline-flex; display: -webkit-inline-box; float: right !important; margin-right: 20px;">
+
 	<li>
-		<a href="@Url.Action(@"UserProfile", @"Home")" style="margin: 0; padding: 0; padding-right: 10px; background-color: transparent;">
-			<img src="~/Content/Images/ic_user_edit_white.png" style="width: 48px;height: 48px;" />
+		<a class="toolbar toolbarhome toolbaractive" href="@Url.Action(@"Index", @"Home")" style="margin: 0; padding-bottom: 40px; padding-right: 40px; background-color: transparent;">
 		</a>
 	</li>
 	<li>
-		<a href="@Url.Action(@"Index", @"Home")" style="margin: 0; padding: 0; padding-right: 10px; background-color: transparent;">
-			<img src="~/Content/Images/ic_action_tower_dark.png" />
+		<a class="toolbar toolbarprofile" href="@Url.Action(@"UserProfile", @"Home")" style="margin: 0; padding-bottom: 40px; padding-right: 40px; background-color: transparent;">
 		</a>
 	</li>
-	<li>
-		<a href="#" style="margin: 0; padding: 0; padding-right: 10px; background-color: transparent;">
-			<img src="~/Content/Images/ic_action_settings.png" />
-		</a>
-	</li>
+	@if (user.IsRole(Rol.Type.Manager))
+	{
+		<li>
+			<a class="toolbar toolbarsettings" href="#" style="margin: 0; padding-bottom: 40px; padding-right: 40px; background-color: transparent;">
+			</a>
+		</li>
+	}
 	<li>
 		<a href="@Url.Action(@"LogOff", @"Login")" style="margin: 0; padding: 0; background-color: transparent;">
-			<img src="~/Content/Images/ic_action_logout.png" />
+			<img src="~/Content/Images/ic_logout_white.png" style="width: 48px;height: 48px;" />
 		</a>
 	</li>
 </ul>

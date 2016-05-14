@@ -31,7 +31,7 @@ body {
 	}
 
 @media (max-width: 991px) {
-	.user-panel{
+	.user-panel {
 		text-align: center;
 	}
 }
@@ -497,35 +497,35 @@ p {
 
 /*           dropdown              */
 .dropdown-order {
-	top: 145px
+	top: 145px;
 }
 
 @media (max-width: 1120px) {
-	.dropdown-order{
+	.dropdown-order {
 		top: 154px;
 	}
 }
 
 @media (max-width: 1102px) {
-	.dropdown-order{
+	.dropdown-order {
 		top: 174px;
 	}
 }
 
 @media (max-width: 995px) {
-	.dropdown-order{
+	.dropdown-order {
 		top: 198px;
 	}
 }
 
 @media (max-width: 991px) {
-	.dropdown-order{
+	.dropdown-order {
 		top: 239px;
 	}
 }
 
 @media (max-width: 278px) {
-	.dropdown-order{
+	.dropdown-order {
 		top: 259px;
 	}
 }
@@ -911,4 +911,37 @@ div.mask {
 	to {
 		opacity: 1;
 	}
+}
+
+.toolbar {
+	background-size: 48px 48px;
+	background-repeat: no-repeat;
+}
+
+.toolbaractive {
+	opacity: 0.6;
+}
+
+.toolbarhome {
+	background-image: url(Images/ic_home_white.png);
+}
+
+.toolbarhome:hover {
+	background-image: url(Images/ic_home_dark.png);
+}
+
+.toolbarprofile {
+	background-image: url(Images/ic_user_edit_white.png);
+}
+
+.toolbarprofile:hover {
+	background-image: url(Images/ic_user_edit_dark.png);
+}
+
+.toolbarsettings {
+	background-image: url(Images/ic_settings_white.png);
+}
+
+.toolbarsettings:hover {
+	background-image: url(Images/ic_settings_dark.png);
 }

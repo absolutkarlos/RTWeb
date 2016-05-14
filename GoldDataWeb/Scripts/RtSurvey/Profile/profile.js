@@ -4,8 +4,14 @@
 		init: function () {
 			this.GetEvent().ValidateProfile();
 			this.GetEvent().Update();
+			this.InitToolBar();
 			base.InitializeCarousel();
 			base.ValidateExpireToken();
+		},
+
+		InitToolBar: function () {
+			$(".toolbarhome").removeClass("toolbaractive");
+			$(".toolbarprofile").addClass("toolbaractive");
 		},
 
 		IsValid: function () {

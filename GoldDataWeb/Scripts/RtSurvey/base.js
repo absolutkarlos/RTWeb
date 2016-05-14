@@ -77,6 +77,7 @@ var base = (function () {
 			this.ChangeCountryUserSelected();
 			this.LoadCountryUserSelected();
 			$("body").animatescroll();
+			base.ToolBarEvent();
 		},
 
 		InitializeCarousel: function () {
@@ -96,7 +97,7 @@ var base = (function () {
 			}, 1199999);
 		},
 
-		VaidateDecimalNumber: function(number) {
+		VaidateDecimalNumber: function (number) {
 			var reg = /^-?\d+\.?\d*$/;
 			return reg.test(number.trim());
 		},
@@ -248,7 +249,7 @@ var base = (function () {
 
 		SearchCoordinate: function () {
 			var coords = $("#coords").val().split(',');
-			if(coords.length <= 1)
+			if (coords.length <= 1)
 				coords = $("#coords").val().split(' ');
 
 			if (coords.length > 1) {
@@ -286,13 +287,13 @@ var base = (function () {
 						return;
 					}
 
-					markersplaces.forEach(function(marker) {
+					markersplaces.forEach(function (marker) {
 						marker.setMap(null);
 					});
 					markersplaces = [];
 
 					var bounds = new google.maps.LatLngBounds();
-					places.forEach(function(place) {
+					places.forEach(function (place) {
 						var icon = {
 							url: place.icon,
 							size: new google.maps.Size(71, 71),
@@ -332,7 +333,7 @@ var base = (function () {
 			});
 
 			window.google.maps.event.addListener(map, 'zoom_changed', function () {
-				if(infoWindowRD !== undefined)
+				if (infoWindowRD !== undefined)
 					infoWindowRD.close();
 			});
 
@@ -630,6 +631,15 @@ var base = (function () {
 					}
 				});
 			}
+		},
+
+		ToolBarEvent: function () {
+			$(".toolbar").click(function () {
+				$.each($(".toolbar"), function (index, item) {
+					$(item).removeClass("toolbaractive");
+				});
+				$(this).addClass("toolbaractive");
+			});
 		}
 	}
 }());
